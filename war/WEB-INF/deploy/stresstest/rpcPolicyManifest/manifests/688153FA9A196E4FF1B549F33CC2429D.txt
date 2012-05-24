@@ -1,0 +1,2 @@
+serviceClass: org.jorgecardoso.purewidgets.demo.placeinteraction.client.SightingService
+path: D30E771B174FE4775D1B49BBB43B4C73.gwt.rpc

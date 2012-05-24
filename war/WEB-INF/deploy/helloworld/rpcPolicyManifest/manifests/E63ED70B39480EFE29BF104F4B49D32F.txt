@@ -1,0 +1,2 @@
+serviceClass: org.instantplaces.purewidgets.client.widgetmanager.InteractionService
+path: BDC4C818B07139E34A6A8FB3C0B1D862.gwt.rpc

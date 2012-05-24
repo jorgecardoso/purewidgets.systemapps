@@ -1,0 +1,2 @@
+serviceClass: org.instantplaces.purewidgets.client.storage.RemoteStorageService
+path: E8E3309F31C0AECC25724720CF676703.gwt.rpc

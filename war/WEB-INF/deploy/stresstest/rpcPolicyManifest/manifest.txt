@@ -1,0 +1,6 @@
+# Module stresstest
+# RPC service class, partial path of RPC policy file
+com.google.gwt.logging.shared.RemoteLoggingService, A93C5097B340B1523A2722718C5B6256.gwt.rpc
+org.jorgecardoso.purewidgets.demo.placeinteraction.client.SightingService, D30E771B174FE4775D1B49BBB43B4C73.gwt.rpc
+org.instantplaces.purewidgets.client.storage.RemoteStorageService, E8E3309F31C0AECC25724720CF676703.gwt.rpc
+org.instantplaces.purewidgets.client.widgetmanager.InteractionService, BDC4C818B07139E34A6A8FB3C0B1D862.gwt.rpc

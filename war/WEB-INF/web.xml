@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+    "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+    
+    <!-- FileArchive -->
+	<servlet>
+		<servlet-name>FileArchiveUpload</servlet-name>
+		<servlet-class>org.purewidgets.system.filearchive.Upload</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileArchiveUpload</servlet-name>
+		<url-pattern>/filearchive/upload</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>FileArchiveServe</servlet-name>
+		<servlet-class>org.purewidgets.system.filearchive.Serve</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileArchiveServe</servlet-name>
+		<url-pattern>/filearchive/serve</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>FileArchiveServeUrl</servlet-name>
+		<servlet-class>org.purewidgets.system.filearchive.ServeUrl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileArchiveServeUrl</servlet-name>
+		<url-pattern>/filearchive/serveurl</url-pattern>
+	</servlet-mapping>	
+	
+	<servlet>
+		<servlet-name>FileArchiveServePostUrl</servlet-name>
+		<servlet-class>org.purewidgets.system.filearchive.ServePostUrl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileArchiveServePostUrl</servlet-name>
+		<url-pattern>/filearchive/serveposturl</url-pattern>
+	</servlet-mapping>
+		
+	<servlet>
+		<servlet-name>FileArchiveTest</servlet-name>
+		<servlet-class>org.purewidgets.system.filearchive.Test</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileArchiveTest</servlet-name>
+		<url-pattern>/filearchive/test</url-pattern>
+	</servlet-mapping>	
+	    
+  <!-- Servlets -->
+  
+  <servlet>
+    <servlet-name>updateapplication</servlet-name>
+    <servlet-class>org.purewidgets.server.cron.UpdateApplication</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>updateapplication</servlet-name>
+    <url-pattern>/updateapplication</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>interactionServlet</servlet-name>
+    <servlet-class>org.purewidgets.server.interactionmanager.InteractionServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>interactionServlet</servlet-name>
+    <url-pattern>/interactionservice</url-pattern>
+  </servlet-mapping>
+  
+  
+  <servlet>
+    <servlet-name>remoteStorageServlet</servlet-name>
+    <servlet-class>org.purewidgets.server.storage.RemoteStorageServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>remoteStorageServlet</servlet-name>
+    <url-pattern>/storageservice</url-pattern>
+  </servlet-mapping>
+  
+  
+
+  
+   
+<servlet>
+  <servlet-name>sightingServlet</servlet-name>
+    <servlet-class>org.purewidgets.system.placeinteraction.server.SightingServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>sightingServlet</servlet-name>
+    <url-pattern>/sighting</url-pattern>
+  </servlet-mapping>     
+
+ <!-- 
+<servlet>
+	<servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl </servlet-class> 
+	<servlet-name>logger </servlet-name>
+</servlet>
+
+<servlet-mapping >
+	<servlet-name>logger</servlet-name >
+	<url-pattern>/youtubedemo/remote_logging</url-pattern>
+</servlet-mapping >
+ -->
+ 
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+
+</web-app>

@@ -1,0 +1,2 @@
+serviceClass: org.purewidgets.client.widgetmanager.InteractionService
+path: 7FC81D52B6548FA29771E650CD3E1146.gwt.rpc
