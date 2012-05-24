@@ -4,7 +4,16 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-    
+    <!-- JainRain -->
+    <servlet>
+		<servlet-name>JanrainAuthenticator</servlet-name>
+		<servlet-class>org.purewidgets.system.janrainauthenticator.JanrainAuthenticatorServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JanrainAuthenticator</servlet-name>
+		<url-pattern>/janrain/authenticator</url-pattern>
+	</servlet-mapping>
+	
     <!-- FileArchive -->
 	<servlet>
 		<servlet-name>FileArchiveUpload</servlet-name>
