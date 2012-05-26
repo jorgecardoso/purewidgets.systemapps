@@ -35,12 +35,15 @@
 	}
 	
 	.title {
-		font-size: 2em;
+		font-size: 2.5em;
 		margin-bottom:25px;
 		margin-top:15px;
 		text-align: center;
 	}
-	
+	.appname {
+		
+		
+	}
 	.widgetsPanel {
 		width:100%;
 		text-align:center;
@@ -67,7 +70,7 @@
 		        		<g:Image styleName="{style.icon}" ui:field="applicationIcon"/> 
 		    		</g:cell>
 		    		<g:cell>
-		       			<g:HTML styleName="{style.title}"><b><span  ui:field="spanApplicationName"/></b> Application</g:HTML> 
+		       			<g:HTML styleName="{style.title}">QR code generator for <b><span  class="{style.appname}" ui:field="spanApplicationName"/></b></g:HTML> 
 		    		</g:cell>
 			 	</g:HorizontalPanel>
 				<g:HTMLPanel ui:field="mainPanel"> 

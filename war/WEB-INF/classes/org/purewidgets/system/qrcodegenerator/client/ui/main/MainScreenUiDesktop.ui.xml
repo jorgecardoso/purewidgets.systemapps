@@ -29,7 +29,6 @@
 	}
 	</ui:style>
 	<g:HTMLPanel styleName="{style.content}" ui:field="mainContent">
-	
 		<g:HTMLPanel styleName="{style.features}" ui:field="features"> </g:HTMLPanel>
 	</g:HTMLPanel>
 </ui:UiBinder> 
