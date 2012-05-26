@@ -12,6 +12,9 @@ import org.purewidgets.shared.Log;
 import org.purewidgets.shared.widgetmanager.Callback;
 import org.purewidgets.shared.widgetmanager.WidgetInput;
 import org.purewidgets.shared.widgetmanager.WidgetManager;
+import org.purewidgets.system.qrcodeinteractor.client.ui.UiType;
+import org.purewidgets.system.qrcodeinteractor.client.ui.main.MainScreenUi;
+
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,19 +38,31 @@ public class QrCodeInteractor implements EntryPoint, PublicDisplayApplicationLoa
 	String controlType;
 	String optionId;
 
+	private MainScreenUi mainScreen;
+	private UiType uiType;
+	
 	@Override
 	public void onModuleLoad() {
 		PublicDisplayApplication.load(this, "QRCodeInteractor", false);
+		this.uiType = UiType.Smartphone;
+		this.mainScreen = new MainScreenUi(this.uiType);
+		RootPanel.get().add(this.mainScreen);
+		this.loadJanRain();
+		
 	}
+	
+	// A Java method using JSNI
+	
+		native void loadJanRain() /*-{
+		  $wnd.loadJanRain(); // $wnd is a JSNI synonym for 'window'
+		}-*/;
+		
+		native void setTokenUrl() /*-{
+		  $wnd.setTokenUrl(); // $wnd is a JSNI synonym for 'window'
+		}-*/;
 	
 	@Override
 	public void onApplicationLoaded() {
-
-//		/*
-//		 * Create the sightinh service to post input to instant places
-//		 */
-//		sightingService = GWT.create(SightingService.class);
-//		((ServiceDefTarget) sightingService).setServiceEntryPoint("/sighting");
 
 		WidgetManager.get().setAutomaticInputRequests(false);
 		placeId = com.google.gwt.user.client.Window.Location.getParameter("place");
@@ -55,8 +70,11 @@ public class QrCodeInteractor implements EntryPoint, PublicDisplayApplicationLoa
 		widgetId = com.google.gwt.user.client.Window.Location.getParameter("widget");
 		controlType = com.google.gwt.user.client.Window.Location.getParameter("type");
 		optionId = com.google.gwt.user.client.Window.Location.getParameter("opid");
-
-		if (controlType
+		
+		
+		this.mainScreen.showWidgets(placeId, applicationId, widgetId, optionId);
+		
+	/*	if (controlType
 				.equals(org.purewidgets.shared.widgets.Widget.CONTROL_TYPE_IMPERATIVE_SELECTION)) {
 			Log.info(this, "Processing imperative widget");
 			doImperative();
@@ -68,7 +86,7 @@ public class QrCodeInteractor implements EntryPoint, PublicDisplayApplicationLoa
 			Log.info(this, "Could not understand widget type");
 			
 		}
-		
+		*/
 	}
 
 	private void doEntry() {

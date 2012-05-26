@@ -39,7 +39,7 @@ public class PlaceInteractionWebpage implements EntryPoint, PublicDisplayApplica
 		}
 		PublicDisplayApplication.load(this, "PlaceInteractionWebpage", false);
 		
-		WidgetManager.get().setAutomaticInputRequests(false);
+		
 		
 		if ( Window.Location.getPath().contains("index.html") ) {
 			this.uiType = UiType.Desktop;
@@ -66,6 +66,8 @@ public class PlaceInteractionWebpage implements EntryPoint, PublicDisplayApplica
 	
 	@Override
 	public void onApplicationLoaded() {
+		WidgetManager.get().setAutomaticInputRequests(false);
+		
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {
