@@ -27,6 +27,16 @@ public class PlaceInteractionWebpage implements EntryPoint, PublicDisplayApplica
 
 	@Override
 	public void onModuleLoad() {
+		if ( Window.Navigator.getUserAgent().toLowerCase().contains("iphone") && !Window.Location.getPath().contains("mobile.html")) {
+			
+			Window.open("mobile.html?"+Window.Location.getQueryString()+Window.Location.getHash(), "_self", "");
+			
+		} else if ( Window.Navigator.getUserAgent().toLowerCase().contains("android") 
+				&& Window.Navigator.getUserAgent().toLowerCase().contains("mobile") 
+				&& !Window.Location.getPath().contains("android.html") ) {
+			
+			Window.open("android.html?"+Window.Location.getQueryString()+Window.Location.getHash(), "_self", ""); 
+		}
 		PublicDisplayApplication.load(this, "PlaceInteractionWebpage", false);
 		
 		WidgetManager.get().setAutomaticInputRequests(false);
