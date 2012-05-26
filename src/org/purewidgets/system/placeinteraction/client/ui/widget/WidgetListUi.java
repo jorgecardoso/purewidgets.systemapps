@@ -14,6 +14,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.SpanElement;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.ErrorEvent;
 import com.google.gwt.event.dom.client.MouseOutEvent;
 import com.google.gwt.event.dom.client.MouseOutHandler;
 import com.google.gwt.event.dom.client.MouseOverEvent;
@@ -21,6 +22,7 @@ import com.google.gwt.event.dom.client.MouseOverHandler;
 import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Timer;
@@ -35,6 +37,8 @@ import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class WidgetListUi extends Composite  {
+	public static final String ICON_NAME = "icon_64.png";
+	
 	interface Style extends CssResource {
 	    String center();
 	    String over();
@@ -86,6 +90,9 @@ public class WidgetListUi extends Composite  {
 	private boolean loadApplicationIcon;
 	
 	private HashMap<String, FlowPanel> panelsMap;
+
+
+	private boolean iconErrorThrown;
 	
 	public WidgetListUi( UiType uiType, String placeName, String applicationName ) {
 		this.uiType = uiType;
@@ -127,7 +134,7 @@ public class WidgetListUi extends Composite  {
 				@Override
 				public void onSuccess(Application application) {
 					if ( null != application ) {
-						WidgetListUi.this.applicationIcon.setUrl(application.getIconBaseUrl()+"icon_128.png");
+						WidgetListUi.this.applicationIcon.setUrl(application.getIconBaseUrl() + ICON_NAME);
 					}
 				}
 	
@@ -172,6 +179,20 @@ public class WidgetListUi extends Composite  {
 		}
 	}
 
+	@UiHandler("applicationIcon")
+	void handleImageError(ErrorEvent e) {
+		/*
+		 * The first we get an error, we try to load our own default icon.
+		 * We only do this the first time because, in the event that our own icon
+		 * is not found we don't want to be caught in a loop
+		 */
+		if ( !iconErrorThrown ) {
+			Log.warn(this, "Could not load icon, using default icon.");
+			applicationIcon.setUrl( GWT.getHostPageBaseURL() + ICON_NAME );
+		}
+   	  	iconErrorThrown = true;
+	 }
+	
 	public void start() {
 
 		timerWidgets = new Timer() {

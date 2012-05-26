@@ -1,15 +1,19 @@
 package org.purewidgets.system.placeinteraction.client.ui.application;
 
+import org.purewidgets.shared.Log;
 import org.purewidgets.shared.widgets.Application;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.ErrorEvent;
+import com.google.gwt.event.dom.client.ErrorHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
@@ -18,6 +22,8 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class ApplicationUi extends Composite implements HasClickHandlers {
 
+	public static final String ICON_NAME = "icon_128.png";
+	
 	@UiTemplate("ApplicationUiDesktop.ui.xml")
 	interface ApplicationUiDesktopUiBinder extends UiBinder<Widget, ApplicationUi> {	}
 	private static ApplicationUiDesktopUiBinder desktopUiBinder = GWT.create(ApplicationUiDesktopUiBinder.class);
@@ -36,11 +42,15 @@ public class ApplicationUi extends Composite implements HasClickHandlers {
 
 	private Application application;
 
+
+	private boolean iconErrorThrown;
+
 	
 
 	public ApplicationUi( UiType uiType, Application application) {
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));
 		this.uiType = uiType;
+		
 		this.setApplication(application);
 		
 	}
@@ -80,12 +90,24 @@ public class ApplicationUi extends Composite implements HasClickHandlers {
 		this.application = application;
 		this.name.setText(this.application.getApplicationId());
 		String url = this.application.getIconBaseUrl();
-		if ( null == url ) {
-			url = "http://upload.wikimedia.org/wikipedia/commons/0/0d/Icono_web_store.png";
-		} else {
-			url += "icon_128.png";
-		}
-		this.icon.setUrl(url);
+	
+
+		this.icon.setUrl(url + ICON_NAME);
 	}
+	
+	@UiHandler("icon")
+	void handleImageError(ErrorEvent e) {
+		
+		/*
+		 * The first we get an error, we try to load our own default icon.
+		 * We only do this the first time because, in the event that our own icon
+		 * is not found we don't want to be caught in a loop
+		 */
+		if ( !iconErrorThrown ) {
+			Log.warn(this, "Could not load icon, using default icon.");
+   	  		icon.setUrl( GWT.getHostPageBaseURL() + ICON_NAME );
+		}
+   	  	iconErrorThrown = true;
+	 }
 
 }
