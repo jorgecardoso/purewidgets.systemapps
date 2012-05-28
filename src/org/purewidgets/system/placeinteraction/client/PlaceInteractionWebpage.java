@@ -88,12 +88,12 @@ public class PlaceInteractionWebpage implements EntryPoint, PublicDisplayApplica
 		if (null == historyToken || historyToken.length() == 0) {
 			this.mainScreen.showPlaceList();
 		} else {
-			int indexOfDash = historyToken.indexOf("-");
+			int indexOfDash = historyToken.indexOf("%-%");
 		    if (  indexOfDash < 0 ) { // no dash: this is a place name
 				this.mainScreen.showApplicationList( historyToken );
 			} else  {
 				String placeName = historyToken.substring(0, indexOfDash);
-				String applicationName = historyToken.substring(indexOfDash+1);
+				String applicationName = historyToken.substring(indexOfDash+3);
 				this.mainScreen.showWidgets(placeName, applicationName);
 			}
 		}

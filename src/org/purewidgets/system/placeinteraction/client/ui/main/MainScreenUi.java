@@ -88,7 +88,6 @@ public class MainScreenUi extends Composite    {
 	}
 	
 	
-
 	
 	/**
 	 * Show the application list (and widgets) screen
@@ -149,7 +148,7 @@ public class MainScreenUi extends Composite    {
 	
 	public void onApplicationSelected(String placeName, Application application) {
 		Log.debug(this, "User selected application" + application.getApplicationId());
-		History.newItem(placeName+"-"+application.getApplicationId());
+		History.newItem(placeName+"%-%"+application.getApplicationId());
 	}
 
 	
