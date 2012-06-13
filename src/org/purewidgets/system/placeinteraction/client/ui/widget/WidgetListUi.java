@@ -423,6 +423,9 @@ public class WidgetListUi extends Composite  {
 		} else if ( publicDisplayWidget.getControlType().equals(
 				org.purewidgets.shared.widgets.Widget.CONTROL_TYPE_UPLOAD) ) {
 			toReturn =  getUploadWidget(publicDisplayWidget);
+		} else if ( publicDisplayWidget.getControlType().equals(
+				org.purewidgets.shared.widgets.Widget.CONTROL_TYPE_PRESENCE) ) {
+			toReturn =  getPresenceWidget(publicDisplayWidget);
 		}
 		if ( null != toReturn ) {
 			//toReturn.setStyleName("widget");
@@ -431,9 +434,14 @@ public class WidgetListUi extends Composite  {
 		return toReturn;
 	}
 
+	Widget getPresenceWidget(org.purewidgets.shared.widgets.Widget publicDisplayWidget) {
+		return new PresenceWidgetUi(this.uiType, publicDisplayWidget);
+	}
+	
 	Widget getUploadWidget(org.purewidgets.shared.widgets.Widget publicDisplayWidget) {
 		return new UploadWidgetUi(this.uiType, publicDisplayWidget);
 	}
+	
 	Widget getEntryWidget(org.purewidgets.shared.widgets.Widget publicDisplayWidget) {
 		return new EntryWidgetUi(this.uiType, publicDisplayWidget);
 //		WidgetOption option = publicDisplayWidget.getWidgetOptions().get(0);
