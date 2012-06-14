@@ -1,5 +1,2 @@
 # Module placeinteraction
 # RPC service class, partial path of RPC policy file
-com.google.gwt.logging.shared.RemoteLoggingService, 426917715CB05ABEA0F0309170D38AAD.gwt.rpc
-org.purewidgets.client.widgetmanager.InteractionService, 7FC81D52B6548FA29771E650CD3E1146.gwt.rpc
-org.purewidgets.client.storage.RemoteStorageService, 64EA5736F67FA9EF2CA31A0170F90BB6.gwt.rpc

@@ -14,6 +14,7 @@ import org.purewidgets.system.placeinteraction.client.ui.popup.PopupUi;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.Window.Navigator;
 
 /**
@@ -57,10 +58,11 @@ public abstract class BaseClickHandler implements ClickHandler {
 	
 
 		Log.debug(this, "Sending input: " + input);
-		popup.setText("Sending input from user " + UserInfo.getUsername());
-
-		popup.center();
+		popup.setText("Sending input from user " + UserInfo.getUsername()+".");
 		popup.show();
+		
+		popup.setPopupPosition(Window.getClientWidth()/2-popup.getOffsetWidth()/2, 50);
+		
 
 //		DateTimeFormat dtf = DateTimeFormat.getFormat("yyyy-MM-dd'T'hh:mm:ss");
 //		Date d = new Date();
@@ -81,9 +83,9 @@ public abstract class BaseClickHandler implements ClickHandler {
 
 					@Override
 					public void onSuccess(WidgetInput returnValue) {
-						Log.debug(this, "Sent.");
+						Log.debug(this, "Sent!");
 						popup.setText(popup.getText() + "\n Sent!");
-						timer.schedule(5000);
+						timer.schedule(2000);
 						
 					}
 
