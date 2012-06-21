@@ -71,8 +71,8 @@ public abstract class BaseClickHandler implements ClickHandler {
 		ArrayList<String>parameters = new ArrayList<String>();
 		parameters.add(input);
 		WidgetInput widgetInput = new WidgetInput();
-		widgetInput.setUserIdentifier(UserInfo.getIdentity());
-		widgetInput.setPersona(UserInfo.getUsername());
+		widgetInput.setUserId(UserInfo.getIdentity());
+		widgetInput.setNickname(UserInfo.getUsername());
 		widgetInput.setInputMechanism("PlaceInteractionWebpage:"+Navigator.getUserAgent());
 		widgetInput.setParameters(parameters);
 		widgetInput.setWidgetId(this.widgetId);

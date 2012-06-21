@@ -84,7 +84,7 @@ public class ApplicationUi extends Composite implements HasClickHandlers {
 	public void setApplication(Application application) {
 		this.application = application;
 		this.name.setText(this.application.getApplicationId());
-		String url = this.application.getIconBaseUrl();
+		String url = this.application.getApplicationBaseUrl();
 		
 		this.icon.setUrl(url + ICON_NAME);
 	}

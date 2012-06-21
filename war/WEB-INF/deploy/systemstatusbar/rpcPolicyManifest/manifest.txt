@@ -1,2 +1,5 @@
 # Module systemstatusbar
 # RPC service class, partial path of RPC policy file
+com.google.gwt.logging.shared.RemoteLoggingService, C4DED357384E9544C99210B9FAB86002.gwt.rpc
+org.purewidgets.client.storage.RemoteStorageService, 64EA5736F67FA9EF2CA31A0170F90BB6.gwt.rpc
+org.purewidgets.client.http.HttpService, 9CB01F9C959C5587BED5CBA336857E89.gwt.rpc

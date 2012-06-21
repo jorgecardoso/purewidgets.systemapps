@@ -134,7 +134,7 @@ public class WidgetListUi extends Composite  {
 				@Override
 				public void onSuccess(Application application) {
 					if ( null != application ) {
-						WidgetListUi.this.applicationIcon.setUrl(application.getIconBaseUrl() + ICON_NAME);
+						WidgetListUi.this.applicationIcon.setUrl(application.getApplicationBaseUrl() + ICON_NAME);
 					}
 				}
 	

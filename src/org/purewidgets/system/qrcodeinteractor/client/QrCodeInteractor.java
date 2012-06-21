@@ -124,7 +124,8 @@ public class QrCodeInteractor implements EntryPoint, PublicDisplayApplicationLoa
 		widgetInput.setWidgetOptionId(this.optionId);
 		widgetInput.setInputMechanism("QRCode");
 		// TODO: Allow users to log in. Set cookie with random id as in the desktop version
-		widgetInput.setPersona("Anonymous");
+		widgetInput.setUserId("Anonymous");
+		widgetInput.setNickname("Anonymous");
 		widgetInput.setParameters(parameters);
 		
 		WidgetManager.get().sendWidgetInput(this.placeId, this.applicationId, widgetInput, 

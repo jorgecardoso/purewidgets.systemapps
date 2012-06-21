@@ -1,0 +1,2 @@
+serviceClass: org.purewidgets.client.http.HttpService
+path: 9CB01F9C959C5587BED5CBA336857E89.gwt.rpc
