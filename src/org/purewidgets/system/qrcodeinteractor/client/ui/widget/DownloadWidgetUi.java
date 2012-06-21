@@ -1,6 +1,8 @@
 package org.purewidgets.system.qrcodeinteractor.client.ui.widget;
 
-import org.purewidgets.client.widgets.ReferenceCodeFormatter;
+import org.purewidgets.client.im.ReferenceCodeFormatter;
+import org.purewidgets.shared.im.WidgetParameter;
+import org.purewidgets.shared.widgets.Download;
 import org.purewidgets.system.qrcodeinteractor.client.ImperativeClickHandler;
 import org.purewidgets.system.qrcodeinteractor.client.ui.UiType;
 import org.purewidgets.system.qrcodeinteractor.client.ui.popup.PopupUi;
@@ -49,9 +51,9 @@ public class DownloadWidgetUi extends Composite {
 	 */
 	private boolean loadWidgetIcon;
 	
-	private org.purewidgets.shared.widgets.Widget pureWidget;
+	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public DownloadWidgetUi(UiType uiType, org.purewidgets.shared.widgets.Widget widget, String optonId) {
+	public DownloadWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget, String optonId) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));
@@ -83,7 +85,12 @@ public class DownloadWidgetUi extends Composite {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.open(DownloadWidgetUi.this.pureWidget.getContentUrl(), "_blank", "");
+				for ( WidgetParameter parameter : DownloadWidgetUi.this.pureWidget.getWidgetParameters() ) {
+					if ( parameter.getName().equals(Download.CONTENT_URL_PARAMETER_NAME) ) {
+						Window.open(parameter.getValue(), "_blank", "");
+						break;
+					}
+				}
 				
 			}
 			

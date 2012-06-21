@@ -5,7 +5,7 @@ package org.purewidgets.system.qrcodegenerator.client;
 
 import org.purewidgets.client.application.PublicDisplayApplication;
 import org.purewidgets.client.application.PublicDisplayApplicationLoadedListener;
-import org.purewidgets.shared.widgetmanager.WidgetManager;
+import org.purewidgets.client.im.WidgetManager;
 import org.purewidgets.system.qrcodegenerator.client.ui.UiType;
 import org.purewidgets.system.qrcodegenerator.client.ui.main.MainScreenUi;
 

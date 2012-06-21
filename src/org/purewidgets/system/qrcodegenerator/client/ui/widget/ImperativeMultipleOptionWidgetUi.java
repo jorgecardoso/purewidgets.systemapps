@@ -1,6 +1,6 @@
 package org.purewidgets.system.qrcodegenerator.client.ui.widget;
 
-import org.purewidgets.shared.widgetmanager.WidgetOption;
+import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.system.qrcodegenerator.client.Util;
 import org.purewidgets.system.qrcodegenerator.client.ui.UiType;
 
@@ -40,9 +40,9 @@ public class ImperativeMultipleOptionWidgetUi extends Composite {
 	 */
 	private boolean loadWidgetIcon;
 	
-	private org.purewidgets.shared.widgets.Widget pureWidget;
+	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public ImperativeMultipleOptionWidgetUi(UiType uiType, org.purewidgets.shared.widgets.Widget widget) {
+	public ImperativeMultipleOptionWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));

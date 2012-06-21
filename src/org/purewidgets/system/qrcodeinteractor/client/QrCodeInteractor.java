@@ -8,10 +8,10 @@ import java.util.Date;
 
 import org.purewidgets.client.application.PublicDisplayApplication;
 import org.purewidgets.client.application.PublicDisplayApplicationLoadedListener;
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgetmanager.Callback;
-import org.purewidgets.shared.widgetmanager.WidgetInput;
-import org.purewidgets.shared.widgetmanager.WidgetManager;
+import org.purewidgets.client.im.WidgetManager;
+import org.purewidgets.shared.logging.Log;
+import org.purewidgets.shared.im.WidgetInput;
+
 import org.purewidgets.system.qrcodeinteractor.client.ui.UiType;
 import org.purewidgets.system.qrcodeinteractor.client.ui.main.MainScreenUi;
 
@@ -20,6 +20,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -127,7 +128,7 @@ public class QrCodeInteractor implements EntryPoint, PublicDisplayApplicationLoa
 		widgetInput.setParameters(parameters);
 		
 		WidgetManager.get().sendWidgetInput(this.placeId, this.applicationId, widgetInput, 
-				new Callback<WidgetInput>() {
+				new AsyncCallback<WidgetInput>() {
 					@Override
 					public void onFailure(Throwable caught) {
 						Log.debug(this, "An error ocurred.");

@@ -5,7 +5,7 @@ package org.purewidgets.system.placeinteraction.client;
 
 import org.purewidgets.client.application.PublicDisplayApplication;
 import org.purewidgets.client.application.PublicDisplayApplicationLoadedListener;
-import org.purewidgets.shared.widgetmanager.WidgetManager;
+import org.purewidgets.client.im.WidgetManager;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 import org.purewidgets.system.placeinteraction.client.ui.main.MainScreenUi;
 

@@ -2,7 +2,7 @@ package org.purewidgets.system.qrcodeinteractor.client;
 
 import java.util.ArrayList;
 
-import org.purewidgets.shared.widgetmanager.WidgetOption;
+import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.system.qrcodeinteractor.client.ui.popup.PopupUi;
 
 import com.google.gwt.event.dom.client.ClickEvent;

@@ -1,7 +1,7 @@
 package org.purewidgets.system.qrcodegenerator.client.ui.application;
 
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgets.Application;
+import org.purewidgets.shared.logging.Log;
+import org.purewidgets.shared.im.Application;
 import org.purewidgets.system.qrcodegenerator.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;

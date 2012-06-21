@@ -4,11 +4,11 @@
 package org.purewidgets.system.qrcodeinteractor.client;
 
 import java.util.ArrayList;
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgetmanager.Callback;
-import org.purewidgets.shared.widgetmanager.WidgetInput;
-import org.purewidgets.shared.widgetmanager.WidgetManager;
-import org.purewidgets.shared.widgetmanager.WidgetOption;
+
+import org.purewidgets.client.im.WidgetManager;
+import org.purewidgets.shared.logging.Log;
+import org.purewidgets.shared.im.WidgetInput;
+import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.system.qrcodeinteractor.client.ui.popup.PopupUi;
 
 
@@ -16,6 +16,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window.Navigator;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * @author "Jorge C. S. Cardoso"
@@ -67,18 +68,18 @@ public abstract class BaseClickHandler implements ClickHandler {
 //		Date d = new Date();
 		
 		ArrayList<String>parameters = new ArrayList<String>();
-		parameters.add(input);
+		parameters.add( input );
 		WidgetInput widgetInput = new WidgetInput();
-		widgetInput.setUserIdentifier(UserInfo.getIdentity());
-		widgetInput.setPersona(UserInfo.getUsername());
-		widgetInput.setInputMechanism("PlaceInteractionWebpage:"+Navigator.getUserAgent());
-		widgetInput.setParameters(parameters);
-		widgetInput.setWidgetId(this.widgetId);
-		widgetInput.setWidgetOptionId(widgetOption.getWidgetOptionId());
-		
+		widgetInput.setUserIdentifier( UserInfo.getIdentity() );
+		widgetInput.setPersona( UserInfo.getUsername() );
+		widgetInput.setInputMechanism("PlaceInteractionWebpage:"+Navigator.getUserAgent() );
+		widgetInput.setParameters( parameters );
+		widgetInput.setWidgetId( this.widgetId );
+		widgetInput.setWidgetOptionId( widgetOption.getWidgetOptionId() );
+		widgetInput.setReferenceCode( widgetOption.getReferenceCode() );
 		
 		WidgetManager.get().sendWidgetInput(this.placeName, this.applicationName, widgetInput, 
-				new Callback<WidgetInput>() {
+				new AsyncCallback<WidgetInput>() {
 
 					@Override
 					public void onSuccess(WidgetInput returnValue) {

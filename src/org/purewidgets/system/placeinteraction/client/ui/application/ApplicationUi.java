@@ -1,14 +1,13 @@
 package org.purewidgets.system.placeinteraction.client.ui.application;
 
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgets.Application;
+import org.purewidgets.shared.logging.Log;
+import org.purewidgets.shared.im.Application;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ErrorEvent;
-import com.google.gwt.event.dom.client.ErrorHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;

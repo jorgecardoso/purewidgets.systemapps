@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.purewidgets.client.application.PublicDisplayApplication;
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgetmanager.Callback;
-import org.purewidgets.shared.widgetmanager.WidgetOption;
-import org.purewidgets.shared.widgets.Application;
+import org.purewidgets.shared.logging.Log;
+import org.purewidgets.shared.im.WidgetOption;
+import org.purewidgets.shared.im.Application;
 import org.purewidgets.system.qrcodeinteractor.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;
@@ -26,6 +25,7 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -108,7 +108,7 @@ public class WidgetListUi extends Composite  {
 		
 		if ( this.loadApplicationIcon ) {
 			
-			PublicDisplayApplication.getServerCommunicator().getApplication(placeName, applicationName, new Callback<Application>(){
+			PublicDisplayApplication.getServerCommunicator().getApplication(placeName, applicationName, new AsyncCallback<Application>(){
 	
 				@Override
 				public void onSuccess(Application application) {
@@ -195,11 +195,11 @@ public class WidgetListUi extends Composite  {
 		final String widgetName = this.widgetName;
 		final String optionName = this.optionName;
 		PublicDisplayApplication.getServerCommunicator().getWidgetsList(this.placeName, this.applicationName, 
-				new Callback<ArrayList<org.purewidgets.shared.widgets.Widget>>() {
+				new AsyncCallback<ArrayList<org.purewidgets.shared.im.Widget>>() {
 
 					@Override
 					public void onSuccess(
-							ArrayList<org.purewidgets.shared.widgets.Widget> widgetList) {
+							ArrayList<org.purewidgets.shared.im.Widget> widgetList) {
 						WidgetListUi.this.onWidgetsList(placeName, applicationName, widgetName, optionName, widgetList);
 						
 					}
@@ -252,7 +252,7 @@ public class WidgetListUi extends Composite  {
 
 	
 	private void onWidgetsList(String placeId, String applicationId, String widgetId, String optionId,
-			ArrayList<org.purewidgets.shared.widgets.Widget> widgetList) {
+			ArrayList<org.purewidgets.shared.im.Widget> widgetList) {
 		Log.debug(this, "Received widget list" + widgetList.toString());
 
 		/*
@@ -281,7 +281,7 @@ public class WidgetListUi extends Composite  {
 			
 			
 
-			for (org.purewidgets.shared.widgets.Widget widget: widgetList) {
+			for (org.purewidgets.shared.im.Widget widget: widgetList) {
 				if ( widget.getWidgetId().equals(widgetId) ) {
 					Log.debug(this, "Found widget: " + widget.getWidgetId() );
 					this.stackPanel.add( this.getHtmlWidget(widget, optionId) );
@@ -295,21 +295,21 @@ public class WidgetListUi extends Composite  {
 	}
 	
 
-	Widget getHtmlWidget(org.purewidgets.shared.widgets.Widget publicDisplayWidget, String optionId) {
+	Widget getHtmlWidget(org.purewidgets.shared.im.Widget publicDisplayWidget, String optionId) {
 		Widget toReturn = null;
 		Log.error(this, publicDisplayWidget.getControlType());
 		if (publicDisplayWidget.getControlType().equals(
-				org.purewidgets.shared.widgets.Widget.CONTROL_TYPE_ENTRY)) {
+				org.purewidgets.shared.im.Widget.CONTROL_TYPE_ENTRY)) {
 			toReturn = getEntryWidget(publicDisplayWidget, optionId);
 		} else if (publicDisplayWidget
 				.getControlType()
-				.equals(org.purewidgets.shared.widgets.Widget.CONTROL_TYPE_IMPERATIVE_SELECTION)) {
+				.equals(org.purewidgets.shared.im.Widget.CONTROL_TYPE_IMPERATIVE_SELECTION)) {
 			toReturn = getImperativeWidget(publicDisplayWidget, optionId);
 		} else if (publicDisplayWidget.getControlType().equals(
-				org.purewidgets.shared.widgets.Widget.CONTROL_TYPE_DOWNLOAD)) {
+				org.purewidgets.shared.im.Widget.CONTROL_TYPE_DOWNLOAD)) {
 			toReturn =  getDownloadWidget(publicDisplayWidget, optionId);
 		} else if ( publicDisplayWidget.getControlType().equals(
-				org.purewidgets.shared.widgets.Widget.CONTROL_TYPE_UPLOAD) ) {
+				org.purewidgets.shared.im.Widget.CONTROL_TYPE_UPLOAD) ) {
 			toReturn =  getUploadWidget(publicDisplayWidget, optionId);
 		}
 		if ( null != toReturn ) {
@@ -319,11 +319,11 @@ public class WidgetListUi extends Composite  {
 		return toReturn;
 	}
 
-	Widget getUploadWidget(org.purewidgets.shared.widgets.Widget publicDisplayWidget, String optionId) {
+	Widget getUploadWidget(org.purewidgets.shared.im.Widget publicDisplayWidget, String optionId) {
 		return new UploadWidgetUi(this.uiType, publicDisplayWidget, optionId);
 	}
 	
-	Widget getEntryWidget(org.purewidgets.shared.widgets.Widget publicDisplayWidget, String optionId) {
+	Widget getEntryWidget(org.purewidgets.shared.im.Widget publicDisplayWidget, String optionId) {
 		return new EntryWidgetUi(this.uiType, publicDisplayWidget, optionId);
 //		WidgetOption option = publicDisplayWidget.getWidgetOptions().get(0);
 //
@@ -344,7 +344,7 @@ public class WidgetListUi extends Composite  {
 	}
 
 	Widget getImperativeWidget(
-			org.purewidgets.shared.widgets.Widget publicDisplayWidget, String optionId) {
+			org.purewidgets.shared.im.Widget publicDisplayWidget, String optionId) {
 		ArrayList<WidgetOption> widgetOptions = publicDisplayWidget.getWidgetOptions();
 		
 		if (null != widgetOptions) {
@@ -360,7 +360,7 @@ public class WidgetListUi extends Composite  {
 
 	
 	Widget getMultipleOptionImperativeWidget(
-			org.purewidgets.shared.widgets.Widget publicDisplayWidget, String optionId) {
+			org.purewidgets.shared.im.Widget publicDisplayWidget, String optionId) {
 		return new ImperativeMultipleOptionWidgetUi(this.uiType, publicDisplayWidget, optionId);
 //		ArrayList<WidgetOption> widgetOptions = publicDisplayWidget.getWidgetOptions();
 //		
@@ -387,7 +387,7 @@ public class WidgetListUi extends Composite  {
 	}
 
 	Widget getSingleOptionImperativeWidget(
-			org.purewidgets.shared.widgets.Widget publicDisplayWidget, String optionId) {
+			org.purewidgets.shared.im.Widget publicDisplayWidget, String optionId) {
 		return new ImperativeSingleOptionWidgetUi(this.uiType, publicDisplayWidget, optionId);
 //		ArrayList<WidgetOption> widgetOptions = publicDisplayWidget.getWidgetOptions();
 //		WidgetOption option = publicDisplayWidget.getWidgetOptions().get(0);
@@ -404,7 +404,7 @@ public class WidgetListUi extends Composite  {
 //		return flowPanel;
 	}
 
-	Widget getDownloadWidget(org.purewidgets.shared.widgets.Widget publicDisplayWidget, String optionId) {
+	Widget getDownloadWidget(org.purewidgets.shared.im.Widget publicDisplayWidget, String optionId) {
 		return new DownloadWidgetUi(this.uiType, publicDisplayWidget, optionId);
 //		WidgetOption option = publicDisplayWidget.getWidgetOptions().get(0);
 //

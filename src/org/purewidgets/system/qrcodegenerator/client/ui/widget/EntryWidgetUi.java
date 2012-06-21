@@ -36,9 +36,9 @@ public class EntryWidgetUi extends Composite {
 	 */
 	private boolean loadWidgetIcon;
 	
-	private org.purewidgets.shared.widgets.Widget pureWidget;
+	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public EntryWidgetUi(UiType uiType, org.purewidgets.shared.widgets.Widget widget) {
+	public EntryWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));

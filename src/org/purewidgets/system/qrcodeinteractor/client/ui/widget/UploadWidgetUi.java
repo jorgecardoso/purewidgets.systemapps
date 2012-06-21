@@ -1,7 +1,7 @@
 package org.purewidgets.system.qrcodeinteractor.client.ui.widget;
 
-import org.purewidgets.client.widgets.ReferenceCodeFormatter;
-import org.purewidgets.shared.Log;
+import org.purewidgets.client.im.ReferenceCodeFormatter;
+import org.purewidgets.shared.logging.Log;
 import org.purewidgets.system.qrcodeinteractor.client.EntryClickHandler;
 import org.purewidgets.system.qrcodeinteractor.client.ui.UiType;
 import org.purewidgets.system.qrcodeinteractor.client.ui.popup.PopupUi;
@@ -58,9 +58,9 @@ public class UploadWidgetUi extends Composite {
 	
 	private String uploadId = "myfile" + (int)(Math.random()*10000000);
 	
-	private org.purewidgets.shared.widgets.Widget pureWidget;
+	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public UploadWidgetUi(UiType uiType, org.purewidgets.shared.widgets.Widget widget, String optionId) {
+	public UploadWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget, String optionId) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));

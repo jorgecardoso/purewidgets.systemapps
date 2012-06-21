@@ -1,6 +1,6 @@
 package org.purewidgets.system.qrcodeinteractor.client.ui.widget;
 
-import org.purewidgets.client.widgets.ReferenceCodeFormatter;
+import org.purewidgets.client.im.ReferenceCodeFormatter;
 import org.purewidgets.system.qrcodeinteractor.client.ImperativeClickHandler;
 import org.purewidgets.system.qrcodeinteractor.client.ui.UiType;
 import org.purewidgets.system.qrcodeinteractor.client.ui.popup.PopupUi;
@@ -45,9 +45,9 @@ public class ImperativeSingleOptionWidgetUi extends Composite {
 	private boolean loadWidgetIcon;
 	
 	
-	private org.purewidgets.shared.widgets.Widget pureWidget;
+	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public ImperativeSingleOptionWidgetUi(UiType uiType, org.purewidgets.shared.widgets.Widget widget, String optionId) {
+	public ImperativeSingleOptionWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget, String optionId) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));

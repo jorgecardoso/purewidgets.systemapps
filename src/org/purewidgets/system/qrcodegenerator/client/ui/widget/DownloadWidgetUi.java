@@ -38,9 +38,9 @@ public class DownloadWidgetUi extends Composite {
 	 */
 	private boolean loadWidgetIcon;
 	
-	private org.purewidgets.shared.widgets.Widget pureWidget;
+	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public DownloadWidgetUi(UiType uiType, org.purewidgets.shared.widgets.Widget widget) {
+	public DownloadWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));

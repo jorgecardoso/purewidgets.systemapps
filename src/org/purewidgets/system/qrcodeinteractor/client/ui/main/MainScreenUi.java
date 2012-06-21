@@ -1,7 +1,7 @@
 package org.purewidgets.system.qrcodeinteractor.client.ui.main;
 
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgets.Application;
+import org.purewidgets.shared.logging.Log;
+import org.purewidgets.shared.im.Application;
 import org.purewidgets.system.qrcodeinteractor.client.ui.UiType;
 import org.purewidgets.system.qrcodeinteractor.client.ui.login.LoginUi;
 import org.purewidgets.system.qrcodeinteractor.client.ui.widget.WidgetListUi;

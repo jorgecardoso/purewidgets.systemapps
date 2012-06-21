@@ -1,7 +1,7 @@
 package org.purewidgets.system.placeinteraction.client.ui.main;
 
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgets.Application;
+import org.purewidgets.shared.logging.Log;
+import org.purewidgets.shared.im.Application;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 import org.purewidgets.system.placeinteraction.client.ui.application.ApplicationListUi;
 import org.purewidgets.system.placeinteraction.client.ui.login.LoginUi;

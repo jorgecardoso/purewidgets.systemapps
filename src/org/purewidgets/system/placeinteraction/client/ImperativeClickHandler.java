@@ -2,7 +2,7 @@ package org.purewidgets.system.placeinteraction.client;
 
 import java.util.ArrayList;
 
-import org.purewidgets.shared.widgetmanager.WidgetOption;
+import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.system.placeinteraction.client.ui.popup.PopupUi;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,7 +14,7 @@ public class ImperativeClickHandler extends  BaseClickHandler {
 	public ImperativeClickHandler(String placeName, String applicationName, String widgetId, ArrayList<WidgetOption> widgetOptions,
 			PopupUi popup) {
 		super(placeName, applicationName, widgetId, widgetOptions, popup);
-		this.referenceCode = referenceCode;
+		//this.referenceCode = referenceCode;
 		
 	}
 	

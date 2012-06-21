@@ -1,7 +1,7 @@
 package org.purewidgets.system.qrcodegenerator.client;
 
-import org.purewidgets.shared.widgetmanager.WidgetOption;
-import org.purewidgets.shared.widgets.Widget;
+import org.purewidgets.shared.im.WidgetOption;
+import org.purewidgets.shared.im.Widget;
 
 public class Util {
 	public static String getQrCode(Widget widget, WidgetOption option, String qrCodeSize) {

@@ -1,7 +1,7 @@
 package org.purewidgets.system.qrcodegenerator.client.ui.widget;
 
-import org.purewidgets.client.widgets.ReferenceCodeFormatter;
-import org.purewidgets.shared.Log;
+import org.purewidgets.client.im.ReferenceCodeFormatter;
+import org.purewidgets.shared.logging.Log;
 import org.purewidgets.system.qrcodegenerator.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;
@@ -56,9 +56,9 @@ public class UploadWidgetUi extends Composite {
 	
 	private String uploadId = "myfile" + (int)(Math.random()*10000000);
 	
-	private org.purewidgets.shared.widgets.Widget pureWidget;
+	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public UploadWidgetUi(UiType uiType, org.purewidgets.shared.widgets.Widget widget) {
+	public UploadWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));

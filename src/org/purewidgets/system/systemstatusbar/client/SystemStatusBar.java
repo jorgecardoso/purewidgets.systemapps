@@ -8,12 +8,13 @@ import java.util.Iterator;
 
 import org.purewidgets.client.application.PublicDisplayApplication;
 import org.purewidgets.client.application.PublicDisplayApplicationLoadedListener;
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgetmanager.Callback;
-import org.purewidgets.shared.widgetmanager.WidgetManager;
-import org.purewidgets.shared.widgets.Application;
+import org.purewidgets.client.im.WidgetManager;
+import org.purewidgets.shared.logging.Log;
+
+import org.purewidgets.shared.im.Application;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -44,7 +45,7 @@ public class SystemStatusBar implements PublicDisplayApplicationLoadedListener, 
 		if ( System.currentTimeMillis()-this.lastApplicationsUpdate > 30*1000 ) {
 			Log.debug(this, "Asking server for list of applications");
 			final String placeId = "DefaultPlace";
-			PublicDisplayApplication.getServerCommunicator().getApplicationsList(placeId, new Callback<ArrayList<Application>> () {
+			PublicDisplayApplication.getServerCommunicator().getApplicationsList(placeId, new AsyncCallback<ArrayList<Application>> () {
 
 				@Override
 				public void onSuccess(ArrayList<Application> applicationList) {

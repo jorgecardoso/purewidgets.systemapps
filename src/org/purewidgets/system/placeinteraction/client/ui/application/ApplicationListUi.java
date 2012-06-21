@@ -3,9 +3,8 @@ package org.purewidgets.system.placeinteraction.client.ui.application;
 import java.util.ArrayList;
 
 import org.purewidgets.client.application.PublicDisplayApplication;
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgetmanager.Callback;
-import org.purewidgets.shared.widgets.Application;
+import org.purewidgets.shared.im.Application;
+import org.purewidgets.shared.logging.Log;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;
@@ -20,6 +19,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -94,7 +94,7 @@ public class ApplicationListUi extends Composite implements ClickHandler, HasSel
 	protected void refreshApplications() {
 		Log.debug(this, "Asking server for list of applications");
 		final String placeId = this.placeId;
-		PublicDisplayApplication.getServerCommunicator().getApplicationsList(this.placeId, new Callback<ArrayList<Application>> () {
+		PublicDisplayApplication.getServerCommunicator().getApplicationsList(this.placeId, new AsyncCallback<ArrayList<Application>> () {
 
 			@Override
 			public void onSuccess(ArrayList<Application> applicationList) {

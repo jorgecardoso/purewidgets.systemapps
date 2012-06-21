@@ -3,9 +3,8 @@ package org.purewidgets.system.qrcodegenerator.client.ui.place;
 import java.util.ArrayList;
 
 import org.purewidgets.client.application.PublicDisplayApplication;
-import org.purewidgets.shared.Log;
-import org.purewidgets.shared.widgetmanager.Callback;
-import org.purewidgets.shared.widgets.Place;
+import org.purewidgets.shared.logging.Log;
+import org.purewidgets.shared.im.Place;
 import org.purewidgets.system.qrcodegenerator.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;
@@ -19,6 +18,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.Widget;
@@ -94,7 +94,7 @@ public class PlaceListUi extends Composite  implements ClickHandler, HasSelectio
 	private void refreshPlaces() {
 		Log.debug(this, "Asking server for list of places");
 		
-		PublicDisplayApplication.getServerCommunicator().getPlacesList( new Callback<ArrayList<Place>> () {
+		PublicDisplayApplication.getServerCommunicator().getPlacesList( new AsyncCallback<ArrayList<Place>> () {
 			@Override
 			public void onFailure(Throwable exception) {
 				Log.warn(PlaceListUi.this, "Could not get place list: " + exception.getMessage());

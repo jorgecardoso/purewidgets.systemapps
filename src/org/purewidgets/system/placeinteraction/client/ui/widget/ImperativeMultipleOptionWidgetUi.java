@@ -1,7 +1,7 @@
 package org.purewidgets.system.placeinteraction.client.ui.widget;
 
-import org.purewidgets.client.widgets.ReferenceCodeFormatter;
-import org.purewidgets.shared.widgetmanager.WidgetOption;
+import org.purewidgets.client.im.ReferenceCodeFormatter;
+import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.system.placeinteraction.client.MultipleOptionImperativeClickHandler;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 import org.purewidgets.system.placeinteraction.client.ui.popup.PopupUi;
@@ -47,9 +47,9 @@ public class ImperativeMultipleOptionWidgetUi extends Composite {
 	 */
 	private boolean loadWidgetIcon;
 	
-	private org.purewidgets.shared.widgets.Widget pureWidget;
+	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public ImperativeMultipleOptionWidgetUi(UiType uiType, org.purewidgets.shared.widgets.Widget widget) {
+	public ImperativeMultipleOptionWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));

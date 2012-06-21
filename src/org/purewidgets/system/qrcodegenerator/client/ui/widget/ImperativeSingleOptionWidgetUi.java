@@ -38,9 +38,9 @@ public class ImperativeSingleOptionWidgetUi extends Composite {
 	private boolean loadWidgetIcon;
 	
 	
-	private org.purewidgets.shared.widgets.Widget pureWidget;
+	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public ImperativeSingleOptionWidgetUi(UiType uiType, org.purewidgets.shared.widgets.Widget widget) {
+	public ImperativeSingleOptionWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));
