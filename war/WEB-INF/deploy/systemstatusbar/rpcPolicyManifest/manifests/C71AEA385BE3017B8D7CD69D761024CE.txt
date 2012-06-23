@@ -1,2 +1,0 @@
-serviceClass: org.purewidgets.client.storage.RemoteStorageService
-path: 64EA5736F67FA9EF2CA31A0170F90BB6.gwt.rpc

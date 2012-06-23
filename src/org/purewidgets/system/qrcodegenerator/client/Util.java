@@ -1,9 +1,21 @@
 package org.purewidgets.system.qrcodegenerator.client;
 
+import org.purewidgets.client.im.InteractionManager;
 import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.shared.im.Widget;
 
 public class Util {
+	public static String APP_ID = "QRCodeGenerator";
+	
+	private static InteractionManager interactionManager;
+	
+	public static void setIM(InteractionManager im) {
+		interactionManager = im;
+	}
+	
+	public static InteractionManager getIM() {
+		return interactionManager;
+	}
 	public static String getQrCode(Widget widget, WidgetOption option, String qrCodeSize) {
 		//TODO: This URL should be in some config setting
 	String data = "http://pw-systemapps.appspot.com/qrcodeinteractor/index.html?place=" + widget.getPlaceId() + 

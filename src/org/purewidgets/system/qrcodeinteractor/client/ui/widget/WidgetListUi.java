@@ -3,10 +3,10 @@ package org.purewidgets.system.qrcodeinteractor.client.ui.widget;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.purewidgets.client.application.PublicDisplayApplication;
 import org.purewidgets.shared.logging.Log;
 import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.shared.im.Application;
+import org.purewidgets.system.qrcodeinteractor.client.Util;
 import org.purewidgets.system.qrcodeinteractor.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;
@@ -108,7 +108,7 @@ public class WidgetListUi extends Composite  {
 		
 		if ( this.loadApplicationIcon ) {
 			
-			PublicDisplayApplication.getServerCommunicator().getApplication(placeName, applicationName, new AsyncCallback<Application>(){
+			Util.getIM().getApplication(placeName, applicationName, Util.APP_ID, new AsyncCallback<Application>(){
 	
 				@Override
 				public void onSuccess(Application application) {
@@ -194,7 +194,7 @@ public class WidgetListUi extends Composite  {
 		final String applicationName = this.applicationName;
 		final String widgetName = this.widgetName;
 		final String optionName = this.optionName;
-		PublicDisplayApplication.getServerCommunicator().getWidgetsList(this.placeName, this.applicationName, 
+		Util.getIM().getWidgetsList(this.placeName, this.applicationName, Util.APP_ID,
 				new AsyncCallback<ArrayList<org.purewidgets.shared.im.Widget>>() {
 
 					@Override

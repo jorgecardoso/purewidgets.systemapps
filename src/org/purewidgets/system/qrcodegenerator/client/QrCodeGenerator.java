@@ -3,9 +3,8 @@
  */
 package org.purewidgets.system.qrcodegenerator.client;
 
-import org.purewidgets.client.application.PublicDisplayApplication;
-import org.purewidgets.client.application.PublicDisplayApplicationLoadedListener;
-import org.purewidgets.client.im.WidgetManager;
+import org.purewidgets.client.im.InteractionManager;
+import org.purewidgets.client.storage.LocalStorage;
 import org.purewidgets.system.qrcodegenerator.client.ui.UiType;
 import org.purewidgets.system.qrcodegenerator.client.ui.main.MainScreenUi;
 
@@ -20,16 +19,14 @@ import com.google.gwt.user.client.ui.RootPanel;
  * @author "Jorge C. S. Cardoso"
  * 
  */
-public class QrCodeGenerator implements EntryPoint, PublicDisplayApplicationLoadedListener {
+public class QrCodeGenerator implements EntryPoint {
 
 	private MainScreenUi mainScreen;
 	private UiType uiType;
 
 	@Override
 	public void onModuleLoad() {
-		PublicDisplayApplication.load(this, "PlaceInteractionWebpage", false);
-		
-		WidgetManager.get().setAutomaticInputRequests(false);
+			
 		
 		if ( Window.Location.getPath().contains("index.html") ) {
 			this.uiType = UiType.Desktop;
@@ -37,16 +34,14 @@ public class QrCodeGenerator implements EntryPoint, PublicDisplayApplicationLoad
 			this.uiType = UiType.Smartphone;
 		}
 		
+		Util.setIM(new InteractionManager("http://pw-interactionmanager.appspot.com", 
+				new LocalStorage(Util.APP_ID)) );
 		
 		
 		this.mainScreen = new MainScreenUi(this.uiType);
 		RootPanel.get().add(this.mainScreen);
 		
-	}
-	
-	
-	@Override
-	public void onApplicationLoaded() {
+
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
 			public void onValueChange(ValueChangeEvent<String> event) {

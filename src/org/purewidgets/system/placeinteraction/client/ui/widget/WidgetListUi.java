@@ -3,10 +3,10 @@ package org.purewidgets.system.placeinteraction.client.ui.widget;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.purewidgets.client.application.PublicDisplayApplication;
 import org.purewidgets.shared.logging.Log;
 import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.shared.im.Application;
+import org.purewidgets.system.placeinteraction.client.PlaceInteractionWebpage;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;
@@ -129,7 +129,7 @@ public class WidgetListUi extends Composite  {
 		
 		if ( this.loadApplicationIcon ) {
 			
-			PublicDisplayApplication.getServerCommunicator().getApplication(placeName, applicationName, new AsyncCallback<Application>(){
+			PlaceInteractionWebpage.getIM().getApplication(placeName, applicationName, PlaceInteractionWebpage.APP_ID, new AsyncCallback<Application>(){
 	
 				@Override
 				public void onSuccess(Application application) {
@@ -216,7 +216,7 @@ public class WidgetListUi extends Composite  {
 	protected void refreshWidgets() {
 		final String placeName = this.placeName;
 		final String applicationName = this.applicationName;
-		PublicDisplayApplication.getServerCommunicator().getWidgetsList(this.placeName, this.applicationName, 
+		PlaceInteractionWebpage.getIM().getWidgetsList(this.placeName, this.applicationName, PlaceInteractionWebpage.APP_ID,
 				new AsyncCallback<ArrayList<org.purewidgets.shared.im.Widget>>() {
 
 					@Override

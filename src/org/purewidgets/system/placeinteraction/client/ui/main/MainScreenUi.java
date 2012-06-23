@@ -1,5 +1,6 @@
 package org.purewidgets.system.placeinteraction.client.ui.main;
 
+import org.purewidgets.client.application.PDApplication;
 import org.purewidgets.shared.logging.Log;
 import org.purewidgets.shared.im.Application;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
@@ -43,8 +44,10 @@ public class MainScreenUi extends Composite    {
 	
 	private WidgetListUi widgetListUi;
 	
-	public MainScreenUi( UiType uiType ) {
+	
+	public MainScreenUi( UiType uiType  ) {
 		this.uiType = uiType;
+		
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));
 	}
 	@UiFactory LoginUi makeLoginUi() { // method name is insignificant

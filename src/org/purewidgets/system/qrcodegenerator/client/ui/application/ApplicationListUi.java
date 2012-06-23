@@ -2,9 +2,9 @@ package org.purewidgets.system.qrcodegenerator.client.ui.application;
 
 import java.util.ArrayList;
 
-import org.purewidgets.client.application.PublicDisplayApplication;
 import org.purewidgets.shared.logging.Log;
 import org.purewidgets.shared.im.Application;
+import org.purewidgets.system.qrcodegenerator.client.Util;
 import org.purewidgets.system.qrcodegenerator.client.ui.UiType;
 
 import com.google.gwt.core.client.GWT;
@@ -94,7 +94,7 @@ public class ApplicationListUi extends Composite implements ClickHandler, HasSel
 	protected void refreshApplications() {
 		Log.debug(this, "Asking server for list of applications");
 		final String placeId = this.placeId;
-		PublicDisplayApplication.getServerCommunicator().getApplicationsList(this.placeId, new AsyncCallback<ArrayList<Application>> () {
+		Util.getIM().getApplicationsList(this.placeId, Util.APP_ID, new AsyncCallback<ArrayList<Application>> () {
 
 			@Override
 			public void onSuccess(ArrayList<Application> applicationList) {

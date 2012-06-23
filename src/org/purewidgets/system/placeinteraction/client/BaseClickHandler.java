@@ -80,7 +80,8 @@ public abstract class BaseClickHandler implements ClickHandler {
 		widgetInput.setReferenceCode(widgetOption.getReferenceCode());
 		
 		
-		WidgetManager.get().sendWidgetInput(this.placeName, this.applicationName, widgetInput, 
+		PlaceInteractionWebpage.getIM().sendWidgetInput(this.placeName, this.applicationName, PlaceInteractionWebpage.APP_ID,
+				widgetInput, 
 				new AsyncCallback<WidgetInput>() {
 
 					@Override

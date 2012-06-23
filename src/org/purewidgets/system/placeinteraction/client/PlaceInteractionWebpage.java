@@ -3,9 +3,11 @@
  */
 package org.purewidgets.system.placeinteraction.client;
 
-import org.purewidgets.client.application.PublicDisplayApplication;
-import org.purewidgets.client.application.PublicDisplayApplicationLoadedListener;
+import org.purewidgets.client.application.PDApplication;
+import org.purewidgets.client.application.PDApplicationLifeCycle;
+import org.purewidgets.client.im.InteractionManager;
 import org.purewidgets.client.im.WidgetManager;
+import org.purewidgets.client.storage.LocalStorage;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 import org.purewidgets.system.placeinteraction.client.ui.main.MainScreenUi;
 
@@ -20,11 +22,13 @@ import com.google.gwt.user.client.ui.RootPanel;
  * @author "Jorge C. S. Cardoso"
  * 
  */
-public class PlaceInteractionWebpage implements EntryPoint, PublicDisplayApplicationLoadedListener {
-
+public class PlaceInteractionWebpage implements EntryPoint {
+	public static String APP_ID = "PlaceInteractionWebpage";
+	
 	private MainScreenUi mainScreen;
 	private UiType uiType;
-
+	private static InteractionManager interactionManager;
+	
 	@Override
 	public void onModuleLoad() {
 		if ( Window.Navigator.getUserAgent().toLowerCase().contains("iphone") && !Window.Location.getPath().contains("mobile.html")) {
@@ -37,7 +41,7 @@ public class PlaceInteractionWebpage implements EntryPoint, PublicDisplayApplica
 			
 			Window.open("android.html?"+Window.Location.getQueryString()+Window.Location.getHash(), "_self", ""); 
 		}
-		PublicDisplayApplication.load(this, "PlaceInteractionWebpage", false);
+		
 		
 		
 		
@@ -47,26 +51,13 @@ public class PlaceInteractionWebpage implements EntryPoint, PublicDisplayApplica
 			this.uiType = UiType.Smartphone;
 		}
 		
-		
-		
+		interactionManager = new InteractionManager("http://pw-interactionmanager.appspot.com", 
+				new LocalStorage(APP_ID));
+	
 		this.mainScreen = new MainScreenUi(this.uiType);
 		RootPanel.get().add(this.mainScreen);
-		this.loadJanRain();
-	}
-	
-	// A Java method using JSNI
-	
-	native void loadJanRain() /*-{
-	  $wnd.loadJanRain(); // $wnd is a JSNI synonym for 'window'
-	}-*/;
-	
-	native void setTokenUrl() /*-{
-	  $wnd.setTokenUrl(); // $wnd is a JSNI synonym for 'window'
-	}-*/;
-	
-	@Override
-	public void onApplicationLoaded() {
-		WidgetManager.get().setAutomaticInputRequests(false);
+		
+		
 		
 		History.addValueChangeHandler(new ValueChangeHandler<String>() {
 			@Override
@@ -77,7 +68,22 @@ public class PlaceInteractionWebpage implements EntryPoint, PublicDisplayApplica
 		});
 		
 		this.show(History.getToken());
+		
+		this.loadJanRain();
 	}
+	
+	public static InteractionManager getIM() {
+		return interactionManager;
+	}
+	// A Java method using JSNI
+	
+	native void loadJanRain() /*-{
+	  $wnd.loadJanRain(); // $wnd is a JSNI synonym for 'window'
+	}-*/;
+	
+	native void setTokenUrl() /*-{
+	  $wnd.setTokenUrl(); // $wnd is a JSNI synonym for 'window'
+	}-*/;
 	
 
 	/**
