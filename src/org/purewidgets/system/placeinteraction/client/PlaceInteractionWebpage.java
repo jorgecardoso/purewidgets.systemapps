@@ -5,7 +5,7 @@ package org.purewidgets.system.placeinteraction.client;
 
 import org.purewidgets.client.application.PDApplication;
 import org.purewidgets.client.application.PDApplicationLifeCycle;
-import org.purewidgets.client.im.InteractionManager;
+import org.purewidgets.client.im.InteractionManagerService;
 import org.purewidgets.client.im.WidgetManager;
 import org.purewidgets.client.storage.LocalStorage;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
@@ -27,7 +27,7 @@ public class PlaceInteractionWebpage implements EntryPoint {
 	
 	private MainScreenUi mainScreen;
 	private UiType uiType;
-	private static InteractionManager interactionManager;
+	private static InteractionManagerService interactionManager;
 	
 	@Override
 	public void onModuleLoad() {
@@ -51,7 +51,7 @@ public class PlaceInteractionWebpage implements EntryPoint {
 			this.uiType = UiType.Smartphone;
 		}
 		
-		interactionManager = new InteractionManager("http://pw-interactionmanager.appspot.com", 
+		interactionManager = new InteractionManagerService("http://pw-interactionmanager.appspot.com", 
 				new LocalStorage(APP_ID));
 	
 		this.mainScreen = new MainScreenUi(this.uiType);
@@ -72,7 +72,7 @@ public class PlaceInteractionWebpage implements EntryPoint {
 		this.loadJanRain();
 	}
 	
-	public static InteractionManager getIM() {
+	public static InteractionManagerService getIM() {
 		return interactionManager;
 	}
 	// A Java method using JSNI

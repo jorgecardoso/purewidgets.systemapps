@@ -1,19 +1,17 @@
 package org.purewidgets.system.qrcodeinteractor.client;
 
-import org.purewidgets.client.im.InteractionManager;
-import org.purewidgets.shared.im.WidgetOption;
-import org.purewidgets.shared.im.Widget;
+import org.purewidgets.client.im.InteractionManagerService;
 
 public class Util {
 	public static String APP_ID = "QRCodeInteractor";
 	
-	private static InteractionManager interactionManager;
+	private static InteractionManagerService interactionManager;
 	
-	public static void setIM(InteractionManager im) {
+	public static void setIM(InteractionManagerService im) {
 		interactionManager = im;
 	}
 	
-	public static InteractionManager getIM() {
+	public static InteractionManagerService getIM() {
 		return interactionManager;
 	}
 	

@@ -1,6 +1,6 @@
 package org.purewidgets.system.placeinteraction.client.ui.widget;
 
-import org.purewidgets.client.im.ReferenceCodeFormatter;
+import org.purewidgets.client.widgets.ReferenceCodeFormatter;
 import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.system.placeinteraction.client.MultipleOptionImperativeClickHandler;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;

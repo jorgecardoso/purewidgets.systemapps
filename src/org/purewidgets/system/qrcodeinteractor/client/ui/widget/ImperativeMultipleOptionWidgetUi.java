@@ -1,6 +1,6 @@
 package org.purewidgets.system.qrcodeinteractor.client.ui.widget;
 
-import org.purewidgets.client.im.ReferenceCodeFormatter;
+import org.purewidgets.client.widgets.ReferenceCodeFormatter;
 import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.system.qrcodeinteractor.client.MultipleOptionImperativeClickHandler;
 import org.purewidgets.system.qrcodeinteractor.client.ui.UiType;

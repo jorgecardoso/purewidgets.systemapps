@@ -3,7 +3,7 @@
  */
 package org.purewidgets.system.qrcodegenerator.client;
 
-import org.purewidgets.client.im.InteractionManager;
+import org.purewidgets.client.im.InteractionManagerService;
 import org.purewidgets.client.storage.LocalStorage;
 import org.purewidgets.system.qrcodegenerator.client.ui.UiType;
 import org.purewidgets.system.qrcodegenerator.client.ui.main.MainScreenUi;
@@ -34,7 +34,7 @@ public class QrCodeGenerator implements EntryPoint {
 			this.uiType = UiType.Smartphone;
 		}
 		
-		Util.setIM(new InteractionManager("http://pw-interactionmanager.appspot.com", 
+		Util.setIM(new InteractionManagerService("http://pw-interactionmanager.appspot.com", 
 				new LocalStorage(Util.APP_ID)) );
 		
 		
