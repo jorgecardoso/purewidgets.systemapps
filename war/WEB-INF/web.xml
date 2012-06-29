@@ -85,7 +85,7 @@
   
   <servlet>
     <servlet-name>remoteStorageServlet</servlet-name>
-    <servlet-class>org.purewidgets.server.storage.RemoteStorageServiceImpl</servlet-class>
+    <servlet-class>org.purewidgets.server.storage.ServerStorageServiceImpl</servlet-class>
   </servlet>
   
   <servlet-mapping>
@@ -93,32 +93,7 @@
     <url-pattern>/storageservice</url-pattern>
   </servlet-mapping>
   
-  
-
-  
    
-<servlet>
-  <servlet-name>sightingServlet</servlet-name>
-    <servlet-class>org.purewidgets.system.placeinteraction.server.SightingServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>sightingServlet</servlet-name>
-    <url-pattern>/sighting</url-pattern>
-  </servlet-mapping>     
-
- <!-- 
-<servlet>
-	<servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl </servlet-class> 
-	<servlet-name>logger </servlet-name>
-</servlet>
-
-<servlet-mapping >
-	<servlet-name>logger</servlet-name >
-	<url-pattern>/youtubedemo/remote_logging</url-pattern>
-</servlet-mapping >
- -->
- 
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
