@@ -27,6 +27,7 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.History;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -424,6 +425,9 @@ public class WidgetListUi extends Composite  {
 		} else if ( publicDisplayWidget.getControlType().equals(
 				org.purewidgets.shared.im.Widget.CONTROL_TYPE_UPLOAD) ) {
 			toReturn =  getUploadWidget(publicDisplayWidget);
+		} else {
+			//TODO: Check-in
+			return new Button("dd");
 		}
 		if ( null != toReturn ) {
 			//toReturn.setStyleName("widget");

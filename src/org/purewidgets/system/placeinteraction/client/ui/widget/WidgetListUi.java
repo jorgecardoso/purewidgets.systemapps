@@ -392,9 +392,9 @@ public class WidgetListUi extends Composite  {
 					Log.debug(this, "Adding " + widget.getWidgetId() + " to panel");
 					
 					if ( foundPlace ) {
-						panel.insert(this.getHtmlWidget(widget), indexInPanel);
+						panel.insert(WidgetUi.getHtmlWidget(this.uiType, widget, null), indexInPanel);
 					} else {
-						panel.add(this.getHtmlWidget(widget));
+						panel.add(WidgetUi.getHtmlWidget(this.uiType, widget, null));
 					}
 				}
 			}
@@ -406,137 +406,6 @@ public class WidgetListUi extends Composite  {
 
 	}
 	
-
-	Widget getHtmlWidget(org.purewidgets.shared.im.Widget publicDisplayWidget) {
-		Widget toReturn = null;
-		Log.error(this, publicDisplayWidget.getControlType());
-		if (publicDisplayWidget.getControlType().equals(
-				org.purewidgets.shared.im.Widget.CONTROL_TYPE_ENTRY)) {
-			toReturn = getEntryWidget(publicDisplayWidget);
-		} else if (publicDisplayWidget
-				.getControlType()
-				.equals(org.purewidgets.shared.im.Widget.CONTROL_TYPE_IMPERATIVE_SELECTION)) {
-			toReturn = getImperativeWidget(publicDisplayWidget);
-		} else if (publicDisplayWidget.getControlType().equals(
-				org.purewidgets.shared.im.Widget.CONTROL_TYPE_DOWNLOAD)) {
-			toReturn =  getDownloadWidget(publicDisplayWidget);
-		} else if ( publicDisplayWidget.getControlType().equals(
-				org.purewidgets.shared.im.Widget.CONTROL_TYPE_UPLOAD) ) {
-			toReturn =  getUploadWidget(publicDisplayWidget);
-		} else if ( publicDisplayWidget.getControlType().equals(
-				org.purewidgets.shared.im.Widget.CONTROL_TYPE_PRESENCE) ) {
-			toReturn =  getPresenceWidget(publicDisplayWidget);
-		}
-		if ( null != toReturn ) {
-			//toReturn.setStyleName("widget");
-			toReturn.getElement().setPropertyString("id", publicDisplayWidget.getWidgetId());
-		}
-		return toReturn;
-	}
-
-	Widget getPresenceWidget(org.purewidgets.shared.im.Widget publicDisplayWidget) {
-		return new PresenceWidgetUi(this.uiType, publicDisplayWidget);
-	}
-	
-	Widget getUploadWidget(org.purewidgets.shared.im.Widget publicDisplayWidget) {
-		return new UploadWidgetUi(this.uiType, publicDisplayWidget);
-	}
-	
-	Widget getEntryWidget(org.purewidgets.shared.im.Widget publicDisplayWidget) {
-		return new EntryWidgetUi(this.uiType, publicDisplayWidget);
-//		WidgetOption option = publicDisplayWidget.getWidgetOptions().get(0);
-//
-//		FlowPanel flowPanel = new FlowPanel();
-//		// for ( WidgetOption wo : widgetOptions ) {
-//		Label label = new Label(publicDisplayWidget.getShortDescription() + " ["
-//				+ option.getReferenceCode() + "]");
-//		flowPanel.add(label);
-//		TextBox textBox = new TextBox();
-//		flowPanel.add(textBox);
-//		Button btn = new Button("Submit");
-//		flowPanel.add(btn);
-//		btn.addClickHandler(new EntryClickHandler(publicDisplayWidget.getPlaceId(), publicDisplayWidget.getApplicationId(), publicDisplayWidget.getWidgetId(), publicDisplayWidget.getWidgetOptions(), textBox));
-//		// }
-//
-//		//flowPanel.getElement().setPropertyString("id", publicDisplayWidget.getWidgetId());
-//		return flowPanel;
-	}
-
-	Widget getImperativeWidget(
-			org.purewidgets.shared.im.Widget publicDisplayWidget) {
-		ArrayList<WidgetOption> widgetOptions = publicDisplayWidget.getWidgetOptions();
-		
-		if (null != widgetOptions) {
-			if (widgetOptions.size() == 1) {
-				return getSingleOptionImperativeWidget(publicDisplayWidget);
-			} else {
-				return getMultipleOptionImperativeWidget(publicDisplayWidget);
-			}
-		} else {
-			return null;
-		}
-	}
-
-	
-	Widget getMultipleOptionImperativeWidget(
-			org.purewidgets.shared.im.Widget publicDisplayWidget) {
-		return new ImperativeMultipleOptionWidgetUi(this.uiType, publicDisplayWidget);
-//		ArrayList<WidgetOption> widgetOptions = publicDisplayWidget.getWidgetOptions();
-//		
-//		VerticalPanel panel = new VerticalPanel();
-//
-//		panel.add(new Label(publicDisplayWidget.getShortDescription()));
-//		
-//		ListBox listbox = new ListBox();
-//		//listbox.addStyleName(style.list());
-//		listbox.setVisibleItemCount(Math.min(4, widgetOptions.size()));
-//		for (WidgetOption wo : widgetOptions) {
-//			listbox.addItem(wo.getShortDescription() + " [" + wo.getReferenceCode() + "]");
-//		}
-//		
-//		
-//		panel.add(listbox);
-//		
-//		Button button = new Button("Send");
-//		button.addClickHandler(new MultipleOptionImperativeClickHandler(publicDisplayWidget.getPlaceId(), publicDisplayWidget.getApplicationId(), publicDisplayWidget.getWidgetId(), publicDisplayWidget.getWidgetOptions(), listbox));
-//		
-//		panel.add(button);
-//		
-//		return panel;
-	}
-
-	Widget getSingleOptionImperativeWidget(
-			org.purewidgets.shared.im.Widget publicDisplayWidget) {
-		return new ImperativeSingleOptionWidgetUi(this.uiType, publicDisplayWidget);
-//		ArrayList<WidgetOption> widgetOptions = publicDisplayWidget.getWidgetOptions();
-//		WidgetOption option = publicDisplayWidget.getWidgetOptions().get(0);
-//
-//		FlowPanel flowPanel = new FlowPanel();
-//		Label label = new Label(publicDisplayWidget.getLongDescription());
-//		flowPanel.add(label);
-//
-//		Button btn = new Button(publicDisplayWidget.getShortDescription() + " ["
-//				+ option.getReferenceCode() + "]");
-//		flowPanel.add(btn);
-//		btn.addClickHandler(new ImperativeClickHandler( publicDisplayWidget.getPlaceId(), publicDisplayWidget.getApplicationId(), publicDisplayWidget.getWidgetId(), publicDisplayWidget.getWidgetOptions()) );
-//		//flowPanel.getElement().setPropertyString("id", publicDisplayWidget.getWidgetId());
-//		return flowPanel;
-	}
-
-	Widget getDownloadWidget(org.purewidgets.shared.im.Widget publicDisplayWidget) {
-		return new DownloadWidgetUi(this.uiType, publicDisplayWidget);
-//		WidgetOption option = publicDisplayWidget.getWidgetOptions().get(0);
-//
-//		FlowPanel flowPanel = new FlowPanel();
-//		//flowPanel.add(new Label("Download: "));
-//		Anchor a = new Anchor(publicDisplayWidget.getShortDescription() + " ["
-//				+ option.getReferenceCode() + "]", publicDisplayWidget.getContentUrl());
-//
-//		flowPanel.add(a);
-//
-//		//flowPanel.getElement().setPropertyString("id", publicDisplayWidget.getWidgetId());
-//		return flowPanel;
-	}
 
 	/**
 	 * @return the placeName

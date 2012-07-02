@@ -49,9 +49,13 @@ public class ImperativeMultipleOptionWidgetUi extends Composite {
 	
 	private org.purewidgets.shared.im.Widget pureWidget;
 
-	public ImperativeMultipleOptionWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget) {
+
+	private String optionId;
+
+	public ImperativeMultipleOptionWidgetUi(UiType uiType, org.purewidgets.shared.im.Widget widget, String optionId) {
 		this.uiType = uiType;
 		this.pureWidget = widget;
+		this.optionId = optionId;
 		initWidget(this.getUiBinder(uiType).createAndBindUi(this));
 		
 		this.initUi();
@@ -74,8 +78,13 @@ public class ImperativeMultipleOptionWidgetUi extends Composite {
 		}
 		
 		this.optionsListBox.setVisibleItemCount(Math.min(4, this.pureWidget.getWidgetOptions().size()));
+		int index = 0;
 		for (WidgetOption wo : this.pureWidget.getWidgetOptions() ) {
 			this.optionsListBox.addItem(wo.getShortDescription() + " " + ReferenceCodeFormatter.format(wo.getReferenceCode()));
+			if ( wo.getWidgetOptionId().equals(this.optionId) ) {
+				this.optionsListBox.setItemSelected(index, true);
+			}
+			index++;
 		}
 		
 		this.actionButton.addClickHandler(new MultipleOptionImperativeClickHandler(this.pureWidget.getPlaceId(), this.pureWidget.getApplicationId(), 

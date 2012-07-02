@@ -3,11 +3,13 @@
  */
 package org.purewidgets.system.placeinteraction.client;
 
+
 import org.purewidgets.client.application.PDApplication;
 import org.purewidgets.client.application.PDApplicationLifeCycle;
 import org.purewidgets.client.im.InteractionManagerService;
 import org.purewidgets.client.im.WidgetManager;
 import org.purewidgets.client.storage.LocalStorage;
+import org.purewidgets.shared.logging.Log;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 import org.purewidgets.system.placeinteraction.client.ui.main.MainScreenUi;
 
@@ -99,6 +101,10 @@ public class PlaceInteractionWebpage implements EntryPoint {
 			
 			String []tokens = historyToken.split(TOKEN_SEPARATOR);
 			
+			for ( String s : tokens ) {
+				Log.debug(this, s);
+			}
+			
 			switch ( tokens.length ) {
 			case 0:  
 				this.mainScreen.showPlaceList();
@@ -109,12 +115,12 @@ public class PlaceInteractionWebpage implements EntryPoint {
 			case 2: //place and app
 				this.mainScreen.showWidgets(tokens[0], tokens[1]);
 				break;
-//			case 3: // place, app, and widget
-//				this.mainScreen.showWidget(tokens[0], tokens[1], tokens[2]);
-//				break;
-//			case 4: // place, app, widget, and option
-//				this.mainScreen.showWidget(tokens[0], tokens[1], tokens[2]);
-//				break;				
+			case 3: // place, app, and widget
+				this.mainScreen.showWidget(tokens[0], tokens[1], tokens[2], null);
+				break;
+			case 4: // place, app, widget, and option
+				this.mainScreen.showWidget(tokens[0], tokens[1], tokens[2], tokens[3]);
+				break;				
 			}
 			
 		}

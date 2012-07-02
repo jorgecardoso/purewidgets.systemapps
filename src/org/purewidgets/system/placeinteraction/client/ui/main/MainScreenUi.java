@@ -8,6 +8,7 @@ import org.purewidgets.system.placeinteraction.client.ui.application.Application
 import org.purewidgets.system.placeinteraction.client.ui.login.LoginUi;
 import org.purewidgets.system.placeinteraction.client.ui.place.PlaceListUi;
 import org.purewidgets.system.placeinteraction.client.ui.widget.WidgetListUi;
+import org.purewidgets.system.placeinteraction.client.ui.widget.WidgetUi;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.SelectionEvent;
@@ -43,6 +44,9 @@ public class MainScreenUi extends Composite    {
 	private ApplicationListUi applicationListUi;
 	
 	private WidgetListUi widgetListUi;
+
+
+	private WidgetUi widgetUi;
 	
 	
 	public MainScreenUi( UiType uiType  ) {
@@ -142,7 +146,26 @@ public class MainScreenUi extends Composite    {
 		this.features.add(this.widgetListUi);
 	}
 	
-	
+	/**
+	 * Show the widget list for a given application
+	 */
+	public void showWidget( String placeId, String applicationId, String widgetId, String optionId) {
+		Log.debug(this, "Showing widget");
+		if ( null != this.placeListUi ) {
+			this.placeListUi.stop();
+		} 
+		if ( null != this.applicationListUi ) {
+			this.applicationListUi.stop();
+		}
+		if ( null != this.widgetListUi ) {
+			this.widgetListUi.stop();
+		}
+		
+		this.widgetUi = new WidgetUi(this.uiType, placeId, applicationId, widgetId, optionId);
+		
+		this.features.clear();
+		this.features.add(this.widgetUi);
+	}
 
 	public void onPlaceSelected(String placeId) {
 		Log.debug(this, "User selected place " + placeId);

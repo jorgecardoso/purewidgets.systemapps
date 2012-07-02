@@ -55,7 +55,7 @@ public class ImperativeMultipleOptionWidgetUi extends Composite {
 		if ( null == description || description.trim().length() == 0) {
 			description = this.pureWidget.getShortDescription();
 		}
-		this.descriptionLabel.setText(description);
+		this.descriptionLabel.setText(description + Util.getQrCode(this.pureWidget, this.pureWidget.getWidgetOptions().get(0), "300x300"));
 		
 		this.mainPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE); 
 		

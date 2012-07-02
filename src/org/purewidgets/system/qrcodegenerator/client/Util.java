@@ -6,6 +6,7 @@ import org.purewidgets.shared.im.Widget;
 
 public class Util {
 	public static String APP_ID = "QRCodeGenerator";
+	public static String TOKEN_SEPARATOR = "%25-%25";
 	
 	private static InteractionManagerService interactionManager;
 	
@@ -18,9 +19,9 @@ public class Util {
 	}
 	public static String getQrCode(Widget widget, WidgetOption option, String qrCodeSize) {
 		//TODO: This URL should be in some config setting
-	String data = "http://pw-systemapps.appspot.com/qrcodeinteractor/index.html?place=" + widget.getPlaceId() + 
-			"&app="+widget.getApplicationId() + "&widget=" + widget.getWidgetId()
-			+"&type="+widget.getControlType() + "&opid=" + option.getWidgetOptionId();
+	String data = "http://pw-systemapps.appspot.com/placeinteraction/index.html#" + widget.getPlaceId() + 
+			TOKEN_SEPARATOR +widget.getApplicationId() + TOKEN_SEPARATOR + widget.getWidgetId()
+			+TOKEN_SEPARATOR + option.getWidgetOptionId();
 	
 	String unencodedUrl = data;
 	
