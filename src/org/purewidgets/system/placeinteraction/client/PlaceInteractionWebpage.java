@@ -23,6 +23,8 @@ import com.google.gwt.user.client.ui.RootPanel;
  * 
  */
 public class PlaceInteractionWebpage implements EntryPoint {
+	public static final String TOKEN_SEPARATOR = "%-%";
+
 	public static String APP_ID = "PlaceInteractionWebpage";
 	
 	private MainScreenUi mainScreen;
@@ -78,11 +80,11 @@ public class PlaceInteractionWebpage implements EntryPoint {
 	// A Java method using JSNI
 	
 	native void loadJanRain() /*-{
-	  $wnd.loadJanRain(); // $wnd is a JSNI synonym for 'window'
+	  $wnd.loadJanRain(); 
 	}-*/;
 	
 	native void setTokenUrl() /*-{
-	  $wnd.setTokenUrl(); // $wnd is a JSNI synonym for 'window'
+	  $wnd.setTokenUrl(); 
 	}-*/;
 	
 
@@ -94,14 +96,27 @@ public class PlaceInteractionWebpage implements EntryPoint {
 		if (null == historyToken || historyToken.length() == 0) {
 			this.mainScreen.showPlaceList();
 		} else {
-			int indexOfDash = historyToken.indexOf("%-%");
-		    if (  indexOfDash < 0 ) { // no dash: this is a place name
-				this.mainScreen.showApplicationList( historyToken );
-			} else  {
-				String placeName = historyToken.substring(0, indexOfDash);
-				String applicationName = historyToken.substring(indexOfDash+3);
-				this.mainScreen.showWidgets(placeName, applicationName);
+			
+			String []tokens = historyToken.split(TOKEN_SEPARATOR);
+			
+			switch ( tokens.length ) {
+			case 0:  
+				this.mainScreen.showPlaceList();
+				break;
+			case 1: // only place specified
+				this.mainScreen.showApplicationList( tokens[0] );
+				break;
+			case 2: //place and app
+				this.mainScreen.showWidgets(tokens[0], tokens[1]);
+				break;
+//			case 3: // place, app, and widget
+//				this.mainScreen.showWidget(tokens[0], tokens[1], tokens[2]);
+//				break;
+//			case 4: // place, app, widget, and option
+//				this.mainScreen.showWidget(tokens[0], tokens[1], tokens[2]);
+//				break;				
 			}
+			
 		}
 		
 		this.setTokenUrl();

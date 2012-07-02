@@ -20,7 +20,9 @@
 function setTokenUrl() {
     var janrainauthenticator = 'http://pw-systemapps.appspot.com/janrain/authenticator';
     var redirect = escape(location.href);
-    janrain.settings.tokenUrl = janrainauthenticator + "?redirect=" + redirect;
+    if (typeof(janrain) != "undefined") {
+    	janrain.settings.tokenUrl = janrainauthenticator + "?redirect=" + redirect;
+    }
 }
 
 function loadJanRain() {
