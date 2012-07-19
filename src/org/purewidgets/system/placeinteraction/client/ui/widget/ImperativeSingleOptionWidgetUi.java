@@ -65,7 +65,12 @@ public class ImperativeSingleOptionWidgetUi extends Composite {
 		
 		if ( this.loadWidgetIcon ) {
 			if ( true ) { 
-				this.iconImage.setUrl(this.pureWidget.getWidgetOptions().get(0).getIconUrl());
+				String url = this.pureWidget.getWidgetOptions().get(0).getIconUrl();
+				if (null != url) {
+					this.iconImage.setUrl(url);
+				} else {
+					this.iconImage.removeFromParent();
+				}
 			}
 		} else {
 			this.iconImage.removeFromParent();
