@@ -64,9 +64,8 @@ public class ImperativeSingleOptionWidgetUi extends Composite {
 		this.actionButton.setText(this.pureWidget.getShortDescription() + " " + ReferenceCodeFormatter.format(this.pureWidget.getWidgetOptions().get(0).getReferenceCode()));
 		
 		if ( this.loadWidgetIcon ) {
-			if ( true ) { /* TODO: load icon */
-				//this.mainHorizontalPanel.remove(0); // remove icon
-				this.iconImage.removeFromParent();
+			if ( true ) { 
+				this.iconImage.setUrl(this.pureWidget.getWidgetOptions().get(0).getIconUrl());
 			}
 		} else {
 			this.iconImage.removeFromParent();
