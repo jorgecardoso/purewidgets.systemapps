@@ -64,14 +64,14 @@ public class ImperativeSingleOptionWidgetUi extends Composite {
 		this.actionButton.setText(this.pureWidget.getShortDescription() + " " + ReferenceCodeFormatter.format(this.pureWidget.getWidgetOptions().get(0).getReferenceCode()));
 		
 		if ( this.loadWidgetIcon ) {
-			if ( true ) { 
+			 
 				String url = this.pureWidget.getWidgetOptions().get(0).getIconUrl();
 				if (null != url) {
 					this.iconImage.setUrl(url);
 				} else {
 					this.iconImage.removeFromParent();
 				}
-			}
+			
 		} else {
 			this.iconImage.removeFromParent();
 		}

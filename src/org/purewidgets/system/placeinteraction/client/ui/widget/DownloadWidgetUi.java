@@ -69,8 +69,10 @@ public class DownloadWidgetUi extends Composite {
 		this.actionButton.setText(this.pureWidget.getShortDescription() + " " + ReferenceCodeFormatter.format(this.pureWidget.getWidgetOptions().get(0).getReferenceCode()) );
 		
 		if ( this.loadWidgetIcon ) {
-			if ( true ) { /* TODO: check icon */
-				//this.mainHorizontalPanel.remove(0); // remove icon
+			String url = this.pureWidget.getWidgetOptions().get(0).getIconUrl();
+			if (null != url) {
+				this.iconImage.setUrl(url);
+			} else {
 				this.iconImage.removeFromParent();
 			}
 		} else {
