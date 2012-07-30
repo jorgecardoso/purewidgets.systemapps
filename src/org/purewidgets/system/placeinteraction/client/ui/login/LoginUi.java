@@ -2,6 +2,7 @@ package org.purewidgets.system.placeinteraction.client.ui.login;
 
 import java.util.Date;
 
+import org.purewidgets.shared.logging.Log;
 import org.purewidgets.system.placeinteraction.client.UserInfo;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 
@@ -57,14 +58,14 @@ public class LoginUi extends Composite {
 		 * Check/set the user's identity.
 		 */
 		String anonymousId = this.getAnonymousId();
-		UserInfo.setIdentity(com.google.gwt.user.client.Window.Location.getParameter("identifier"));
+		UserInfo.setIdentity(this.getUserId());
 		if ( null == UserInfo.getIdentity() ) {
 			UserInfo.setIdentity( anonymousId );
 		} else {
 			loggedIn = true;
 		}
 		
-		UserInfo.setUsername(com.google.gwt.user.client.Window.Location.getParameter("preferredUsername"));
+		UserInfo.setUsername(this.getUsername());
 		if ( null == UserInfo.getUsername() ) {
 			UserInfo.setUsername( anonymousId );
 		} 
@@ -91,6 +92,58 @@ public class LoginUi extends Composite {
 		this.identityName.setText(UserInfo.getUsername());
 		this.signInLinkWrapper.setVisible(true);
 		this.signOutLink.setVisible(false);
+		Cookies.removeCookie("userId");
+		Cookies.removeCookie("username");
+	}
+	
+	private String getUserId() {
+		/* 
+		 * We generate a random identity name, starting with "Anonymous" and set
+		 * a cookie with it so that we can retrieve it later if the user uses
+		 * the webpage again.
+		 */
+		String id = Cookies.getCookie("userId");
+		if ( null == id ) {
+			Log.debug(this, "Could not read user id cookie, trying url parameter");
+			id = com.google.gwt.user.client.Window.Location.getParameter("identifier");
+		}
+		
+		if ( null == id ) {
+			Log.debug(this, "Could not read user id from url parameter");
+		} else {
+			/*
+			 * The cookie is valid for one week
+			 */
+			Date future = new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000); 
+		
+			Cookies.setCookie("userId", id, future);
+		}
+		return id;
+	}
+	
+	private String getUsername() {
+		/* 
+		 * We generate a random identity name, starting with "Anonymous" and set
+		 * a cookie with it so that we can retrieve it later if the user uses
+		 * the webpage again.
+		 */
+		String id = Cookies.getCookie("username");
+		if ( null == id ) {
+			Log.debug(this, "Could not read username cookie, trying url parameter");
+			id = com.google.gwt.user.client.Window.Location.getParameter("preferredUsername");
+		}
+		
+		if ( null == id ) {
+			Log.debug(this, "Could not read username from url parameter");
+		} else {
+			/*
+			 * The cookie is valid for one week
+			 */
+			Date future = new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000); 
+		
+			Cookies.setCookie("username", id, future);
+		}
+		return id;
 	}
 	
 	private String getAnonymousId() {
@@ -99,19 +152,18 @@ public class LoginUi extends Composite {
 		 * a cookie with it so that we can retrieve it later if the user uses
 		 * the webpage again.
 		 */
-		String id = Cookies.getCookie("userIdentity");
+		String id = Cookies.getCookie("anonymousId");
 		if (null == id) {
+			Log.debug(this, "Could not read anonymous id cookie, generating new");
 			id = "Anonymous" + ((int) (Math.random() * 10000));
+		}
 			/*
 			 * The cookie is valid for one week
 			 */
-			Date future = new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000); // 7
-																							// days
-																							// in
-																							// the
-																							// future
-			Cookies.setCookie("userIdentity", id, future);
-		}
+		Date future = new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000); 
+		
+		Cookies.setCookie("anonymousId", id, future);
+		
 		return id;
 	}
 	
