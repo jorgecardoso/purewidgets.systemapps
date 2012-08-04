@@ -34,7 +34,12 @@ public class QrCodeGenerator implements EntryPoint {
 			this.uiType = UiType.Smartphone;
 		}
 		
-		Util.setIM(new InteractionManagerService("http://pw-interactionmanager.appspot.com", 
+		String interactionManagerServer = com.google.gwt.user.client.Window.Location.getParameter("imurl");
+		if ( null == interactionManagerServer ) {
+			interactionManagerServer = "http://pw-interactionmanager.appspot.com";
+		}
+		
+		Util.setIM(new InteractionManagerService(interactionManagerServer, 
 				new LocalStorage(Util.APP_ID)) );
 		
 		

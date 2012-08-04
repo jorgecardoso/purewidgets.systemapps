@@ -47,15 +47,18 @@ public class PlaceInteractionWebpage implements EntryPoint {
 		}
 		
 		
-		
-		
 		if ( Window.Location.getPath().contains("index.html") ) {
 			this.uiType = UiType.Desktop;
 		} else {
 			this.uiType = UiType.Smartphone;
 		}
 		
-		interactionManager = new InteractionManagerService("http://pw-interactionmanager.appspot.com", 
+		String interactionManagerServer = com.google.gwt.user.client.Window.Location.getParameter("imurl");
+		if ( null == interactionManagerServer ) {
+			interactionManagerServer = "http://pw-interactionmanager.appspot.com";
+		}
+		
+		interactionManager = new InteractionManagerService(interactionManagerServer, 
 				new LocalStorage(APP_ID));
 	
 		this.mainScreen = new MainScreenUi(this.uiType);
