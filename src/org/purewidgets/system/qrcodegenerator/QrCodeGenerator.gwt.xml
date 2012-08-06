@@ -4,7 +4,7 @@
 	<inherits name='com.google.gwt.user.User' />
 
 	<!-- This is needed to allow UiBinder elements to have custom Ids -->
-	<inherits name="com.google.gwt.user.Debug"/>
+	<!--  --><inherits name="com.google.gwt.user.Debug"/>-->
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->
@@ -16,7 +16,7 @@
 	<!-- Other module inherits -->
 	<inherits name="org.purewidgets.PuReWidgets" />
 
-	<set-property name="gwt.logging.enabled" value="FALSE" />
+	<set-property name="gwt.logging.enabled" value="TRUE" />
 	<set-property name="gwt.logging.logLevel" value="FINE" />
 	
 	<set-property name="gwt.logging.consoleHandler" value="ENABLED" />

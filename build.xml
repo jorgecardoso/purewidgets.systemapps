@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="System Apps" default="gwtc-all" basedir=".">
+    
+  <property name="module.placeinteraction" value = "org.purewidgets.system.placeinteraction.PlaceInteraction" />
+  <property name="module.qrcodegenerator" value = "org.purewidgets.system.qrcodegenerator.QrCodeGenerator" />
+  <property name="appid.test" value = "pw-systemapps-test" />
+  <property name="appid.prod" value = "pw-systemapps" />
+  
+  
+  <!-- Arguments to gwtc and devmode targets -->
+  <property name="gwt.args" value="" />
+
+  <!-- Configure path to GWT SDK -->
+  <property name="gwt.sdk" location="/Applications/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201206290132-rel-r37/gwt-2.4.0" />
+  <property name="appengine.sdk" location="/Applications/eclipse/plugins/com.google.appengine.eclipse.sdkbundle_1.7.0/appengine-java-sdk-1.7.0" />
+  
+  <import file="${appengine.sdk}/config/user/ant-macros.xml" />
+    
+  <path id="project.class.path">
+    <pathelement location="war/WEB-INF/classes"/>
+    <pathelement location="${gwt.sdk}/gwt-user.jar"/>
+    <fileset dir="${gwt.sdk}" includes="gwt-dev*.jar"/>
+
+    <fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+    
+    <fileset dir="clientLibraries" includes="**/*.jar"/>
+  </path>
+
+  <target name="libs" description="Copy libs to WEB-INF/lib">
+    <mkdir dir="war/WEB-INF/lib" />
+    <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+    <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar" />
+    
+  	<copy todir="war/WEB-INF/lib" > 
+  		<fileset dir="serverLibraries" includes="**/*.jar"/>
+  	</copy>	
+  </target>
+
+  <target name="javac" depends="libs" description="Compile java source to bytecode">
+    <mkdir dir="war/WEB-INF/classes"/>
+    <javac srcdir="src" includes="**" encoding="utf-8"
+        destdir="war/WEB-INF/classes"
+        source="1.5" target="1.5" nowarn="true"
+        debug="true" debuglevel="lines,vars,source">
+      <classpath refid="project.class.path"/>
+    </javac>
+    <copy todir="war/WEB-INF/classes">
+      <fileset dir="src" excludes="**/*.java"/>
+    </copy>
+  </target>
+
+
+  
+    <target name="gwtc" depends="javac" description="GWT compile to JavaScript (production mode)">
+    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+      <classpath>
+        <pathelement location="src"/>
+        <path refid="project.class.path"/>
+        <pathelement location="/Applications/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201206290132-rel-r37/gwt-2.4.0/validation-api-1.0.0.GA.jar" />
+        <pathelement location="/Applications/eclipse/plugins/com.google.gwt.eclipse.sdkbundle_2.4.0.v201206290132-rel-r37/gwt-2.4.0/validation-api-1.0.0.GA-sources.jar" />
+      </classpath>
+      <!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+      <jvmarg value="-Xmx256M"/>
+      <arg line="-war"/>
+      <arg value="war"/>
+      <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+      <arg line="-style PRETTY"/>
+      <arg line="-logLevel INFO"/>
+      <arg line="${gwt.args}"/>
+      <arg line="${modules}" />
+
+    </java>
+  </target>
+  
+  <target name="gwtc-all" depends="javac" description="GWT compile to JavaScript (production mode)">
+    <antcall target="gwtc">
+      <param name="modules" value="${module.qrcodegenerator} ${module.placeinteraction}"/>
+    </antcall>
+  </target>
+  
+  <target name="gwtc-qrcodegenerator" depends="javac" description="GWT compile to JavaScript (production mode)">
+     <antcall target="gwtc">
+      <param name="modules" value="${module.qrcodegenerator}"/>
+    </antcall>
+  </target>
+  
+    <target name="gwtc-placeinteraction" depends="javac" description="GWT compile to JavaScript (production mode)">
+     <antcall target="gwtc">
+      <param name="modules" value="${module.placeinteraction}"/>
+    </antcall>
+  </target>
+  
+  <target name="datanucleusenhance"
+      description="Performs JDO enhancement on compiled data classes.">
+    <enhance_war war="war" />
+  </target>
+  
+  <target name="setappid-test"  description="Change app id.">
+  		<replaceregexp file="war/WEB-INF/appengine-web.xml"
+               match="\&lt;application\&gt;(.*)\&lt;/application\&gt;"
+               replace="\&lt;application\&gt;${appid.test}\&lt;/application\&gt;"
+               byline="true"
+			/>
+    </target>
+      <target name="setappid-prod"  description="Change app id.">
+  		<replaceregexp file="war/WEB-INF/appengine-web.xml"
+               match="\&lt;application\&gt;(.*)\&lt;/application\&gt;"
+               replace="\&lt;application\&gt;${appid.prod}\&lt;/application\&gt;"
+               byline="true"
+			/>
+    </target>
+    
+  <macrodef name="appcfg-update-withcredentials">
+   <sequential>    
+    <appcfg action="update" war="war" >
+    <args>
+        <arg value="--email jorgediablu@gmail.com"/>
+        <arg value="--passin"/>
+        <arg value=" &lt;  ../.appengine-credentials"/>
+      </args>
+    </appcfg>
+  </sequential>    
+</macrodef>      
+      
+     <target name="deploy-qrcodegenerator-test" depends="setappid-test,gwtc-qrcodegenerator,datanucleusenhance"
+      description="Uploads the application to App Engine.">
+    <appcfg-update-withcredentials />
+  </target>
+
+  
+   <target name="deploy-placeinteraction-test" depends="setappid-test,gwtc-placeinteraction,datanucleusenhance"
+      description="Uploads the application to App Engine.">
+    <appcfg-update-withcredentials />
+  </target>
+  
+ <target name="deploy-all-test" depends="setappid-test,gwtc-all,datanucleusenhance"
+      description="Uploads the application to App Engine.">
+    <appcfg-update-withcredentials />
+  </target>
+  
+        <target name="deploy-qrcodegenerator-prod" depends="setappid-prod,gwtc-qrcodegenerator,datanucleusenhance"
+      description="Uploads the application to App Engine.">
+    <appcfg-update-withcredentials />
+  </target>
+  
+           <target name="deploy-placeinteraction-prod" depends="setappid-prod,gwtc-placeinteraction,datanucleusenhance"
+      description="Uploads the application to App Engine.">
+    <appcfg-update-withcredentials />
+  </target>
+  
+ <target name="deploy-all-prod" depends="setappid-prod,gwtc-all,datanucleusenhance"
+      description="Uploads the application to App Engine.">
+    <appcfg-update-withcredentials />
+  </target>
+  
+  <target name="build" depends="gwtc-all" description="Build this project" />
+
+  <target name="war" depends="build" description="Create a war file">
+    <zip destfile="My.war" basedir="war"/>
+  </target>
+
+  <target name="clean" description="Cleans this project">
+    <delete dir="war/WEB-INF/classes" failonerror="false" />
+    <delete dir="war/my" failonerror="false" />
+  </target>
+
+</project>

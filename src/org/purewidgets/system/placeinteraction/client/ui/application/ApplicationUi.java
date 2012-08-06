@@ -21,7 +21,7 @@ import com.google.gwt.user.client.ui.Widget;
 
 public class ApplicationUi extends Composite implements HasClickHandlers {
 
-	public static final String ICON_NAME = "icon_128.png";
+	public static final String ICON_NAME = "icon.svg";
 	
 	@UiTemplate("ApplicationUiDesktop.ui.xml")
 	interface ApplicationUiDesktopUiBinder extends UiBinder<Widget, ApplicationUi> {	}

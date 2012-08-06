@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class WidgetListUi extends Composite  {
-	public static final String ICON_NAME = "icon_64.png";
+	public static final String ICON_NAME = "icon.svg";
 	
 	interface Style extends CssResource {
 	    String center();

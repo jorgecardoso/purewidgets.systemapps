@@ -8,9 +8,15 @@
 
 
 <h2>System Apps</h2>
+<script>
 
-<p><a href="placeinteraction/index.html">(Production)Place Interaction Webpage</a></p>
-<p><a href="placeinteraction/index.html?imurl=http://pw-interactionmanager-test.appspot.com">(Test)Place Interaction Webpage</a></p>
+if ( location.href.search("-test") == -1 ) {
+	document.write("<p><a href='placeinteraction/index.html'>(Production)Place Interaction Webpage</a></p>");
+} else {
+	document.write("<p><a href='placeinteraction/index.html?imurl=http://pw-interactionmanager-test.appspot.com'>(Test)Place Interaction Webpage</a></p>	");
+}
+</script>
+
 
 <p><a href="placeinteraction/mobile.html">Mobile Place Interaction Webpage</a></p>
 
