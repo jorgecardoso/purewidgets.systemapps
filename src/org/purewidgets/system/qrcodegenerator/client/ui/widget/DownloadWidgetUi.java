@@ -53,7 +53,7 @@ public class DownloadWidgetUi extends Composite {
 		if ( null == description || description.trim().length() == 0) {
 			description = this.pureWidget.getShortDescription();
 		}
-		this.descriptionLabel.setText(description + Util.getQrCode(this.pureWidget, this.pureWidget.getWidgetOptions().get(0), "300x300"));
+		this.descriptionLabel.setText(description);
 	
 		this.qrCodeImage.setUrl(Util.getQrCode(this.pureWidget, this.pureWidget.getWidgetOptions().get(0), "300x300"));
 	}

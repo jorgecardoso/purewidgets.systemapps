@@ -4,9 +4,13 @@ import org.purewidgets.client.im.InteractionManagerService;
 import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.shared.im.Widget;
 
+import com.google.gwt.core.client.GWT;
+
 public class Util {
 	public static String APP_ID = "QRCodeGenerator";
 	public static String TOKEN_SEPARATOR = "%25-%25";
+	
+	private static String systemAppsUrl;
 	
 	private static InteractionManagerService interactionManager;
 	
@@ -19,7 +23,8 @@ public class Util {
 	}
 	public static String getQrCode(Widget widget, WidgetOption option, String qrCodeSize) {
 		//TODO: This URL should be in some config setting
-	String data = "http://pw-systemapps.appspot.com/placeinteraction/index.html#" + widget.getPlaceId() + 
+	
+	String data = "http://"+ com.google.gwt.user.client.Window.Location.getHost() +"/placeinteraction/index.html#" + widget.getPlaceId() + 
 			TOKEN_SEPARATOR +widget.getApplicationId() + TOKEN_SEPARATOR + widget.getWidgetId()
 			+TOKEN_SEPARATOR + option.getWidgetOptionId();
 	
@@ -40,5 +45,19 @@ public class Util {
     
 	String url = "https://chart.googleapis.com/chart?cht=qr&chs="+qrCodeSize+"&chl="+data;
 	return url;
+	}
+
+	/**
+	 * @return the systemAppsUrl
+	 */
+	public static String getSystemAppsUrl() {
+		return systemAppsUrl;
+	}
+
+	/**
+	 * @param systemAppsUrl the systemAppsUrl to set
+	 */
+	public static void setSystemAppsUrl(String systemAppsUrl) {
+		systemAppsUrl = systemAppsUrl;
 	}
 }

@@ -21,6 +21,12 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public class QrCodeGenerator implements EntryPoint {
 
+	private static final boolean PRODUCTION = false;
+	
+	private static final String PRODUCTION_IM = "http://pw-interactionmanager.appspot.com";
+	private static final String TEST_IM = "http://pw-interactionmanager-test.appspot.com";
+	
+	
 	private MainScreenUi mainScreen;
 	private UiType uiType;
 
@@ -36,8 +42,13 @@ public class QrCodeGenerator implements EntryPoint {
 		
 		String interactionManagerServer = com.google.gwt.user.client.Window.Location.getParameter("imurl");
 		if ( null == interactionManagerServer ) {
-			interactionManagerServer = "http://pw-interactionmanager.appspot.com";
+			if ( PRODUCTION ) {
+				interactionManagerServer = PRODUCTION_IM;
+			} else {
+				interactionManagerServer = TEST_IM;
+			}
 		}
+		
 		
 		Util.setIM(new InteractionManagerService(interactionManagerServer, 
 				new LocalStorage(Util.APP_ID)) );

@@ -25,6 +25,11 @@ import com.google.gwt.user.client.ui.RootPanel;
  * 
  */
 public class PlaceInteractionWebpage implements EntryPoint {
+	private static final boolean PRODUCTION = false;
+	
+	private static final String PRODUCTION_IM = "http://pw-interactionmanager.appspot.com";
+	private static final String TEST_IM = "http://pw-interactionmanager-test.appspot.com";
+	
 	public static final String TOKEN_SEPARATOR = "%-%";
 
 	public static String APP_ID = "PlaceInteractionWebpage";
@@ -55,7 +60,11 @@ public class PlaceInteractionWebpage implements EntryPoint {
 		
 		String interactionManagerServer = com.google.gwt.user.client.Window.Location.getParameter("imurl");
 		if ( null == interactionManagerServer ) {
-			interactionManagerServer = "http://pw-interactionmanager.appspot.com";
+			if ( PRODUCTION ) {
+				interactionManagerServer = PRODUCTION_IM;
+			} else {
+				interactionManagerServer = TEST_IM;
+			}
 		}
 		
 		interactionManager = new InteractionManagerService(interactionManagerServer, 

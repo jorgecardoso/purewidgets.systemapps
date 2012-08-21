@@ -48,9 +48,9 @@ public class Upload extends HttpServlet {
 			syncCache.put(uploadId, blobKey);
 
 			res.setContentType("text/html");
-			res.getWriter().print("<html><head></head><body>");
+			//res.getWriter().print("<html><head></head><body>");
 			res.getWriter().print(req.getServerName() + "/serve?blob-key=" + blobKey);
-			res.getWriter().print("</body></html>");
+			//res.getWriter().print("</body></html>");
 			// res.sendRedirect("/serveurl?blob-key=" +
 			// blobKeys.get(0).getKeyString());
 		}

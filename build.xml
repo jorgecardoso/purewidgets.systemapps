@@ -95,12 +95,38 @@
     <enhance_war war="war" />
   </target>
   
+   <target name="setconstants-test"  description="Change app id.">
+  		  	<replaceregexp file="src/org/purewidgets/system/placeinteraction/client/PlaceInteractionWebpage.java"
+               match="private static final boolean PRODUCTION = (.*);"
+               replace="private static final boolean PRODUCTION = false;"
+               byline="true"
+			/> 
+  		  	<replaceregexp file="src/org/purewidgets/system/qrcodegenerator/client/QrCodeGenerator.java"
+               match="private static final boolean PRODUCTION = (.*);"
+               replace="private static final boolean PRODUCTION = false;"
+               byline="true"
+			/>  		
+    </target>
+      <target name="setconstants-prod"  description="Change app id.">
+  		  	<replaceregexp file="src/org/purewidgets/system/placeinteraction/client/PlaceInteractionWebpage.java"
+               match="private static final boolean PRODUCTION = (.*);"
+               replace="private static final boolean PRODUCTION = true"
+               byline="true"
+			/> 
+  		  	<replaceregexp file="src/org/purewidgets/system/qrcodegenerator/client/QrCodeGenerator.java"
+               match="private static final boolean PRODUCTION = (.*);"
+               replace="private static final boolean PRODUCTION = true;"
+               byline="true"
+			/>
+    </target>
+    
   <target name="setappid-test"  description="Change app id.">
   		<replaceregexp file="war/WEB-INF/appengine-web.xml"
                match="\&lt;application\&gt;(.*)\&lt;/application\&gt;"
                replace="\&lt;application\&gt;${appid.test}\&lt;/application\&gt;"
                byline="true"
 			/>
+		
     </target>
       <target name="setappid-prod"  description="Change app id.">
   		<replaceregexp file="war/WEB-INF/appengine-web.xml"
@@ -108,6 +134,7 @@
                replace="\&lt;application\&gt;${appid.prod}\&lt;/application\&gt;"
                byline="true"
 			/>
+
     </target>
     
   <macrodef name="appcfg-update-withcredentials">
@@ -133,7 +160,7 @@
     <appcfg-update-withcredentials />
   </target>
   
- <target name="deploy-all-test" depends="setappid-test,gwtc-all,datanucleusenhance"
+ <target name="deploy-all-test" depends="setappid-test,setconstants-test,gwtc-all,datanucleusenhance"
       description="Uploads the application to App Engine.">
     <appcfg-update-withcredentials />
   </target>
@@ -148,7 +175,7 @@
     <appcfg-update-withcredentials />
   </target>
   
- <target name="deploy-all-prod" depends="setappid-prod,gwtc-all,datanucleusenhance"
+ <target name="deploy-all-prod" depends="setappid-prod,setconstants-prod,gwtc-all,datanucleusenhance"
       description="Uploads the application to App Engine.">
     <appcfg-update-withcredentials />
   </target>

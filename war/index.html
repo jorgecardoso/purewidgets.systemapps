@@ -13,14 +13,21 @@
 if ( location.href.search("-test") == -1 ) {
 	document.write("<p><a href='placeinteraction/index.html'>(Production)Place Interaction Webpage</a></p>");
 } else {
-	document.write("<p><a href='placeinteraction/index.html?imurl=http://pw-interactionmanager-test.appspot.com'>(Test)Place Interaction Webpage</a></p>	");
+	document.write("<p><a href='placeinteraction/index.html'>(Test)Place Interaction Webpage</a></p>	");
 }
 </script>
 
 
 <p><a href="placeinteraction/mobile.html">Mobile Place Interaction Webpage</a></p>
 
-<p><a href="qrcodegenerator/index.html">QrCode Generator Application</a></p>
+<script>
+
+if ( location.href.search("-test") == -1 ) {
+	document.write("<p><a href='qrcodegenerator/index.html'>(Production)QR Code Generator Webpage</a></p>");
+} else {
+	document.write("<p><a href='qrcodegenerator/index.html'>(Test)QR Code Generator Webpage</a></p>	");
+}
+</script>
 
 </body>
 </html>
