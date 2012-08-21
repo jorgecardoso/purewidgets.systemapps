@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="System Apps" default="gwtc-all" basedir=".">
+<project name="System Apps" default="deploy-all" basedir=".">
     
-  <property name="module.placeinteraction" value = "org.purewidgets.system.placeinteraction.PlaceInteraction" />
-  <property name="module.qrcodegenerator" value = "org.purewidgets.system.qrcodegenerator.QrCodeGenerator" />
-  <property name="appid.test" value = "pw-systemapps-test" />
-  <property name="appid.prod" value = "pw-systemapps" />
+    
+ <property name="production" value = "false" />
+ 
+ 
+ 
+ <property name="module.placeinteraction" value = "org.purewidgets.system.placeinteraction.PlaceInteraction" />
+ <property name="module.qrcodegenerator" value = "org.purewidgets.system.qrcodegenerator.QrCodeGenerator" />
+ <property name="appid.test" value = "pw-systemapps-test" />
+ <property name="appid.prod" value = "pw-systemapps" />
   
-  
+
+   
   <!-- Arguments to gwtc and devmode targets -->
   <property name="gwt.args" value="" />
 
@@ -25,8 +31,57 @@
     
     <fileset dir="clientLibraries" includes="**/*.jar"/>
   </path>
+  
+  
+  
+<target name="test"  >
+    <echo message="Deploy mode production?: ${production}" />
+    <condition property="production-test" >
+        <equals arg1="${production}" arg2="true" />
+    </condition>
+</target>
+ 
+<target name="init-production" depends="test" if="production-test">
+     <property name="appid" value ="${appid.prod}" /> 
+     <echo message="Using appid: ${appid}" />
+</target> 
 
-  <target name="libs" description="Copy libs to WEB-INF/lib">
+<target name="init-test" depends="test" unless="production-test">
+     <property name="appid" value ="${appid.test}" />
+     <echo message="Using appid: ${appid}" />
+</target> 
+
+
+<target name="init" depends="init-production,init-test"> 
+    <echo message="Replacing: private static final boolean PRODUCTION = ${production}; in " />
+    <echo message="src/org/purewidgets/system/placeinteraction/client/PlaceInteractionWebpage.java" />
+	<replaceregexp file="src/org/purewidgets/system/placeinteraction/client/PlaceInteractionWebpage.java"
+               match="private static final boolean PRODUCTION = (.*);"
+               replace="private static final boolean PRODUCTION = ${production};"
+               byline="true"
+	/> 
+	
+	<echo message="Replacing: private static final boolean PRODUCTION = ${production}; in " />
+    <echo message="src/org/purewidgets/system/qrcodegenerator/client/QrCodeGenerator.java" />
+  	<replaceregexp file="src/org/purewidgets/system/qrcodegenerator/client/QrCodeGenerator.java"
+               match="private static final boolean PRODUCTION = (.*);"
+               replace="private static final boolean PRODUCTION = ${production};"
+               byline="true"
+	/>
+  	
+	<echo message="Replacing: \&lt;application\&gt;${appid}\&lt;/application\&gt; in " />
+    <echo message="war/WEB-INF/appengine-web.xml" />
+  	 <replaceregexp file="war/WEB-INF/appengine-web.xml"
+               match="\&lt;application\&gt;(.*)\&lt;/application\&gt;"
+               replace="\&lt;application\&gt;${appid}\&lt;/application\&gt;"
+               byline="true"
+	/>
+</target>
+
+
+
+
+  <target name="libs" depends="init" description="Copy libs to WEB-INF/lib">
     <mkdir dir="war/WEB-INF/lib" />
     <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
     <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar" />
@@ -51,7 +106,8 @@
 
 
   
-    <target name="gwtc" depends="javac" description="GWT compile to JavaScript (production mode)">
+   <target name="gwtc" depends="javac" description="GWT compile to JavaScript (production mode)">
+
     <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
       <classpath>
         <pathelement location="src"/>
@@ -72,7 +128,7 @@
     </java>
   </target>
   
-  <target name="gwtc-all" depends="javac" description="GWT compile to JavaScript (production mode)">
+  <target name="gwtc-all"  description="GWT compile to JavaScript (production mode)">
     <antcall target="gwtc">
       <param name="modules" value="${module.qrcodegenerator} ${module.placeinteraction}"/>
     </antcall>
@@ -95,87 +151,25 @@
     <enhance_war war="war" />
   </target>
   
-   <target name="setconstants-test"  description="Change app id.">
-  		  	<replaceregexp file="src/org/purewidgets/system/placeinteraction/client/PlaceInteractionWebpage.java"
-               match="private static final boolean PRODUCTION = (.*);"
-               replace="private static final boolean PRODUCTION = false;"
-               byline="true"
-			/> 
-  		  	<replaceregexp file="src/org/purewidgets/system/qrcodegenerator/client/QrCodeGenerator.java"
-               match="private static final boolean PRODUCTION = (.*);"
-               replace="private static final boolean PRODUCTION = false;"
-               byline="true"
-			/>  		
-    </target>
-      <target name="setconstants-prod"  description="Change app id.">
-  		  	<replaceregexp file="src/org/purewidgets/system/placeinteraction/client/PlaceInteractionWebpage.java"
-               match="private static final boolean PRODUCTION = (.*);"
-               replace="private static final boolean PRODUCTION = true"
-               byline="true"
-			/> 
-  		  	<replaceregexp file="src/org/purewidgets/system/qrcodegenerator/client/QrCodeGenerator.java"
-               match="private static final boolean PRODUCTION = (.*);"
-               replace="private static final boolean PRODUCTION = true;"
-               byline="true"
-			/>
-    </target>
-    
-  <target name="setappid-test"  description="Change app id.">
-  		<replaceregexp file="war/WEB-INF/appengine-web.xml"
-               match="\&lt;application\&gt;(.*)\&lt;/application\&gt;"
-               replace="\&lt;application\&gt;${appid.test}\&lt;/application\&gt;"
-               byline="true"
-			/>
-		
-    </target>
-      <target name="setappid-prod"  description="Change app id.">
-  		<replaceregexp file="war/WEB-INF/appengine-web.xml"
-               match="\&lt;application\&gt;(.*)\&lt;/application\&gt;"
-               replace="\&lt;application\&gt;${appid.prod}\&lt;/application\&gt;"
-               byline="true"
-			/>
-
-    </target>
     
   <macrodef name="appcfg-update-withcredentials">
    <sequential>    
     <appcfg action="update" war="war" >
-    <args>
-        <arg value="--email jorgediablu@gmail.com"/>
-        <arg value="--passin"/>
-        <arg value=" &lt;  ../.appengine-credentials"/>
-      </args>
     </appcfg>
   </sequential>    
 </macrodef>      
-      
-     <target name="deploy-qrcodegenerator-test" depends="setappid-test,gwtc-qrcodegenerator,datanucleusenhance"
-      description="Uploads the application to App Engine.">
-    <appcfg-update-withcredentials />
-  </target>
-
-  
-   <target name="deploy-placeinteraction-test" depends="setappid-test,gwtc-placeinteraction,datanucleusenhance"
+       
+   <target name="deploy-qrcodegenerator" depends="gwtc-qrcodegenerator,datanucleusenhance"
       description="Uploads the application to App Engine.">
     <appcfg-update-withcredentials />
   </target>
   
- <target name="deploy-all-test" depends="setappid-test,setconstants-test,gwtc-all,datanucleusenhance"
+           <target name="deploy-placeinteraction" depends="gwtc-placeinteraction,datanucleusenhance"
       description="Uploads the application to App Engine.">
     <appcfg-update-withcredentials />
   </target>
   
-        <target name="deploy-qrcodegenerator-prod" depends="setappid-prod,gwtc-qrcodegenerator,datanucleusenhance"
-      description="Uploads the application to App Engine.">
-    <appcfg-update-withcredentials />
-  </target>
-  
-           <target name="deploy-placeinteraction-prod" depends="setappid-prod,gwtc-placeinteraction,datanucleusenhance"
-      description="Uploads the application to App Engine.">
-    <appcfg-update-withcredentials />
-  </target>
-  
- <target name="deploy-all-prod" depends="setappid-prod,setconstants-prod,gwtc-all,datanucleusenhance"
+ <target name="deploy-all" depends="gwtc-all,datanucleusenhance"
       description="Uploads the application to App Engine.">
     <appcfg-update-withcredentials />
   </target>
