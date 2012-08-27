@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = 'B60E8CE9BDC7AEBD06444D97942EBC03';
+var $strongName = 'ABCFA22DD45D14E4B5B883C7208B2DC1';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'placeinteraction',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -965,6 +965,10 @@ function is_0(o){
     return !!o && o.nodeType == 1;
   }
   return false;
+}
+
+function $setHref(this$static, href){
+  this$static.href = href;
 }
 
 function $createInputElement(doc, type){
@@ -6268,6 +6272,10 @@ _.setTabIndex = function setTabIndex(index){
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$IsWidget, Q$UIObject, Q$Widget]);
 function $setHTML(this$static, html){
   $setTextOrHtml(this$static.directionalTextHelper, html, true);
+}
+
+function $setHref_0(this$static, href){
+  $setHref(this$static.element, href);
 }
 
 function Anchor_1(){
@@ -11792,8 +11800,8 @@ function $onModuleLoad_1(this$static){
   this$static.mainScreen = new MainScreenUi_0(this$static.uiType);
   $add_0(($clinit_RootPanel() , get()), this$static.mainScreen);
   addValueChangeHandler(new PlaceInteractionWebpage$1_0(this$static));
-  $show_0(this$static, ($clinit_History() , impl_1?token_0 == null?'':token_0:''));
   $wnd.loadJanRain();
+  $show_0(this$static, ($clinit_History() , impl_1?token_0 == null?'':token_0:''));
 }
 
 function $show_0(this$static, historyToken){
@@ -12446,7 +12454,8 @@ function $getUsername(){
   return id;
 }
 
-function $logout(this$static){
+function $handleClick(this$static){
+  $setHref_0(this$static.signOutLink, $wnd.location.href);
   this$static.loggedIn = false;
   setUsername($getAnonymousId());
   $setText_0(this$static.identityName, username_0);
@@ -12496,7 +12505,7 @@ function $createAndBindUi_3(owner){
   $setHTML_0(signInLinkWrapper, (sb_0 = new StringBuilder_0 , $append(sb_0.data, "<a class='janrainEngage' href='#'>Sign-In to change your identity<\/a>") , new OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml_0($toString(sb_0.data))).html);
   signInLinkWrapper.element['className'] = 'GAEKAE5BLJ';
   $setHTML(signOutLink, (sb_1 = new StringBuilder_0 , $append(sb_1.data, 'Sign out') , new OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml_0($toString(sb_1.data))).html);
-  signOutLink.element.href = '#';
+  signOutLink.element.href = '';
   attachRecord0 = attachToDom(f_HTMLPanel1.element);
   domId0Element = $getElementById($doc, domId0);
   domId1Element = $getElementById($doc, domId1);
@@ -12542,7 +12551,7 @@ _.getClass$ = function getClass_303(){
 }
 ;
 _.onClick = function onClick_3(event_0){
-  $logout(this.val$owner);
+  $handleClick(this.val$owner);
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$ClickHandler, Q$EventHandler]);
@@ -12744,13 +12753,13 @@ _.createAndBindUi = function createAndBindUi_4(owner){
   return $createAndBindUi_4(dynamicCast(owner, Q$MainScreenUi));
 }
 ;
+--></script>
+<script><!--
 _.getClass$ = function getClass_308(){
   return Lorg_purewidgets_system_placeinteraction_client_ui_main_MainScreenUi_1MainScreenUiDesktopUiBinderImpl_2_classLit;
 }
 ;
 var style_5 = null;
---></script>
-<script><!--
 function $ensureInjected_4(this$static){
   if (!this$static.injected) {
     this$static.injected = true;

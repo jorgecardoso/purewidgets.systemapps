@@ -181,6 +181,10 @@ function placeinteraction(){
     }
   }
 
+  function __gwt_isKnownPropertyValue(propName, propValue){
+    return propValue in values[propName];
+  }
+
   function __gwt_getMetaProperty(name_0){
     var value = metaProps[name_0];
     return value == null?null:value;
@@ -224,6 +228,48 @@ function placeinteraction(){
     }
   }
 
+  providers['locale'] = function(){
+    var locale = null;
+    var rtlocale = 'default';
+    try {
+      if (!locale) {
+        var queryParam = location.search;
+        var qpStart = queryParam.indexOf('locale=');
+        if (qpStart >= 0) {
+          var value = queryParam.substring(qpStart + 7);
+          var end = queryParam.indexOf('&', qpStart);
+          if (end < 0) {
+            end = queryParam.length;
+          }
+          locale = queryParam.substring(qpStart + 7, end);
+        }
+      }
+      if (!locale) {
+        locale = __gwt_getMetaProperty('locale');
+      }
+      if (!locale) {
+        locale = $wnd_0['__gwt_Locale'];
+      }
+      if (locale) {
+        rtlocale = locale;
+      }
+      while (locale && !__gwt_isKnownPropertyValue('locale', locale)) {
+        var lastIndex = locale.lastIndexOf('_');
+        if (lastIndex < 0) {
+          locale = null;
+          break;
+        }
+        locale = locale.substring(0, lastIndex);
+      }
+    }
+     catch (e) {
+      alert('Unexpected exception in locale detection, using default: ' + e);
+    }
+    $wnd_0['__gwt_Locale'] = rtlocale;
+    return locale || 'default';
+  }
+  ;
+  values['locale'] = {'default':0, pt:1};
   providers['user.agent'] = function(){
     var ua = navigator.userAgent.toLowerCase();
     var makeVersion = function(result){
@@ -311,13 +357,19 @@ function placeinteraction(){
   $stats && $stats({moduleName:'placeinteraction', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'selectingPermutation'});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers(['gecko1_8'], '2602B63A72548055B9AAC1C6C1AB2A79');
-      unflattenKeylistIntoAnswers(['ie8'], '2EAC9FB91485B912C228CDE6CBA7A594');
-      unflattenKeylistIntoAnswers(['opera'], '868C2C7E10FC8A208963F5F3C681E69A');
-      unflattenKeylistIntoAnswers(['safari'], '895AB2BD29E9A8D452626DE19CDE6D3F');
-      unflattenKeylistIntoAnswers(['ie6'], 'B60E8CE9BDC7AEBD06444D97942EBC03');
-      unflattenKeylistIntoAnswers(['ie9'], 'BFFAB53A713073566D05477FCFCE20EA');
-      strongName = answers[computePropValue('user.agent')];
+      unflattenKeylistIntoAnswers(['pt', 'ie6'], '3DE3B8F3713CFF4131DFFB5EC090FD39');
+      unflattenKeylistIntoAnswers(['default', 'gecko1_8'], '54E133EFBABFE6F8ADCFAD160BC8B0A6');
+      unflattenKeylistIntoAnswers(['pt', 'opera'], '7B5161E3608C96AFDA41BEEE0C0E8E25');
+      unflattenKeylistIntoAnswers(['pt', 'ie8'], '7C6042840A0750131DDB6AB5082349DA');
+      unflattenKeylistIntoAnswers(['pt', 'safari'], '7F33BB5F981E24D8466600C2412A88B8');
+      unflattenKeylistIntoAnswers(['default', 'ie9'], '8AB0E9765E15B815C42CBD4590C755A3');
+      unflattenKeylistIntoAnswers(['default', 'ie8'], '96EDE4E163B23FD1B86CB1282019EA6D');
+      unflattenKeylistIntoAnswers(['pt', 'ie9'], '983B2F8E658DC4355529E7FC97EF1D83');
+      unflattenKeylistIntoAnswers(['default', 'ie6'], 'ABCFA22DD45D14E4B5B883C7208B2DC1');
+      unflattenKeylistIntoAnswers(['pt', 'gecko1_8'], 'B216C109E9FA4B940BC21AEB3FBA115A');
+      unflattenKeylistIntoAnswers(['default', 'safari'], 'CF1532E467A20DBCD87D05295CABC261');
+      unflattenKeylistIntoAnswers(['default', 'opera'], 'EC7B0AD87223AD918F4C033C936D2799');
+      strongName = answers[computePropValue('locale')][computePropValue('user.agent')];
       var idx = strongName.indexOf(':');
       if (idx != -1) {
         softPermutationId = Number(strongName.substring(idx + 1));

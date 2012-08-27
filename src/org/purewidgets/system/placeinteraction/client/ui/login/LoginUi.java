@@ -13,6 +13,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.Cookies;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
@@ -83,6 +84,7 @@ public class LoginUi extends Composite {
 
 	@UiHandler("signOutLink")
 	 void handleClick(ClickEvent e) {
+		this.signOutLink.setHref(Window.Location.getHref());
 		this.logout();
 	 }
 	

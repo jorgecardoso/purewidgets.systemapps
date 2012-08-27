@@ -1,6 +1,7 @@
 package org.purewidgets.system.placeinteraction.client.ui.widget;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import org.purewidgets.shared.logging.Log;
@@ -280,7 +281,7 @@ public class WidgetListUi extends Composite  {
 		/*
 		 * Sort the widgets by id
 		 */
-		//Collections.sort(widgetList);
+		Collections.sort(widgetList);
 		
 		if ( null == widgetList || widgetList.size() == 0 ) {
 			

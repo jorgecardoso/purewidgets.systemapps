@@ -83,9 +83,10 @@ public class PlaceInteractionWebpage implements EntryPoint {
 			}
 		});
 		
+		this.loadJanRain();
+		
 		this.show(History.getToken());
 		
-		this.loadJanRain();
 	}
 	
 	public static InteractionManagerService getIM() {

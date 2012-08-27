@@ -181,6 +181,10 @@ function qrcodegenerator(){
     }
   }
 
+  function __gwt_isKnownPropertyValue(propName, propValue){
+    return propValue in values[propName];
+  }
+
   function __gwt_getMetaProperty(name_0){
     var value = metaProps[name_0];
     return value == null?null:value;
@@ -224,65 +228,48 @@ function qrcodegenerator(){
     }
   }
 
-  providers['user.agent'] = function(){
-    var ua = navigator.userAgent.toLowerCase();
-    var makeVersion = function(result){
-      return parseInt(result[1]) * 1000 + parseInt(result[2]);
-    }
-    ;
-    if (function(){
-      return ua.indexOf('opera') != -1;
-    }
-    ())
-      return 'opera';
-    if (function(){
-      return ua.indexOf('webkit') != -1 || function(){
-        if (ua.indexOf('chromeframe') != -1) {
-          return true;
-        }
-        if (typeof window['ActiveXObject'] != 'undefined') {
-          try {
-            var obj = new ActiveXObject('ChromeTab.ChromeFrame');
-            if (obj) {
-              obj.registerBhoIfNeeded();
-              return true;
-            }
+  providers['locale'] = function(){
+    var locale = null;
+    var rtlocale = 'default';
+    try {
+      if (!locale) {
+        var queryParam = location.search;
+        var qpStart = queryParam.indexOf('locale=');
+        if (qpStart >= 0) {
+          var value = queryParam.substring(qpStart + 7);
+          var end = queryParam.indexOf('&', qpStart);
+          if (end < 0) {
+            end = queryParam.length;
           }
-           catch (e) {
-          }
+          locale = queryParam.substring(qpStart + 7, end);
         }
-        return false;
       }
-      ();
+      if (!locale) {
+        locale = __gwt_getMetaProperty('locale');
+      }
+      if (!locale) {
+        locale = $wnd_0['__gwt_Locale'];
+      }
+      if (locale) {
+        rtlocale = locale;
+      }
+      while (locale && !__gwt_isKnownPropertyValue('locale', locale)) {
+        var lastIndex = locale.lastIndexOf('_');
+        if (lastIndex < 0) {
+          locale = null;
+          break;
+        }
+        locale = locale.substring(0, lastIndex);
+      }
     }
-    ())
-      return 'safari';
-    if (function(){
-      return ua.indexOf('msie') != -1 && $doc_0.documentMode >= 9;
+     catch (e) {
+      alert('Unexpected exception in locale detection, using default: ' + e);
     }
-    ())
-      return 'ie9';
-    if (function(){
-      return ua.indexOf('msie') != -1 && $doc_0.documentMode >= 8;
-    }
-    ())
-      return 'ie8';
-    if (function(){
-      var result = /msie ([0-9]+)\.([0-9]+)/.exec(ua);
-      if (result && result.length == 3)
-        return makeVersion(result) >= 6000;
-    }
-    ())
-      return 'ie6';
-    if (function(){
-      return ua.indexOf('gecko') != -1;
-    }
-    ())
-      return 'gecko1_8';
-    return 'unknown';
+    $wnd_0['__gwt_Locale'] = rtlocale;
+    return locale || 'default';
   }
   ;
-  values['user.agent'] = {gecko1_8:0, ie6:1, ie8:2, ie9:3, opera:4, safari:5};
+  values['locale'] = {'default':0, pt:1};
   qrcodegenerator.onScriptLoad = function(){
     if (frameInjected) {
       loadDone = true;
@@ -311,13 +298,9 @@ function qrcodegenerator(){
   $stats && $stats({moduleName:'qrcodegenerator', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'selectingPermutation'});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers(['opera'], '5CF7E6414CA1E1F3AA06CFE1B144C1DC');
-      unflattenKeylistIntoAnswers(['safari'], '9B83821D41BCACAD564E4CD689206C54');
-      unflattenKeylistIntoAnswers(['gecko1_8'], 'A8033BE4D304E47D86D37DC3D4940FA2');
-      unflattenKeylistIntoAnswers(['ie6'], 'D0A49758368120308CB67F6BE5563174');
-      unflattenKeylistIntoAnswers(['ie9'], 'FAC4DD638E93017F996DCB749C647843');
-      unflattenKeylistIntoAnswers(['ie8'], 'FF567401E3DA41F14C7BC9D4A75B6AD5');
-      strongName = answers[computePropValue('user.agent')];
+      unflattenKeylistIntoAnswers(['default'], '9B83821D41BCACAD564E4CD689206C54');
+      unflattenKeylistIntoAnswers(['pt'], 'AD5F08B18A2608FD65BA0EC9CD2F3AB0');
+      strongName = answers[computePropValue('locale')];
       var idx = strongName.indexOf(':');
       if (idx != -1) {
         softPermutationId = Number(strongName.substring(idx + 1));

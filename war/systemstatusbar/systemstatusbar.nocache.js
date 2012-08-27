@@ -181,6 +181,10 @@ function systemstatusbar(){
     }
   }
 
+  function __gwt_isKnownPropertyValue(propName, propValue){
+    return propValue in values[propName];
+  }
+
   function __gwt_getMetaProperty(name_0){
     var value = metaProps[name_0];
     return value == null?null:value;
@@ -224,6 +228,48 @@ function systemstatusbar(){
     }
   }
 
+  providers['locale'] = function(){
+    var locale = null;
+    var rtlocale = 'default';
+    try {
+      if (!locale) {
+        var queryParam = location.search;
+        var qpStart = queryParam.indexOf('locale=');
+        if (qpStart >= 0) {
+          var value = queryParam.substring(qpStart + 7);
+          var end = queryParam.indexOf('&', qpStart);
+          if (end < 0) {
+            end = queryParam.length;
+          }
+          locale = queryParam.substring(qpStart + 7, end);
+        }
+      }
+      if (!locale) {
+        locale = __gwt_getMetaProperty('locale');
+      }
+      if (!locale) {
+        locale = $wnd_0['__gwt_Locale'];
+      }
+      if (locale) {
+        rtlocale = locale;
+      }
+      while (locale && !__gwt_isKnownPropertyValue('locale', locale)) {
+        var lastIndex = locale.lastIndexOf('_');
+        if (lastIndex < 0) {
+          locale = null;
+          break;
+        }
+        locale = locale.substring(0, lastIndex);
+      }
+    }
+     catch (e) {
+      alert('Unexpected exception in locale detection, using default: ' + e);
+    }
+    $wnd_0['__gwt_Locale'] = rtlocale;
+    return locale || 'default';
+  }
+  ;
+  values['locale'] = {'default':0, pt:1};
   providers['user.agent'] = function(){
     var ua = navigator.userAgent.toLowerCase();
     var makeVersion = function(result){
@@ -311,9 +357,15 @@ function systemstatusbar(){
   $stats && $stats({moduleName:'systemstatusbar', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'selectingPermutation'});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers(['ie9'], '395F185C040A56F9F6C6E4EACAA31BBB');
-      unflattenKeylistIntoAnswers(['safari'], '5C566AED67707124B3844B0DA7AFB58B');
-      strongName = answers[computePropValue('user.agent')];
+      unflattenKeylistIntoAnswers(['default', 'ie9'], '395F185C040A56F9F6C6E4EACAA31BBB');
+      unflattenKeylistIntoAnswers(['pt', 'ie9'], '395F185C040A56F9F6C6E4EACAA31BBB');
+      unflattenKeylistIntoAnswers(['default', 'ie9'], '395F185C040A56F9F6C6E4EACAA31BBB' + ':1');
+      unflattenKeylistIntoAnswers(['pt', 'ie9'], '395F185C040A56F9F6C6E4EACAA31BBB' + ':1');
+      unflattenKeylistIntoAnswers(['default', 'safari'], '5C566AED67707124B3844B0DA7AFB58B');
+      unflattenKeylistIntoAnswers(['pt', 'safari'], '5C566AED67707124B3844B0DA7AFB58B');
+      unflattenKeylistIntoAnswers(['default', 'safari'], '5C566AED67707124B3844B0DA7AFB58B' + ':1');
+      unflattenKeylistIntoAnswers(['pt', 'safari'], '5C566AED67707124B3844B0DA7AFB58B' + ':1');
+      strongName = answers[computePropValue('locale')][computePropValue('user.agent')];
       var idx = strongName.indexOf(':');
       if (idx != -1) {
         softPermutationId = Number(strongName.substring(idx + 1));
