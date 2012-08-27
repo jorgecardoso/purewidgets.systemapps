@@ -247,6 +247,7 @@ public class WidgetListUi extends Composite  {
 	
 	private void addTab(Widget w, String tabName) {
 		if ( null != this.tabPanel ) {
+			//this.tabPanel.insert(w, tabName, this.tabPanel.getWidgetCount());
 			this.tabPanel.add(w, tabName);
 		}
 		if ( null != this.stackPanel ) {
@@ -282,7 +283,11 @@ public class WidgetListUi extends Composite  {
 		 * Sort the widgets by id
 		 */
 		Collections.sort(widgetList);
+		Collections.reverse(widgetList);
 		
+		for (org.purewidgets.shared.im.Widget w : widgetList) {
+			Log.debug(this, w.getWidgetId());
+		}
 		if ( null == widgetList || widgetList.size() == 0 ) {
 			
 			//this.mainPanel.clear();
@@ -326,7 +331,7 @@ public class WidgetListUi extends Composite  {
 			}
 
 			/*
-			 * Add the new widgets. Widgets are inserted in alphabetical order
+			 * Add the new widgets. Widgets are inserted in reverse alphabetical order
 			 */
 			for (org.purewidgets.shared.im.Widget widget : widgetList) {
 				
@@ -381,9 +386,9 @@ public class WidgetListUi extends Composite  {
 					}
 					
 					/*
-					 * If we found a widget with a name greater than the widget to be inserted mark its index
+					 * If we found a widget with a name lower than the widget to be inserted mark its index
 					 */
-					if ( !foundPlace && existingWidgetName.compareTo(widget.getWidgetId()) > 0 ) {
+					if ( !foundPlace && existingWidgetName.compareTo(widget.getWidgetId()) < 0 ) {
 						indexInPanel = i;
 						foundPlace = true;
 					}
