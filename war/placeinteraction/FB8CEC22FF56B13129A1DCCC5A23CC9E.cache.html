@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = 'DBC52C3FA82453A948E4011CB99BDA66';
+var $strongName = 'FB8CEC22FF56B13129A1DCCC5A23CC9E';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'placeinteraction',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -11243,7 +11243,22 @@ _.getClass$ = function getClass_272(){
 ;
 _.interactionServerUrl = null;
 function $compareTo_4(this$static, other){
-  return compareTo_3(this$static.widgetId_0, other.widgetId_0);
+  var otherSort, thisSort, wp, wp$iterator;
+  thisSort = null;
+  if (this$static.widgetParameters_0.size_0 > 0) {
+    for (wp$iterator = new AbstractList$IteratorImpl_0(this$static.widgetParameters_0); wp$iterator.i < wp$iterator.this$0_0.size_1();) {
+      wp = dynamicCast($next_3(wp$iterator), Q$WidgetParameter);
+      $equals(wp.name_0, 'purewidgets-sortorder') && (thisSort = wp.value_0);
+    }
+  }
+  otherSort = null;
+  if (other.widgetParameters_0.size_0 > 0) {
+    for (wp$iterator = new AbstractList$IteratorImpl_0(other.widgetParameters_0); wp$iterator.i < wp$iterator.this$0_0.size_1();) {
+      wp = dynamicCast($next_3(wp$iterator), Q$WidgetParameter);
+      $equals(wp.name_0, 'purewidgets-sortorder') && (otherSort = wp.value_0);
+    }
+  }
+  return thisSort == null && otherSort == null?compareTo_3(this$static.widgetId_0, other.widgetId_0):thisSort != null && otherSort != null?compareTo_3(thisSort, otherSort):thisSort != null?-1:1;
 }
 
 function $setApplicationId(this$static, applicationId){
@@ -12006,6 +12021,8 @@ function ApplicationListUi_ApplicationListSmartphoneUiBinderImpl(){
 }
 
 _ = ApplicationListUi_ApplicationListSmartphoneUiBinderImpl_0.prototype = ApplicationListUi_ApplicationListSmartphoneUiBinderImpl.prototype = new Object_0;
+--></script>
+<script><!--
 _.createAndBindUi = function createAndBindUi_0(owner){
   return $createAndBindUi_0(dynamicCast(owner, Q$ApplicationListUi));
 }
@@ -12032,8 +12049,6 @@ function ApplicationListUi_ApplicationListSmartphoneUiBinderImpl_GenBundle_defau
 function ApplicationListUi_ApplicationListSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1(){
 }
 
---></script>
-<script><!--
 _ = ApplicationListUi_ApplicationListSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1_0.prototype = ApplicationListUi_ApplicationListSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1.prototype = new Object_0;
 _.getClass$ = function getClass_292(){
   return Lorg_purewidgets_system_placeinteraction_client_ui_application_ApplicationListUi_1ApplicationListSmartphoneUiBinderImpl_1GenBundle_1default_1InlineClientBundleGenerator$1_2_classLit;
@@ -12653,6 +12668,8 @@ function $clinit_MainScreenUi_MainScreenUiDesktopUiBinderImpl_GenBundle_default_
   style_5 = new MainScreenUi_MainScreenUiDesktopUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1_0;
 }
 
+--></script>
+<script><!--
 function $createAndBindUi_5(owner){
   var attachRecord0, domId0, domId0Element, domId1, domId1Element, features, loginUi, mainContent, sb, sb_0;
   $clinit_MainScreenUi_MainScreenUiSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$styleInitializer();
@@ -12686,8 +12703,6 @@ _.createAndBindUi = function createAndBindUi_5(owner){
   return $createAndBindUi_5(dynamicCast(owner, Q$MainScreenUi));
 }
 ;
---></script>
-<script><!--
 _.getClass$ = function getClass_309(){
   return Lorg_purewidgets_system_placeinteraction_client_ui_main_MainScreenUi_1MainScreenUiSmartphoneUiBinderImpl_2_classLit;
 }
@@ -13363,6 +13378,8 @@ _.loadWidgetIcon = false;
 _.pureWidget = null;
 _.uiType = null;
 var desktopUiBinder_7, smartphoneUiBinder_2;
+--></script>
+<script><!--
 function $createAndBindUi_13(owner){
   var actionButton, descriptionLabel, entryTextBox, f_VerticalPanel1, iconImage, mainHorizontalPanel;
   $clinit_EntryWidgetUi_EntryWidgetDesktopUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$styleInitializer();
@@ -13408,8 +13425,6 @@ _.getClass$ = function getClass_329(){
 }
 ;
 var style_12 = null;
---></script>
-<script><!--
 function $ensureInjected_11(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
@@ -13939,6 +13954,8 @@ function $getUiBinder_10(this$static, uiType){
   }
 }
 
+--></script>
+<script><!--
 function PresenceWidgetUi_0(uiType, widget){
   var description;
   $clinit_PresenceWidgetUi();
@@ -13969,8 +13986,6 @@ _.loadWidgetIcon = false;
 _.pureWidget = null;
 _.uiType = null;
 var desktopUiBinder_10, smartphoneUiBinder_5;
---></script>
-<script><!--
 function $createAndBindUi_19(owner){
   var actionButton, descriptionLabel, f_VerticalPanel1, iconImage, mainHorizontalPanel;
   $clinit_PresenceWidgetUi_ImperativeSingleOptionUiDesktopUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$styleInitializer();
@@ -14587,6 +14602,8 @@ _.iconErrorThrown = false;
 _.labelNoWidgetFound = null;
 _.loadApplicationIcon = false;
 _.panelsMap = null;
+--></script>
+<script><!--
 _.placeName_0 = null;
 _.spanApplicationName = null;
 _.stackPanel = null;
@@ -14643,8 +14660,6 @@ _.getClass$ = function getClass_360(){
   return Lorg_purewidgets_system_placeinteraction_client_ui_widget_WidgetListUi$3_2_classLit;
 }
 ;
---></script>
-<script><!--
 _.onClick = function onClick_6(event_0){
   newItem(this.this$0.placeName_0);
 }
@@ -15243,6 +15258,8 @@ function WidgetUi_WidgetDesktopUiBinderImpl_0(){
 function WidgetUi_WidgetDesktopUiBinderImpl(){
 }
 
+--></script>
+<script><!--
 _ = WidgetUi_WidgetDesktopUiBinderImpl_0.prototype = WidgetUi_WidgetDesktopUiBinderImpl.prototype = new Object_0;
 _.createAndBindUi = function createAndBindUi_23(owner){
   return $createAndBindUi_25(dynamicCast(owner, Q$WidgetUi));
@@ -15271,8 +15288,6 @@ _.onError = function onError_3(event_0){
 _.castableTypeMap$ = makeCastMap([Q$ErrorHandler, Q$EventHandler]);
 _.val$owner = null;
 var style_24 = null;
---></script>
-<script><!--
 function $ensureInjected_23(this$static){
   if (!this$static.injected) {
     this$static.injected = true;

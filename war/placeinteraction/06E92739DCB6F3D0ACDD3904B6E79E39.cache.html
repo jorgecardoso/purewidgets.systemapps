@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = 'B7BFBE79BBBD3DB5DA2DEA98BBDA4FDF';
+var $strongName = '06E92739DCB6F3D0ACDD3904B6E79E39';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'placeinteraction',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -11456,7 +11456,22 @@ _.getClass$ = function getClass_279(){
 ;
 _.interactionServerUrl = null;
 function $compareTo_4(this$static, other){
-  return compareTo_3(this$static.widgetId_0, other.widgetId_0);
+  var otherSort, thisSort, wp, wp$iterator;
+  thisSort = null;
+  if (this$static.widgetParameters_0.size_0 > 0) {
+    for (wp$iterator = new AbstractList$IteratorImpl_0(this$static.widgetParameters_0); wp$iterator.i < wp$iterator.this$0_0.size_1();) {
+      wp = dynamicCast($next_3(wp$iterator), Q$WidgetParameter);
+      $equals(wp.name_0, 'purewidgets-sortorder') && (thisSort = wp.value_0);
+    }
+  }
+  otherSort = null;
+  if (other.widgetParameters_0.size_0 > 0) {
+    for (wp$iterator = new AbstractList$IteratorImpl_0(other.widgetParameters_0); wp$iterator.i < wp$iterator.this$0_0.size_1();) {
+      wp = dynamicCast($next_3(wp$iterator), Q$WidgetParameter);
+      $equals(wp.name_0, 'purewidgets-sortorder') && (otherSort = wp.value_0);
+    }
+  }
+  return thisSort == null && otherSort == null?compareTo_3(this$static.widgetId_0, other.widgetId_0):thisSort != null && otherSort != null?compareTo_3(thisSort, otherSort):thisSort != null?-1:1;
 }
 
 function $setApplicationId(this$static, applicationId){
@@ -12173,6 +12188,8 @@ function ApplicationListUi_ApplicationListDesktopUiBinderImpl_GenBundle_pt_Inlin
 }
 
 _ = ApplicationListUi_ApplicationListDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$1_0.prototype = ApplicationListUi_ApplicationListDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$1.prototype = new Object_0;
+--></script>
+<script><!--
 _.getClass$ = function getClass_297(){
   return Lorg_purewidgets_system_placeinteraction_client_ui_application_ApplicationListUi_1ApplicationListDesktopUiBinderImpl_1GenBundle_1pt_1InlineClientBundleGenerator$1_2_classLit;
 }
@@ -12183,8 +12200,6 @@ function $clinit_ApplicationListUi_ApplicationListDesktopUiBinderImpl_GenBundle_
   style_0 = new ApplicationListUi_ApplicationListDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$1_0;
 }
 
---></script>
-<script><!--
 function $createAndBindUi_0(owner){
   var attachRecord0, attachRecord1, domId0, domId0Element, domId1, domId2, domId2Element, f_HTML2, f_HTMLPanel1, panel, placeName, sb, sb_0, sb_1;
   $clinit_ApplicationListUi_ApplicationListSmartphoneUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer();
@@ -12825,6 +12840,8 @@ function $createAndBindUi_4(owner){
 function MainScreenUi_MainScreenUiDesktopUiBinderImpl_0(){
 }
 
+--></script>
+<script><!--
 function MainScreenUi_MainScreenUiDesktopUiBinderImpl(){
 }
 
@@ -12838,8 +12855,6 @@ _.getClass$ = function getClass_314(){
 }
 ;
 var style_5 = null;
---></script>
-<script><!--
 function $ensureInjected_4(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
