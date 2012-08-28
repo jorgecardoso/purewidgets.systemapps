@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.purewidgets.shared.logging.Log;
 import org.purewidgets.shared.im.WidgetOption;
 import org.purewidgets.shared.im.Application;
+import org.purewidgets.shared.im.WidgetParameter;
 import org.purewidgets.system.placeinteraction.client.PlaceInteractionWebpage;
 import org.purewidgets.system.placeinteraction.client.ui.UiType;
 
@@ -267,7 +268,15 @@ public class WidgetUi extends Composite  {
 		}
 		if ( null != toReturn ) {
 			//toReturn.setStyleName("widget");
-			toReturn.getElement().setPropertyString("id", publicDisplayWidget.getWidgetId());
+			String id = publicDisplayWidget.getWidgetId();
+			if ( null != publicDisplayWidget.getWidgetParameters() && publicDisplayWidget.getWidgetParameters().size() > 0 ) {
+				for ( WidgetParameter wp : publicDisplayWidget.getWidgetParameters() ) {
+					if ( wp.getName().equals(	org.purewidgets.shared.im.Widget.SORT_ORDER_PARAMETER_NAME ) ) {
+						id = wp.getValue();
+					}
+				}
+			}
+			toReturn.getElement().setPropertyString("id", id);
 		}
 		return toReturn;
 	}
