@@ -7,6 +7,7 @@
 	<classpathentry kind="lib" path="/Users/jorge/Google Drive/PhD/Work/0-Code-EclipseWorkspace/PureWidgets System Apps/serverLibraries/objectify-3.0.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/purewidgets.jar"/>
 	<classpathentry kind="lib" path="/Users/jorge/Google Drive/PhD/Work/0-Code-EclipseWorkspace/PuReWidgets System Apps/clientLibraries/gwt-gae-channel-0.4-alpha.jar"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine (2)"/>
+	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER/App Engine"/>
+	<classpathentry kind="lib" path="/Users/jorge/Google Drive/PhD/Work/0-Code-EclipseWorkspace/PuReWidgets System Apps/clientLibraries/gwt-voices-2.1.8.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

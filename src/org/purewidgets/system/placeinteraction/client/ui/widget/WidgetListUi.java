@@ -382,6 +382,7 @@ public class WidgetListUi extends Composite  {
 					 */
 					if ( existingWidgetName.equals(widget.getWidgetId()) ) {
 						exists = true;
+						indexInPanel = i;
 						break;
 					}
 					
@@ -402,6 +403,9 @@ public class WidgetListUi extends Composite  {
 					} else {
 						panel.add(WidgetUi.getHtmlWidget(this.uiType, widget, null));
 					}
+				} else {
+					panel.remove(indexInPanel);
+					panel.insert(WidgetUi.getHtmlWidget(this.uiType, widget, null), indexInPanel);
 				}
 			}
 			

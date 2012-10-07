@@ -298,8 +298,8 @@ function qrcodegenerator(){
   $stats && $stats({moduleName:'qrcodegenerator', sessionId:$sessionId_0, subSystem:'startup', evtGroup:'bootstrap', millis:(new Date).getTime(), type:'selectingPermutation'});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers(['default'], '9B83821D41BCACAD564E4CD689206C54');
-      unflattenKeylistIntoAnswers(['pt'], 'AD5F08B18A2608FD65BA0EC9CD2F3AB0');
+      unflattenKeylistIntoAnswers(['default'], '632CA2ABC3DAD145D21DF394A835643C');
+      unflattenKeylistIntoAnswers(['pt'], 'FE0B28FD5C37AD544B265DCE0EE30DD9');
       strongName = answers[computePropValue('locale')];
       var idx = strongName.indexOf(':');
       if (idx != -1) {

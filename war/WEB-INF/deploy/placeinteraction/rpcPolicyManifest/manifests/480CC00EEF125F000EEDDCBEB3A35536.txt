@@ -1,2 +1,0 @@
-serviceClass: org.purewidgets.client.storage.ServerStorageService
-path: DA53C0463EC53C99F38850E4B480DBE4.gwt.rpc
