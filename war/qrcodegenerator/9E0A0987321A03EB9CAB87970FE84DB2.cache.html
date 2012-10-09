@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = 'FE0B28FD5C37AD544B265DCE0EE30DD9';
+var $strongName = '9E0A0987321A03EB9CAB87970FE84DB2';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'qrcodegenerator',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -10127,7 +10127,7 @@ function $onModuleLoad_1(this$static){
   var interactionManagerServer;
   $wnd.location.pathname.indexOf('index.html') != -1?(this$static.uiType = ($clinit_UiType() , Desktop)):(this$static.uiType = ($clinit_UiType() , Smartphone));
   interactionManagerServer = (ensureParameterMap() , dynamicCast($get_0(paramMap, 'imurl'), Q$String));
-  null == interactionManagerServer && (interactionManagerServer = 'http://pw-interactionmanager-test.appspot.com');
+  null == interactionManagerServer && (interactionManagerServer = 'http://pw-interactionmanager.appspot.com');
   setIM(new InteractionManagerService_0(interactionManagerServer));
   this$static.mainScreen = new MainScreenUi_0(this$static.uiType);
   $add_0(($clinit_RootPanel() , get()), this$static.mainScreen);

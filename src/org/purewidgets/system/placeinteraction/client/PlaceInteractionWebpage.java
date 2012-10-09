@@ -25,7 +25,7 @@ import com.google.gwt.user.client.ui.RootPanel;
  * 
  */
 public class PlaceInteractionWebpage implements EntryPoint {
-	private static final boolean PRODUCTION = false;
+	private static final boolean PRODUCTION = true;
 	
 	private static final String PRODUCTION_IM = "http://pw-interactionmanager.appspot.com";
 	private static final String TEST_IM = "http://pw-interactionmanager-test.appspot.com";

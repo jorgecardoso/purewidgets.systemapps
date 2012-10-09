@@ -4,12 +4,12 @@
 	<ui:style>
 		.main {
 			font-family: Verdana, Arial, Helvetica, sans-serif;
-			border: 2px dashed black;
+			border: 2px dashed #FFC621;
 			padding:25px;
-			background: white;
-			background: rgba(255, 255, 255, 0.95);
+			background: #FFF5D9;
+			background: rgba(255, 245, 217, 0.95);
 			
-			
+			color: #DE6525;
 		}
 		.main td {
 			font-family: inherit;

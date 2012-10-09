@@ -61,8 +61,8 @@ public abstract class BaseClickHandler implements ClickHandler {
 		Log.debug(this, "Sending input: " + input);
 		popup.setText("Sending input from user " + UserInfo.getUsername()+".");
 		popup.show();
-		
-		popup.setPopupPosition(Window.getClientWidth()/2-popup.getOffsetWidth()/2, 50);
+		popup.center();
+		//popup.setPopupPosition(Window.getClientWidth()/2-popup.getOffsetWidth()/2, 50);
 		
 
 //		DateTimeFormat dtf = DateTimeFormat.getFormat("yyyy-MM-dd'T'hh:mm:ss");
@@ -88,7 +88,7 @@ public abstract class BaseClickHandler implements ClickHandler {
 					public void onSuccess(WidgetInput returnValue) {
 						Log.debug(this, "Sent!");
 						popup.setText(popup.getText() + "\n Sent!");
-						timer.schedule(2000);
+						timer.schedule(4000);
 						
 					}
 
