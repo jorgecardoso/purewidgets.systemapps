@@ -6,6 +6,7 @@ package org.purewidgets.system.placeinteraction.client;
 import java.util.ArrayList;
 
 import org.purewidgets.client.im.WidgetManager;
+import org.purewidgets.client.im.json.InputResponseJson;
 import org.purewidgets.shared.logging.Log;
 import org.purewidgets.shared.im.WidgetInput;
 import org.purewidgets.shared.im.WidgetOption;
@@ -59,9 +60,13 @@ public abstract class BaseClickHandler implements ClickHandler {
 	
 
 		Log.debug(this, "Sending input: " + input);
-		popup.setText("Sending input from user " + UserInfo.getUsername()+".");
+		//popup.setText("Sending input from user " + UserInfo.getUsername()+".");
+		popup.showProgressIndicator();
 		popup.show();
+		//popup.setWidth("256px");
+		popup.setSize("256px", "350px");
 		popup.center();
+		//popup.getElement().getStyle().setTop(value, unit)
 		//popup.setPopupPosition(Window.getClientWidth()/2-popup.getOffsetWidth()/2, 50);
 		
 
@@ -82,21 +87,26 @@ public abstract class BaseClickHandler implements ClickHandler {
 		
 		PlaceInteractionWebpage.getIM().sendWidgetInput(this.placeName, this.applicationName, PlaceInteractionWebpage.APP_ID,
 				widgetInput, 
-				new AsyncCallback<WidgetInput>() {
+				new AsyncCallback<InputResponseJson>() {
 
 					@Override
-					public void onSuccess(WidgetInput returnValue) {
-						Log.debug(this, "Sent!");
-						popup.setText(popup.getText() + "\n Sent!");
-						timer.schedule(4000);
+					public void onSuccess(InputResponseJson returnValue) {
+						Log.debug(this, "Sent! " +returnValue);
+						popup.showInfo();
+						popup.setIcon(returnValue.getApplication().getApplicationBaseUrl()+"icon.svg");
+						popup.setApplicationName(returnValue.getApplication().getApplicationId());
+						popup.setPlaceName(returnValue.getPlace().getPlaceName());
+
+						timer.schedule(6000);
 						
 					}
 
 					@Override
 					public void onFailure(Throwable exception) {
 						Log.debug(this, "An error ocurred.");
-						popup.setText(popup.getText() + "\n Oops, an error ocurred!");
-						timer.schedule(5000);
+						popup.showError();
+						//popup.setText("\n Oops, an error ocurred!");
+						timer.schedule(6000);
 						
 					}
 			

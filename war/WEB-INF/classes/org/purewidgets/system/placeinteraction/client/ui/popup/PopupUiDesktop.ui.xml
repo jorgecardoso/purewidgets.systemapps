@@ -11,10 +11,48 @@
 			
 			color: #DE6525;
 		}
+
 		.main td {
 			font-family: inherit;
 		}
+
+		.panelProgress {
+			margin-left:auto;
+			text-align:center;
+		}
+
+		.panelInfo {
+			text-align: center;
+		}
+
+		.img {
+			height: 100%;
+			width: 100%;	
+		}
+		.icon {
+			width:128px;
+			height:128px;
+			border: 1px solid black;
+			background-color: white;
+		}
+
 		.message {
+			font-size: 1.2em;
+			font-family: inherit;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			margin-left:auto;
+			margin-right:auto;
+
+		}
+		.messageApplicationName {
+			font-size: 1.4em;
+			font-family: inherit;
+			margin-left:auto;
+			margin-right:auto;
+
+		}
+		.messagePlaceName {
 			font-size: 1.2em;
 			font-family: inherit;
 			margin-left:auto;
@@ -22,9 +60,26 @@
 
 		}
 	</ui:style>
-	<g:VerticalPanel styleName="{style.main}">
-		<g:cell verticalAlignment="middle" horizontalAlignment="center">
-			<g:Label styleName="{style.message}" ui:field="messageLabel"/>
-		</g:cell> 
-	</g:VerticalPanel>
+	
+	<g:DeckPanel styleName="{style.main}" ui:field="deckPanelMain">
+	    
+	    <g:HTMLPanel ui:field="panelProgress">
+	        <img src="loader.svg" class="{style.img}" />
+	    </g:HTMLPanel>
+	    
+	   	<g:HTMLPanel ui:field="panelInfo" styleName="{style.panelInfo}">
+	   	    <g:Image ui:field="imgApplicationIcon" styleName="{style.icon}"/>
+			<g:Label styleName="{style.message}" >Input sent to </g:Label>
+			<g:Label styleName="{style.messageApplicationName}" ui:field="messageApplicationName"/>
+			<g:Label styleName="{style.message}" >at</g:Label>
+			<g:Label styleName="{style.messagePlaceName}" ui:field="messagePlaceName"/>
+	    </g:HTMLPanel>
+	    
+	    <g:HTMLPanel >
+	   	  
+			<g:Label styleName="{style.message}" >Oops! An error occurred.  </g:Label>
+			<g:Label styleName="{style.message}" >Please try again. </g:Label>
+	    </g:HTMLPanel>
+
+	</g:DeckPanel>
 </ui:UiBinder> 

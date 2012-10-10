@@ -6,20 +6,33 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiTemplate;
+import com.google.gwt.user.client.ui.DeckPanel;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class PopupUi extends PopupPanel implements HasText {
+public class PopupUi extends PopupPanel{
 
 	@UiTemplate("PopupUiDesktop.ui.xml")
 	interface PopupUiDesktopUiBinder extends UiBinder<Widget, PopupUi> {}
 	private static PopupUiDesktopUiBinder desktopUiBinder = GWT.create(PopupUiDesktopUiBinder.class);
 
 	private UiType uiType;
-	@UiField Label messageLabel;
+
+	@UiField 
+	Label messageApplicationName;
 	
+	@UiField 
+	Label messagePlaceName;
+	
+	@UiField
+	DeckPanel deckPanelMain;
+	
+	@UiField
+	Image imgApplicationIcon;
+			
 	public PopupUi(UiType uiType) {
 		this.uiType = uiType;
 		setWidget(this.getUiBinder(uiType).createAndBindUi(this));
@@ -36,15 +49,29 @@ public class PopupUi extends PopupPanel implements HasText {
 			return desktopUiBinder;
 		}
 	}
-
-	@Override
-	public String getText() {
-		return this.messageLabel.getText();
+	
+	public void setIcon(String url) {
+		this.imgApplicationIcon.setUrl(url);
+		
+	}
+	public void showProgressIndicator() {
+		this.deckPanelMain.showWidget(0);
+	}
+	
+	public void showInfo() {
+		this.deckPanelMain.showWidget(1);
+	}
+	
+	public void showError() {
+		this.deckPanelMain.showWidget(2);
 	}
 
-	@Override
-	public void setText(String text) {
-		this.messageLabel.setText(text);
+	public void setPlaceName(String text) {
+		this.messagePlaceName.setText(text);
+	}
+
+	public void setApplicationName(String text) {
+		this.messageApplicationName.setText(text);
 	}
 
 }
