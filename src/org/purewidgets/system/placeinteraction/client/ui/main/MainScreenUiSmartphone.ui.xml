@@ -16,6 +16,8 @@
 		text-align:right;
 		padding: 5px 10px 5px 0px;
 		background-color: #C0C0C0;
+		height: 3em;
+		font-size: 1.5em;
 		color: white;
 	}
 	.features {

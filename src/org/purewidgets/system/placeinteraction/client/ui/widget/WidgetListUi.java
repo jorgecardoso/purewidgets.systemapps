@@ -151,6 +151,7 @@ public class WidgetListUi extends Composite  {
 			this.applicationIcon.removeFromParent();
 		}
 		
+		//this.stackPanel.addStyleName(style.widgetsPanel());
 		/*
 		 * Remove the panel that is not used by this template
 		 */

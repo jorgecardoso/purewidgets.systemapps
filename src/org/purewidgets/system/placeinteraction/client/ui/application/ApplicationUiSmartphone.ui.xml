@@ -4,7 +4,7 @@
 	<ui:style>
 	.main {
 		font-family:inherit;
-		font-size:inherit;
+		font-size:2em;
 		border: 1px solid black;
 		border-radius: 15px;
 		margin-left: auto;
@@ -13,7 +13,7 @@
 		padding: 15px 15px 15px 15px;
 		/*display: inline-table;*/
 		display: block-table;
-		width: 75%;
+		width: 95%;
 		height: 100px;
 	}
 	.main td {
@@ -23,12 +23,14 @@
 	}
 	
 	.image {
-		width:64px;
-		height:64px;
+		width:2cm;
+		height:2cm;
 		margin-right:5px;
 	}
 		
 	.name {
+		padding-left: 0.5cm;
+		font-size:2em;
 	}
 	</ui:style>
 	<g:HorizontalPanel styleName="{style.main}">

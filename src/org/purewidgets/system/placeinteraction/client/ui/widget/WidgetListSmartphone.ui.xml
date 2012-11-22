@@ -2,8 +2,12 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style type='org.purewidgets.system.placeinteraction.client.ui.widget.WidgetListUi.Style'>
+
+@external gwt-StackPanelItem,gwt-StackPanelItem-selected;
+ 
 	.center {
 		text-align:center;
+		font-size: 2em;
 	}
 	.over {
 	background-color: #f4f4f4;
@@ -34,7 +38,7 @@
 	}
 	
 	.title {
-		font-size: 1.5em;
+		font-size: 2em;
 		margin-bottom:25px;
 		margin-top:15px;
 		text-align: center;
@@ -43,10 +47,26 @@
 	.widgetsPanel {
 		width:100%;
 		text-align:center;
+font-size: 2em;
 	}
 	
+
+.widgetsPanel .gwt-StackPanelItem {
+	background: #D3DEF6  !important;
+	font-size: 2em !important;
+	border: 2px solid black; 
+	margin: 2px;
+	padding:5px;
+	height: 2cm;
+}
+
+.widgetsPanel .gwt-StackPanelItem-selected {
+	background: #9ea6b8 !important;
+}
+
+
 	.back {
-		margin-top: 3em;
+		margin-top: 0px;
 		width: 100%;
 		height: 100%;
 		/*background-color: #f4f4f4;*/
@@ -68,7 +88,7 @@
 			</g:HTMLPanel>
 		</g:cell>
 		
-		<g:cell height="64px">
+		<g:cell height="128px">
 			<g:HTML styleName="{style.back}" ui:field="goBackPanel">  </g:HTML>
 		</g:cell>
 		
