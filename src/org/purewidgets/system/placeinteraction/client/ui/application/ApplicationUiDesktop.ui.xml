@@ -1,8 +1,17 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
-	<ui:style>
+	<ui:style  >
+
+	.onScreen {
+		background-color: #fff;
+	}
+	.offScreen {
+		background-color: #A0A0A0;
+	}
+
 	.main {
+		position:relative;
 		font-family:inherit;
 		font-size:inherit;
 		border: 2px solid black;
@@ -23,12 +32,25 @@
 		width:128px;
 		height:128px;
 	}
+
+	.onscreen {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 32px;
+		height: 32px;
+	}
 		
 	.name {
 	}
 	</ui:style>
-	<g:VerticalPanel styleName="{style.main}">
-		<g:cell> <g:Image styleName="{style.image}" ui:field="icon" /></g:cell>
+	<g:VerticalPanel styleName="{style.main}" ui:field="mainPanel">
+		<g:cell> 
+		    <g:Image styleName="{style.image}" ui:field="icon" />
+		</g:cell>
+		<g:cell><g:Image styleName="{style.onscreen}" ui:field="onscreenIcon" />
+		    </g:cell>
+		   
 		<g:cell> <g:InlineLabel styleName="{style.name}" ui:field="name"/></g:cell>
 	</g:VerticalPanel>
 </ui:UiBinder> 

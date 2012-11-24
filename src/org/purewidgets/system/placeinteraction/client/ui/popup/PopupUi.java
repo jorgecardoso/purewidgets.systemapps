@@ -27,6 +27,9 @@ public class PopupUi extends PopupPanel{
 	@UiField 
 	Label messagePlaceName;
 	
+	@UiField 
+	Label messageAdditionalInfo;	
+	
 	@UiField
 	DeckPanel deckPanelMain;
 	
@@ -72,6 +75,10 @@ public class PopupUi extends PopupPanel{
 
 	public void setApplicationName(String text) {
 		this.messageApplicationName.setText(text);
+	}
+	
+	public void setAdditionalInfo(String text) {
+		this.messageAdditionalInfo.setText(text);
 	}
 
 }

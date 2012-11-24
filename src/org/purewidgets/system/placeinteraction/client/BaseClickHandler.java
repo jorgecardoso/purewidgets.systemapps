@@ -96,6 +96,14 @@ public abstract class BaseClickHandler implements ClickHandler {
 						popup.setIcon(returnValue.getApplication().getApplicationBaseUrl()+"icon.svg");
 						popup.setApplicationName(returnValue.getApplication().getApplicationId());
 						popup.setPlaceName(returnValue.getPlace().getPlaceName());
+						String info;
+						if ( returnValue.getApplication().isOnScreen() ) {
+							info = " (Check the display to see the result.)";
+						} else {
+							info = " (Application is not on screen. You may have to wait a bit...)";
+						}
+						
+						popup.setAdditionalInfo(info);
 
 						timer.schedule(6000);
 						

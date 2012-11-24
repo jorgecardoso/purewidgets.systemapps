@@ -59,6 +59,15 @@
 			margin-right:auto;
 
 		}
+		.messageAdditionalInfo {
+			font-size: 1.2em;
+			font-family: inherit;
+			margin-top: 5px;
+			margin-bottom: 5px;
+			margin-left:auto;
+			margin-right:auto;
+
+		}
 	</ui:style>
 	
 	<g:DeckPanel styleName="{style.main}" ui:field="deckPanelMain">
@@ -73,6 +82,7 @@
 			<g:Label styleName="{style.messageApplicationName}" ui:field="messageApplicationName"/>
 			<g:Label styleName="{style.message}" >at</g:Label>
 			<g:Label styleName="{style.messagePlaceName}" ui:field="messagePlaceName"/>
+			<g:Label styleName="{style.messageAdditionalInfo}" ui:field="messageAdditionalInfo"/>
 	    </g:HTMLPanel>
 	    
 	    <g:HTMLPanel >

@@ -10,6 +10,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.ErrorEvent;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.resources.client.CssResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -17,11 +18,19 @@ import com.google.gwt.uibinder.client.UiTemplate;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.Panel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class ApplicationUi extends Composite implements HasClickHandlers {
 
 	public static final String ICON_NAME = "icon.svg";
+	
+	/*interface Style extends CssResource {
+	    String onScreen();
+	    String offScreen();
+	    
+	 }	*/
 	
 	@UiTemplate("ApplicationUiDesktop.ui.xml")
 	interface ApplicationUiDesktopUiBinder extends UiBinder<Widget, ApplicationUi> {	}
@@ -32,8 +41,16 @@ public class ApplicationUi extends Composite implements HasClickHandlers {
 	private static ApplicationUiSmartphoneUiBinder smartphoneUiBinder = GWT.create(ApplicationUiSmartphoneUiBinder.class);
 	
 	
+	//@UiField Style style;
+	
 	@UiField Image icon;
 	@UiField Label name;
+	
+	@UiField
+	Image onscreenIcon;
+	
+	@UiField
+	Panel mainPanel;
 	
 	private UiType uiType;
 
@@ -92,6 +109,13 @@ public class ApplicationUi extends Composite implements HasClickHandlers {
 	
 
 		this.icon.setUrl(url + ICON_NAME);
+		
+		
+		if ( application.isOnScreen() ) {
+			this.onscreenIcon.setUrl("/placeinteraction/onscreenicon.png");
+		} else {
+			this.onscreenIcon.removeFromParent();
+		}
 	}
 	
 	@UiHandler("icon")

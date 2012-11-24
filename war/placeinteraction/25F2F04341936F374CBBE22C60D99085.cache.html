@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = '35A6077B56451F0960104A767A03CA54';
+var $strongName = '25F2F04341936F374CBBE22C60D99085';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'placeinteraction',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -11191,6 +11191,7 @@ function $getApplication_0(this$static){
   var a;
   a = new Application_0((this$static.placeId , this$static.applicationId));
   $setApplicationBaseUrl(a, this$static.applicationBaseUrl);
+  $setOnScreen(a, this$static.onScreen);
   return a;
 }
 
@@ -11339,6 +11340,10 @@ function $setApplicationBaseUrl(this$static, applicationBaseUrl){
   this$static.applicationBaseUrl_0 = applicationBaseUrl;
 }
 
+function $setOnScreen(this$static, onScreen){
+  this$static.onScreen_0 = onScreen;
+}
+
 function Application_0(appId){
   this.applicationId_0 = appId;
 }
@@ -11354,6 +11359,7 @@ _.getClass$ = function getClass_271(){
 _.castableTypeMap$ = makeCastMap([Q$Application]);
 _.applicationBaseUrl_0 = null;
 _.applicationId_0 = null;
+_.onScreen_0 = false;
 function $setPlaceName(this$static, placeName){
   this$static.placeName_0 = placeName;
 }
@@ -11743,13 +11749,15 @@ function $onFailure_1(this$static){
 }
 
 function $onSuccess_4(this$static, returnValue_0){
-  var placeJson;
+  var info, placeJson;
   $clinit_Log();
   debug(Lorg_purewidgets_system_placeinteraction_client_BaseClickHandler$2_2_classLit.typeName + ': Sent! ' + returnValue_0);
   $showWidget(this$static.this$0.popup.deckPanelMain, 1);
   $setIcon(this$static.this$0.popup, $getApplication_1(returnValue_0).applicationBaseUrl_0 + 'icon.svg');
   $setApplicationName(this$static.this$0.popup, $getApplication_1(returnValue_0).applicationId_0);
   $setPlaceName_0(this$static.this$0.popup, (placeJson = returnValue_0.place , placeJson?$getPlace(placeJson):null).placeName_0);
+  $getApplication_1(returnValue_0).onScreen_0?(info = ' (Check the display to see the result.)'):(info = ' (Application is not on screen. You may have to wait a bit...)');
+  $setAdditionalInfo(this$static.this$0.popup, info);
   $schedule(this$static.this$0.timer, 6000);
 }
 
@@ -12256,6 +12264,7 @@ function ApplicationUi_0(uiType, application){
   $setText_0(this.name_0, this.application_0.applicationId_0);
   url = this.application_0.applicationBaseUrl_0;
   $setUrl_0(this.icon, url + 'icon.svg');
+  application.onScreen_0?$setUrl_0(this.onscreenIcon, '/placeinteraction/onscreenicon.png'):$removeFromParent(this.onscreenIcon);
 }
 
 function ApplicationUi(){
@@ -12271,24 +12280,29 @@ _.application_0 = null;
 _.icon = null;
 _.iconErrorThrown = false;
 _.name_0 = null;
+_.onscreenIcon = null;
 var desktopUiBinder_0, smartphoneUiBinder_0;
 function $createAndBindUi_1(owner){
-  var f_VerticalPanel1, handlerMethodWithNameVeryUnlikelyToCollideWithUserFieldNames1, icon, name_0;
+  var handlerMethodWithNameVeryUnlikelyToCollideWithUserFieldNames1, icon, mainPanel, name_0, onscreenIcon;
   $clinit_ApplicationUi_ApplicationUiDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer();
   icon = new Image_1;
+  onscreenIcon = new Image_1;
   name_0 = new InlineLabel_0;
-  f_VerticalPanel1 = new VerticalPanel_0;
+  mainPanel = new VerticalPanel_0;
   icon.element['className'] = 'GAEKAE5BPL';
-  $add_7(f_VerticalPanel1, icon);
+  $add_7(mainPanel, icon);
+  onscreenIcon.element['className'] = 'GAEKAE5BEM';
+  $add_7(mainPanel, onscreenIcon);
   name_0.element['className'] = 'GAEKAE5BBM';
-  $add_7(f_VerticalPanel1, name_0);
-  f_VerticalPanel1.element['className'] = 'GAEKAE5BAM';
+  $add_7(mainPanel, name_0);
+  mainPanel.element['className'] = 'GAEKAE5BAM';
   handlerMethodWithNameVeryUnlikelyToCollideWithUserFieldNames1 = new ApplicationUi_ApplicationUiDesktopUiBinderImpl$1_0(owner);
   $addHandler_1(icon, handlerMethodWithNameVeryUnlikelyToCollideWithUserFieldNames1, ($clinit_ErrorEvent() , $clinit_ErrorEvent() , TYPE_1));
   owner.icon = icon;
   owner.name_0 = name_0;
+  owner.onscreenIcon = onscreenIcon;
   $ensureInjected_1(style_2);
-  return f_VerticalPanel1;
+  return mainPanel;
 }
 
 function ApplicationUi_ApplicationUiDesktopUiBinderImpl_0(){
@@ -12329,7 +12343,7 @@ function $ensureInjected_1(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BAM{font-family:inherit;font-size:inherit;border:2px solid black;border-radius:15px;margin:10px;padding:15px 15px 15px 15px;display:inline-table;width:150px;height:150px;}.GAEKAE5BAM td{font-family:inherit;font-size:inherit;text-align:center;}.GAEKAE5BPL{width:128px;height:128px;}');
+    $push(toInject, '.GAEKAE5BDM{background-color:#fff;}.GAEKAE5BCM{background-color:#a0a0a0;}.GAEKAE5BAM{position:relative;font-family:inherit;font-size:inherit;border:2px solid black;border-radius:15px;margin:10px;padding:15px 15px 15px 15px;display:inline-table;width:150px;height:150px;}.GAEKAE5BAM td{font-family:inherit;font-size:inherit;text-align:center;}.GAEKAE5BPL{width:128px;height:128px;}.GAEKAE5BEM{position:absolute;top:0;left:0;width:32px;height:32px;}');
     schedule();
     return true;
   }
@@ -12354,25 +12368,29 @@ function $clinit_ApplicationUi_ApplicationUiDesktopUiBinderImpl_GenBundle_pt_Inl
 }
 
 function $createAndBindUi_2(owner){
-  var f_HorizontalPanel1, handlerMethodWithNameVeryUnlikelyToCollideWithUserFieldNames1, icon, name_0;
+  var handlerMethodWithNameVeryUnlikelyToCollideWithUserFieldNames1, icon, mainPanel, name_0, onscreenIcon;
   $clinit_ApplicationUi_ApplicationUiSmartphoneUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer();
   icon = new Image_1;
+  onscreenIcon = new Image_1;
   name_0 = new InlineLabel_0;
-  f_HorizontalPanel1 = new HorizontalPanel_0;
-  icon.element['className'] = 'GAEKAE5BCM';
-  $add_4(f_HorizontalPanel1, icon);
-  $setCellVerticalAlignment(f_HorizontalPanel1, icon, ($clinit_HasVerticalAlignment() , ALIGN_MIDDLE));
-  $setCellWidth(f_HorizontalPanel1, icon, '64px');
-  name_0.element['className'] = 'GAEKAE5BEM';
-  $add_4(f_HorizontalPanel1, name_0);
-  $setCellVerticalAlignment(f_HorizontalPanel1, name_0, ALIGN_MIDDLE);
-  f_HorizontalPanel1.element['className'] = 'GAEKAE5BDM';
+  mainPanel = new HorizontalPanel_0;
+  icon.element['className'] = 'GAEKAE5BFM';
+  $add_4(mainPanel, icon);
+  $setCellVerticalAlignment(mainPanel, icon, ($clinit_HasVerticalAlignment() , ALIGN_MIDDLE));
+  $setCellWidth(mainPanel, icon, '64px');
+  onscreenIcon.element['className'] = 'GAEKAE5BIM';
+  $add_4(mainPanel, onscreenIcon);
+  name_0.element['className'] = 'GAEKAE5BHM';
+  $add_4(mainPanel, name_0);
+  $setCellVerticalAlignment(mainPanel, name_0, ALIGN_MIDDLE);
+  mainPanel.element['className'] = 'GAEKAE5BGM';
   handlerMethodWithNameVeryUnlikelyToCollideWithUserFieldNames1 = new ApplicationUi_ApplicationUiSmartphoneUiBinderImpl$1_0(owner);
   $addHandler_1(icon, handlerMethodWithNameVeryUnlikelyToCollideWithUserFieldNames1, ($clinit_ErrorEvent() , $clinit_ErrorEvent() , TYPE_1));
   owner.icon = icon;
   owner.name_0 = name_0;
+  owner.onscreenIcon = onscreenIcon;
   $ensureInjected_2(style_3);
-  return f_HorizontalPanel1;
+  return mainPanel;
 }
 
 function ApplicationUi_ApplicationUiSmartphoneUiBinderImpl_0(){
@@ -12413,7 +12431,7 @@ function $ensureInjected_2(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BDM{font-family:inherit;font-size:2em;border:1px solid black;border-radius:15px;margin-left:auto;margin-right:auto;margin-bottom:10px;padding:15px 15px 15px 15px;display:block-table;width:95%;height:100px;}.GAEKAE5BDM td{font-family:inherit;font-size:inherit;}.GAEKAE5BCM{width:2cm;height:2cm;margin-right:5px;}.GAEKAE5BEM{padding-left:0.5cm;font-size:1.5em;}');
+    $push(toInject, '.GAEKAE5BGM{position:relative;font-family:inherit;font-size:2em;border:1px solid black;border-radius:15px;margin-left:auto;margin-right:auto;margin-bottom:10px;padding:15px 15px 15px 15px;display:block-table;width:95%;height:100px;}.GAEKAE5BGM td{font-family:inherit;font-size:inherit;}.GAEKAE5BFM{width:2cm;height:2cm;margin-right:5px;}.GAEKAE5BIM{position:absolute;top:0;left:0;width:32px;height:32px;}.GAEKAE5BHM{padding-left:0.5cm;font-size:1.5em;}');
     schedule();
     return true;
   }
@@ -12686,6 +12704,8 @@ function $showPlaceList(this$static){
   $add_3(this$static.features, this$static.placeListUi);
 }
 
+--></script>
+<script><!--
 function $showWidget_1(this$static, placeId, applicationId, widgetId, optionId){
   $clinit_Log();
   debug(Lorg_purewidgets_system_placeinteraction_client_ui_main_MainScreenUi_2_classLit.typeName + ': Showing widget');
@@ -12697,8 +12717,6 @@ function $showWidget_1(this$static, placeId, applicationId, widgetId, optionId){
   $add_3(this$static.features, this$static.widgetUi);
 }
 
---></script>
-<script><!--
 function $showWidgets(this$static, placeName, applicationName){
   $clinit_Log();
   debug(Lorg_purewidgets_system_placeinteraction_client_ui_main_MainScreenUi_2_classLit.typeName + ': Showing widgets');
@@ -13115,7 +13133,7 @@ function $createAndBindUi_7(owner){
   var button;
   $clinit_PlaceUi_PlaceDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer();
   button = new Button_0;
-  button.element['className'] = 'GAEKAE5BFM';
+  button.element['className'] = 'GAEKAE5BJM';
   owner.button = button;
   $ensureInjected_7(style_8);
   return button;
@@ -13145,7 +13163,7 @@ function $ensureInjected_7(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BFM{font-weight:bold;}');
+    $push(toInject, '.GAEKAE5BJM{font-weight:bold;}');
     schedule();
     return true;
   }
@@ -13179,6 +13197,10 @@ function $getUiBinder_5(uiType){
     default:case 0:
       return desktopUiBinder_5;
   }
+}
+
+function $setAdditionalInfo(this$static, text){
+  $setText_0(this$static.messageAdditionalInfo, text);
 }
 
 function $setApplicationName(this$static, text){
@@ -13217,13 +13239,14 @@ _.getClass$ = function getClass_320(){
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$HasWidgets, Q$IsWidget, Q$UIObject, Q$Widget]);
 _.deckPanelMain = null;
 _.imgApplicationIcon = null;
+_.messageAdditionalInfo = null;
 _.messageApplicationName = null;
 _.messagePlaceName = null;
 var desktopUiBinder_5;
 function $createAndBindUi_9(owner){
-  var attachRecord0, attachRecord1, deckPanelMain, domId0, domId0Element, domId1, domId1Element, domId2, domId2Element, domId3, domId3Element, domId4, domId4Element, domId5, domId5Element, domId6, domId6Element, f_HTMLPanel3, f_Label1, f_Label2, f_Label4, f_Label5, imgApplicationIcon, messageApplicationName, messagePlaceName, panelInfo, panelProgress, sb, sb_0, sb_1;
+  var attachRecord0, attachRecord1, deckPanelMain, domId0, domId0Element, domId1, domId1Element, domId2, domId2Element, domId3, domId3Element, domId4, domId4Element, domId5, domId5Element, domId6, domId6Element, domId7, domId7Element, f_HTMLPanel3, f_Label1, f_Label2, f_Label4, f_Label5, imgApplicationIcon, messageAdditionalInfo, messageApplicationName, messagePlaceName, panelInfo, panelProgress, sb, sb_0, sb_1;
   $clinit_PopupUi_PopupUiDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer();
-  panelProgress = new HTMLPanel_0((sb = new StringBuilder_0 , $append(sb.data, "<img class='") , $append_1(sb, htmlEscape('GAEKAE5BBP')) , $append(sb.data, "' src='loader.svg'>") , new OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml_0($toString(sb.data))).html);
+  panelProgress = new HTMLPanel_0((sb = new StringBuilder_0 , $append(sb.data, "<img class='") , $append_1(sb, htmlEscape('GAEKAE5BFP')) , $append(sb.data, "' src='loader.svg'>") , new OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml_0($toString(sb.data))).html);
   domId0 = $createUniqueId($doc);
   imgApplicationIcon = new Image_1;
   domId1 = $createUniqueId($doc);
@@ -13234,49 +13257,55 @@ function $createAndBindUi_9(owner){
   f_Label2 = new Label_0;
   domId4 = $createUniqueId($doc);
   messagePlaceName = new Label_0;
-  panelInfo = new HTMLPanel_0((sb_0 = new StringBuilder_0 , $append(sb_0.data, "<span id='") , $append_1(sb_0, htmlEscape(domId0)) , $append(sb_0.data, "'><\/span> <span id='") , $append_1(sb_0, htmlEscape(domId1)) , $append(sb_0.data, "'><\/span> <span id='") , $append_1(sb_0, htmlEscape(domId2)) , $append(sb_0.data, "'><\/span> <span id='") , $append_1(sb_0, htmlEscape(domId3)) , $append(sb_0.data, "'><\/span> <span id='") , $append_1(sb_0, htmlEscape(domId4)) , $append(sb_0.data, "'><\/span>") , new OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml_0($toString(sb_0.data))).html);
   domId5 = $createUniqueId($doc);
-  f_Label4 = new Label_0;
+  messageAdditionalInfo = new Label_0;
+  panelInfo = new HTMLPanel_0((sb_0 = new StringBuilder_0 , $append(sb_0.data, "<span id='") , $append_1(sb_0, htmlEscape(domId0)) , $append(sb_0.data, "'><\/span> <span id='") , $append_1(sb_0, htmlEscape(domId1)) , $append(sb_0.data, "'><\/span> <span id='") , $append_1(sb_0, htmlEscape(domId2)) , $append(sb_0.data, "'><\/span> <span id='") , $append_1(sb_0, htmlEscape(domId3)) , $append(sb_0.data, "'><\/span> <span id='") , $append_1(sb_0, htmlEscape(domId4)) , $append(sb_0.data, "'><\/span> <span id='") , $append_1(sb_0, htmlEscape(domId5)) , $append(sb_0.data, "'><\/span>") , new OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml_0($toString(sb_0.data))).html);
   domId6 = $createUniqueId($doc);
+  f_Label4 = new Label_0;
+  domId7 = $createUniqueId($doc);
   f_Label5 = new Label_0;
-  f_HTMLPanel3 = new HTMLPanel_0((sb_1 = new StringBuilder_0 , $append(sb_1.data, "<span id='") , $append_1(sb_1, htmlEscape(domId5)) , $append(sb_1.data, "'><\/span> <span id='") , $append_1(sb_1, htmlEscape(domId6)) , $append(sb_1.data, "'><\/span>") , new OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml_0($toString(sb_1.data))).html);
+  f_HTMLPanel3 = new HTMLPanel_0((sb_1 = new StringBuilder_0 , $append(sb_1.data, "<span id='") , $append_1(sb_1, htmlEscape(domId6)) , $append(sb_1.data, "'><\/span> <span id='") , $append_1(sb_1, htmlEscape(domId7)) , $append(sb_1.data, "'><\/span>") , new OnlyToBeUsedInGeneratedCodeStringBlessedAsSafeHtml_0($toString(sb_1.data))).html);
   deckPanelMain = new DeckPanel_0;
   deckPanelMain.add_0(panelProgress);
-  imgApplicationIcon.element['className'] = 'GAEKAE5BAP';
+  imgApplicationIcon.element['className'] = 'GAEKAE5BEP';
   $setTextOrHtml(f_Label1.directionalTextHelper, 'Input sent to', false);
-  f_Label1.element['className'] = 'GAEKAE5BDP';
-  messageApplicationName.element['className'] = 'GAEKAE5BEP';
+  f_Label1.element['className'] = 'GAEKAE5BHP';
+  messageApplicationName.element['className'] = 'GAEKAE5BJP';
   $setTextOrHtml(f_Label2.directionalTextHelper, 'at', false);
-  f_Label2.element['className'] = 'GAEKAE5BDP';
-  messagePlaceName.element['className'] = 'GAEKAE5BFP';
-  panelInfo.element['className'] = 'GAEKAE5BGP';
+  f_Label2.element['className'] = 'GAEKAE5BHP';
+  messagePlaceName.element['className'] = 'GAEKAE5BKP';
+  messageAdditionalInfo.element['className'] = 'GAEKAE5BIP';
+  panelInfo.element['className'] = 'GAEKAE5BLP';
   deckPanelMain.add_0(panelInfo);
   $setTextOrHtml(f_Label4.directionalTextHelper, 'Oops! An error occurred.', false);
-  f_Label4.element['className'] = 'GAEKAE5BDP';
+  f_Label4.element['className'] = 'GAEKAE5BHP';
   $setTextOrHtml(f_Label5.directionalTextHelper, 'Please try again.', false);
-  f_Label5.element['className'] = 'GAEKAE5BDP';
+  f_Label5.element['className'] = 'GAEKAE5BHP';
   deckPanelMain.add_0(f_HTMLPanel3);
-  deckPanelMain.element['className'] = 'GAEKAE5BCP';
+  deckPanelMain.element['className'] = 'GAEKAE5BGP';
   attachRecord0 = attachToDom(panelInfo.element);
   domId0Element = $getElementById($doc, domId0);
   domId1Element = $getElementById($doc, domId1);
   domId2Element = $getElementById($doc, domId2);
   domId3Element = $getElementById($doc, domId3);
   domId4Element = $getElementById($doc, domId4);
+  domId5Element = $getElementById($doc, domId5);
   attachRecord0.origParent?$insertBefore(attachRecord0.origParent, attachRecord0.element, attachRecord0.origSibling):orphan(attachRecord0.element);
   $addAndReplaceElement(panelInfo, imgApplicationIcon, domId0Element);
   $addAndReplaceElement(panelInfo, f_Label1, domId1Element);
   $addAndReplaceElement(panelInfo, messageApplicationName, domId2Element);
   $addAndReplaceElement(panelInfo, f_Label2, domId3Element);
   $addAndReplaceElement(panelInfo, messagePlaceName, domId4Element);
+  $addAndReplaceElement(panelInfo, messageAdditionalInfo, domId5Element);
   attachRecord1 = attachToDom(f_HTMLPanel3.element);
-  domId5Element = $getElementById($doc, domId5);
   domId6Element = $getElementById($doc, domId6);
+  domId7Element = $getElementById($doc, domId7);
   attachRecord1.origParent?$insertBefore(attachRecord1.origParent, attachRecord1.element, attachRecord1.origSibling):orphan(attachRecord1.element);
-  $addAndReplaceElement(f_HTMLPanel3, f_Label4, domId5Element);
-  $addAndReplaceElement(f_HTMLPanel3, f_Label5, domId6Element);
+  $addAndReplaceElement(f_HTMLPanel3, f_Label4, domId6Element);
+  $addAndReplaceElement(f_HTMLPanel3, f_Label5, domId7Element);
   owner.deckPanelMain = deckPanelMain;
   owner.imgApplicationIcon = imgApplicationIcon;
+  owner.messageAdditionalInfo = messageAdditionalInfo;
   owner.messageApplicationName = messageApplicationName;
   owner.messagePlaceName = messagePlaceName;
   $ensureInjected_8(style_9);
@@ -13303,7 +13332,7 @@ function $ensureInjected_8(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BCP{font-family:Verdana, Arial, Helvetica, sans-serif;border:2px dashed #ffc621;padding:25px;background:#fff5d9;background:rgba(255,245,217,0.95);color:#de6525;}.GAEKAE5BCP td{font-family:inherit;}.GAEKAE5BHP{margin-left:auto;text-align:center;}.GAEKAE5BGP{text-align:center;}.GAEKAE5BBP{height:100%;width:100%;}.GAEKAE5BAP{width:128px;height:128px;border:1px solid black;background-color:white;}.GAEKAE5BDP{font-size:1.2em;font-family:inherit;margin-top:5px;margin-bottom:5px;margin-left:auto;margin-right:auto;}.GAEKAE5BEP{font-size:1.4em;font-family:inherit;margin-left:auto;margin-right:auto;}.GAEKAE5BFP{font-size:1.2em;font-family:inherit;margin-left:auto;margin-right:auto;}');
+    $push(toInject, '.GAEKAE5BGP{font-family:Verdana, Arial, Helvetica, sans-serif;border:2px dashed #ffc621;padding:25px;background:#fff5d9;background:rgba(255,245,217,0.95);color:#de6525;}.GAEKAE5BGP td{font-family:inherit;}.GAEKAE5BMP{margin-left:auto;text-align:center;}.GAEKAE5BLP{text-align:center;}.GAEKAE5BFP{height:100%;width:100%;}.GAEKAE5BEP{width:128px;height:128px;border:1px solid black;background-color:white;}.GAEKAE5BHP{font-size:1.2em;font-family:inherit;margin-top:5px;margin-bottom:5px;margin-left:auto;margin-right:auto;}.GAEKAE5BJP{font-size:1.4em;font-family:inherit;margin-left:auto;margin-right:auto;}.GAEKAE5BKP{font-size:1.2em;font-family:inherit;margin-left:auto;margin-right:auto;}.GAEKAE5BIP{font-size:1.2em;font-family:inherit;margin-top:5px;margin-bottom:5px;margin-left:auto;margin-right:auto;}');
     schedule();
     return true;
   }
@@ -13345,6 +13374,8 @@ function $getUiBinder_6(this$static, uiType){
   }
 }
 
+--></script>
+<script><!--
 function $initUi(this$static){
   var description, url;
   description = this$static.pureWidget.longDescription_0;
@@ -13378,8 +13409,6 @@ _.getClass$ = function getClass_323(){
   return Lorg_purewidgets_system_placeinteraction_client_ui_widget_DownloadWidgetUi_2_classLit;
 }
 ;
---></script>
-<script><!--
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$IsRenderable, Q$IsWidget, Q$UIObject, Q$Widget, Q$DownloadWidgetUi]);
 _.actionButton = null;
 _.descriptionLabel = null;
@@ -13421,7 +13450,7 @@ function $createAndBindUi_10(owner){
   actionButton = new Button_0;
   f_VerticalPanel1 = new VerticalPanel_0;
   mainHorizontalPanel = new HorizontalPanel_0;
-  iconImage.element['className'] = 'GAEKAE5BGM';
+  iconImage.element['className'] = 'GAEKAE5BKM';
   $add_4(mainHorizontalPanel, iconImage);
   $setCellWidth(mainHorizontalPanel, iconImage, '64px');
   $setCellHeight(mainHorizontalPanel, iconImage, '100%');
@@ -13429,9 +13458,9 @@ function $createAndBindUi_10(owner){
   $setCellVerticalAlignment(f_VerticalPanel1, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
   $add_7(f_VerticalPanel1, actionButton);
   $setCellVerticalAlignment(f_VerticalPanel1, actionButton, ALIGN_BOTTOM);
-  f_VerticalPanel1.element['className'] = 'GAEKAE5BIM';
+  f_VerticalPanel1.element['className'] = 'GAEKAE5BMM';
   $add_4(mainHorizontalPanel, f_VerticalPanel1);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BHM';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BLM';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.iconImage = iconImage;
@@ -13459,7 +13488,7 @@ function $ensureInjected_9(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BHM{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BGM{width:64px;height:64px;margin-right:15px;}.GAEKAE5BIM{height:100%;width:100%;}.GAEKAE5BIM td{text-align:center;}');
+    $push(toInject, '.GAEKAE5BLM{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BKM{width:64px;height:64px;margin-right:15px;}.GAEKAE5BMM{height:100%;width:100%;}.GAEKAE5BMM td{text-align:center;}');
     schedule();
     return true;
   }
@@ -13492,13 +13521,13 @@ function $createAndBindUi_11(owner){
   mainHorizontalPanel = new VerticalPanel_0;
   $add_7(mainHorizontalPanel, descriptionLabel);
   $setCellVerticalAlignment(mainHorizontalPanel, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
-  actionButton.element['className'] = 'GAEKAE5BJM';
+  actionButton.element['className'] = 'GAEKAE5BNM';
   $add_7(mainHorizontalPanel, actionButton);
   $setCellHorizontalAlignment(mainHorizontalPanel, actionButton, ($clinit_HasHorizontalAlignment() , ALIGN_CENTER));
   $setCellVerticalAlignment(mainHorizontalPanel, actionButton, ALIGN_BOTTOM);
-  iconImage.element['className'] = 'GAEKAE5BKM';
+  iconImage.element['className'] = 'GAEKAE5BOM';
   $add_7(mainHorizontalPanel, iconImage);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BLM';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BPM';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.iconImage = iconImage;
@@ -13526,7 +13555,7 @@ function $ensureInjected_10(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BLM{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BKM{width:64px;height:64px;margin-right:15px;}.GAEKAE5BJM{font-size:inherit;width:7em;height:3em;}');
+    $push(toInject, '.GAEKAE5BPM{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BOM{width:64px;height:64px;margin-right:15px;}.GAEKAE5BNM{font-size:inherit;width:7em;height:3em;}');
     schedule();
     return true;
   }
@@ -13608,7 +13637,7 @@ function $createAndBindUi_12(owner){
   f_VerticalPanel1 = new VerticalPanel_0;
   actionButton = new Button_0;
   mainHorizontalPanel = new HorizontalPanel_0;
-  iconImage.element['className'] = 'GAEKAE5BMM';
+  iconImage.element['className'] = 'GAEKAE5BAN';
   $add_4(mainHorizontalPanel, iconImage);
   $setCellWidth(mainHorizontalPanel, iconImage, '64px');
   $setCellHeight(mainHorizontalPanel, iconImage, '100%');
@@ -13616,10 +13645,10 @@ function $createAndBindUi_12(owner){
   $setCellVerticalAlignment(f_VerticalPanel1, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
   $add_7(f_VerticalPanel1, entryTextBox);
   $setCellVerticalAlignment(f_VerticalPanel1, entryTextBox, ALIGN_BOTTOM);
-  f_VerticalPanel1.element['className'] = 'GAEKAE5BOM';
+  f_VerticalPanel1.element['className'] = 'GAEKAE5BCN';
   $add_4(mainHorizontalPanel, f_VerticalPanel1);
   $add_4(mainHorizontalPanel, actionButton);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BNM';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BBN';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.entryTextBox = entryTextBox;
@@ -13648,7 +13677,7 @@ function $ensureInjected_11(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BNM{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BMM{width:64px;height:64px;margin-right:15px;}.GAEKAE5BOM{height:100%;width:100%;}.GAEKAE5BOM td{text-align:center;}');
+    $push(toInject, '.GAEKAE5BBN{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BAN{width:64px;height:64px;margin-right:15px;}.GAEKAE5BCN{height:100%;width:100%;}.GAEKAE5BCN td{text-align:center;}');
     schedule();
     return true;
   }
@@ -13682,16 +13711,16 @@ function $createAndBindUi_13(owner){
   mainHorizontalPanel = new VerticalPanel_0;
   $add_7(mainHorizontalPanel, descriptionLabel);
   $setCellVerticalAlignment(mainHorizontalPanel, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
-  entryTextBox.element['className'] = 'GAEKAE5BCN';
+  entryTextBox.element['className'] = 'GAEKAE5BGN';
   $add_7(mainHorizontalPanel, entryTextBox);
   $setCellVerticalAlignment(mainHorizontalPanel, entryTextBox, ALIGN_MIDDLE);
-  actionButton.element['className'] = 'GAEKAE5BPM';
+  actionButton.element['className'] = 'GAEKAE5BDN';
   $add_7(mainHorizontalPanel, actionButton);
   $setCellHorizontalAlignment(mainHorizontalPanel, actionButton, ($clinit_HasHorizontalAlignment() , ALIGN_CENTER));
   $setCellVerticalAlignment(mainHorizontalPanel, actionButton, ALIGN_BOTTOM);
-  iconImage.element['className'] = 'GAEKAE5BAN';
+  iconImage.element['className'] = 'GAEKAE5BEN';
   $add_7(mainHorizontalPanel, iconImage);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BBN';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BFN';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.entryTextBox = entryTextBox;
@@ -13720,7 +13749,7 @@ function $ensureInjected_12(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BBN{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BAN{width:64px;height:64px;margin-right:15px;}.GAEKAE5BPM{font-size:inherit;width:7em;height:3em;}.GAEKAE5BCN{margin:1px auto 3px auto;width:100%;font-size:1.5em;height:2.5em;}');
+    $push(toInject, '.GAEKAE5BFN{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BEN{width:64px;height:64px;margin-right:15px;}.GAEKAE5BDN{font-size:inherit;width:7em;height:3em;}.GAEKAE5BGN{margin:1px auto 3px auto;width:100%;font-size:1.5em;height:2.5em;}');
     schedule();
     return true;
   }
@@ -13819,21 +13848,21 @@ function $createAndBindUi_14(owner){
   mainHorizontalPanel = new HorizontalPanel_0;
   $add_7(f_VerticalPanel1, descriptionLabel);
   $setCellVerticalAlignment(f_VerticalPanel1, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
-  optionsListBox.element['className'] = 'GAEKAE5BHN';
+  optionsListBox.element['className'] = 'GAEKAE5BLN';
   $add_7(f_VerticalPanel1, optionsListBox);
   $setCellVerticalAlignment(f_VerticalPanel1, optionsListBox, ALIGN_BOTTOM);
   $setCellWidth(f_VerticalPanel1, optionsListBox, '100%');
-  f_VerticalPanel1.element['className'] = 'GAEKAE5BFN';
+  f_VerticalPanel1.element['className'] = 'GAEKAE5BJN';
   $add_4(mainHorizontalPanel, f_VerticalPanel1);
-  actionButton.element['className'] = 'GAEKAE5BDN';
+  actionButton.element['className'] = 'GAEKAE5BHN';
   $add_7(f_VerticalPanel2, actionButton);
   $setCellVerticalAlignment(f_VerticalPanel2, actionButton, ALIGN_TOP);
-  iconImage.element['className'] = 'GAEKAE5BEN';
+  iconImage.element['className'] = 'GAEKAE5BIN';
   $add_7(f_VerticalPanel2, iconImage);
   $setCellVerticalAlignment(f_VerticalPanel2, iconImage, ALIGN_BOTTOM);
-  f_VerticalPanel2.element['className'] = 'GAEKAE5BIN';
+  f_VerticalPanel2.element['className'] = 'GAEKAE5BMN';
   $add_4(mainHorizontalPanel, f_VerticalPanel2);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BGN';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BKN';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.iconImage = iconImage;
@@ -13862,7 +13891,7 @@ function $ensureInjected_13(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BGN{display:inline-table;font-family:inherit;font-size:inherit;border:1px solid black;border-radius:5px;width:300px;padding:5px;margin:5px;}.GAEKAE5BEN{width:64px;height:64px;margin-right:15px;}.GAEKAE5BDN{width:64px;font-family:inherit;font-size:inherit;}.GAEKAE5BFN{width:200px;height:100%;}.GAEKAE5BIN{height:100%;width:100px;margin-left:5px;}.GAEKAE5BIN td{text-align:center;}.GAEKAE5BHN{font-family:inherit;font-size:inherit;width:100%;}');
+    $push(toInject, '.GAEKAE5BKN{display:inline-table;font-family:inherit;font-size:inherit;border:1px solid black;border-radius:5px;width:300px;padding:5px;margin:5px;}.GAEKAE5BIN{width:64px;height:64px;margin-right:15px;}.GAEKAE5BHN{width:64px;font-family:inherit;font-size:inherit;}.GAEKAE5BJN{width:200px;height:100%;}.GAEKAE5BMN{height:100%;width:100px;margin-left:5px;}.GAEKAE5BMN td{text-align:center;}.GAEKAE5BLN{font-family:inherit;font-size:inherit;width:100%;}');
     schedule();
     return true;
   }
@@ -13897,17 +13926,17 @@ function $createAndBindUi_15(owner){
   $add_7(mainHorizontalPanel, descriptionLabel);
   $setCellVerticalAlignment(mainHorizontalPanel, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
   $setCellWidth(mainHorizontalPanel, descriptionLabel, '100%');
-  optionsListBox.element['className'] = 'GAEKAE5BMN';
+  optionsListBox.element['className'] = 'GAEKAE5BAO';
   $add_7(mainHorizontalPanel, optionsListBox);
   $setCellHorizontalAlignment(mainHorizontalPanel, optionsListBox, ($clinit_HasHorizontalAlignment() , ALIGN_CENTER));
   $setCellVerticalAlignment(mainHorizontalPanel, optionsListBox, ALIGN_MIDDLE);
-  actionButton.element['className'] = 'GAEKAE5BJN';
+  actionButton.element['className'] = 'GAEKAE5BNN';
   $add_7(mainHorizontalPanel, actionButton);
   $setCellHorizontalAlignment(mainHorizontalPanel, actionButton, ALIGN_CENTER);
   $setCellVerticalAlignment(mainHorizontalPanel, actionButton, ALIGN_BOTTOM);
-  iconImage.element['className'] = 'GAEKAE5BKN';
+  iconImage.element['className'] = 'GAEKAE5BON';
   $add_7(mainHorizontalPanel, iconImage);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BLN';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BPN';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.iconImage = iconImage;
@@ -13936,7 +13965,7 @@ function $ensureInjected_14(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BLN{font-family:inherit;font-size:1.5em;border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BKN{width:64px;height:64px;margin-right:15px;}.GAEKAE5BJN{font-size:inherit;font-family:inherit;width:7em;height:3em;}.GAEKAE5BMN{font-family:inherit;font-size:inherit;width:100%;}');
+    $push(toInject, '.GAEKAE5BPN{font-family:inherit;font-size:1.5em;border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BON{width:64px;height:64px;margin-right:15px;}.GAEKAE5BNN{font-size:inherit;font-family:inherit;width:7em;height:3em;}.GAEKAE5BAO{font-family:inherit;font-size:inherit;width:100%;}');
     schedule();
     return true;
   }
@@ -13955,6 +13984,8 @@ _.getClass$ = function getClass_338(){
 }
 ;
 _.injected = false;
+--></script>
+<script><!--
 function $clinit_ImperativeMultipleOptionWidgetUi_ImperativeMultipleOptionUiSmartphoneUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer(){
   $clinit_ImperativeMultipleOptionWidgetUi_ImperativeMultipleOptionUiSmartphoneUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer = nullMethod;
   style_15 = new ImperativeMultipleOptionWidgetUi_ImperativeMultipleOptionUiSmartphoneUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$1_0;
@@ -13978,8 +14009,6 @@ function $getUiBinder_9(this$static, uiType){
   }
 }
 
---></script>
-<script><!--
 function $initUi_1(this$static){
   var description, url;
   description = this$static.pureWidget.longDescription_0;
@@ -14028,7 +14057,7 @@ function $createAndBindUi_16(owner){
   actionButton = new Button_0;
   f_VerticalPanel1 = new VerticalPanel_0;
   mainHorizontalPanel = new HorizontalPanel_0;
-  iconImage.element['className'] = 'GAEKAE5BNN';
+  iconImage.element['className'] = 'GAEKAE5BBO';
   $add_4(mainHorizontalPanel, iconImage);
   $setCellWidth(mainHorizontalPanel, iconImage, '64px');
   $setCellHeight(mainHorizontalPanel, iconImage, '100%');
@@ -14036,9 +14065,9 @@ function $createAndBindUi_16(owner){
   $setCellVerticalAlignment(f_VerticalPanel1, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
   $add_7(f_VerticalPanel1, actionButton);
   $setCellVerticalAlignment(f_VerticalPanel1, actionButton, ALIGN_BOTTOM);
-  f_VerticalPanel1.element['className'] = 'GAEKAE5BPN';
+  f_VerticalPanel1.element['className'] = 'GAEKAE5BDO';
   $add_4(mainHorizontalPanel, f_VerticalPanel1);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BON';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BCO';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.iconImage = iconImage;
@@ -14066,7 +14095,7 @@ function $ensureInjected_15(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BON{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BNN{width:64px;height:64px;margin-right:15px;}.GAEKAE5BPN{height:100%;width:100%;}.GAEKAE5BPN td{text-align:center;}');
+    $push(toInject, '.GAEKAE5BCO{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BBO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BDO{height:100%;width:100%;}.GAEKAE5BDO td{text-align:center;}');
     schedule();
     return true;
   }
@@ -14099,13 +14128,13 @@ function $createAndBindUi_17(owner){
   mainHorizontalPanel = new VerticalPanel_0;
   $add_7(mainHorizontalPanel, descriptionLabel);
   $setCellVerticalAlignment(mainHorizontalPanel, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
-  actionButton.element['className'] = 'GAEKAE5BAO';
+  actionButton.element['className'] = 'GAEKAE5BEO';
   $add_7(mainHorizontalPanel, actionButton);
   $setCellHorizontalAlignment(mainHorizontalPanel, actionButton, ($clinit_HasHorizontalAlignment() , ALIGN_CENTER));
   $setCellVerticalAlignment(mainHorizontalPanel, actionButton, ALIGN_BOTTOM);
-  iconImage.element['className'] = 'GAEKAE5BBO';
+  iconImage.element['className'] = 'GAEKAE5BFO';
   $add_7(mainHorizontalPanel, iconImage);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BCO';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BGO';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.iconImage = iconImage;
@@ -14133,7 +14162,7 @@ function $ensureInjected_16(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BCO{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BBO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BAO{font-size:inherit;width:7em;height:3em;}');
+    $push(toInject, '.GAEKAE5BGO{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BFO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BEO{font-size:inherit;width:7em;height:3em;}');
     schedule();
     return true;
   }
@@ -14213,7 +14242,7 @@ function $createAndBindUi_18(owner){
   actionButton = new Button_0;
   f_VerticalPanel1 = new VerticalPanel_0;
   mainHorizontalPanel = new HorizontalPanel_0;
-  iconImage.element['className'] = 'GAEKAE5BDO';
+  iconImage.element['className'] = 'GAEKAE5BHO';
   $add_4(mainHorizontalPanel, iconImage);
   $setCellWidth(mainHorizontalPanel, iconImage, '64px');
   $setCellHeight(mainHorizontalPanel, iconImage, '100%');
@@ -14221,9 +14250,9 @@ function $createAndBindUi_18(owner){
   $setCellVerticalAlignment(f_VerticalPanel1, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
   $add_7(f_VerticalPanel1, actionButton);
   $setCellVerticalAlignment(f_VerticalPanel1, actionButton, ALIGN_BOTTOM);
-  f_VerticalPanel1.element['className'] = 'GAEKAE5BFO';
+  f_VerticalPanel1.element['className'] = 'GAEKAE5BJO';
   $add_4(mainHorizontalPanel, f_VerticalPanel1);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BEO';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BIO';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.iconImage = iconImage;
@@ -14251,7 +14280,7 @@ function $ensureInjected_17(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BEO{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BDO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BFO{height:100%;width:100%;}.GAEKAE5BFO td{text-align:center;}');
+    $push(toInject, '.GAEKAE5BIO{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BHO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BJO{height:100%;width:100%;}.GAEKAE5BJO td{text-align:center;}');
     schedule();
     return true;
   }
@@ -14284,13 +14313,13 @@ function $createAndBindUi_19(owner){
   mainHorizontalPanel = new VerticalPanel_0;
   $add_7(mainHorizontalPanel, descriptionLabel);
   $setCellVerticalAlignment(mainHorizontalPanel, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
-  actionButton.element['className'] = 'GAEKAE5BGO';
+  actionButton.element['className'] = 'GAEKAE5BKO';
   $add_7(mainHorizontalPanel, actionButton);
   $setCellHorizontalAlignment(mainHorizontalPanel, actionButton, ($clinit_HasHorizontalAlignment() , ALIGN_CENTER));
   $setCellVerticalAlignment(mainHorizontalPanel, actionButton, ALIGN_BOTTOM);
-  iconImage.element['className'] = 'GAEKAE5BHO';
+  iconImage.element['className'] = 'GAEKAE5BLO';
   $add_7(mainHorizontalPanel, iconImage);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BIO';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BMO';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.iconImage = iconImage;
@@ -14318,7 +14347,7 @@ function $ensureInjected_18(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BIO{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BHO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BGO{font-size:inherit;width:7em;height:3em;}');
+    $push(toInject, '.GAEKAE5BMO{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BLO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BKO{font-size:inherit;width:7em;height:3em;}');
     schedule();
     return true;
   }
@@ -14500,7 +14529,7 @@ function $createAndBindUi_20(owner){
   f_VerticalPanel1 = new VerticalPanel_0;
   actionButton = new Button_0;
   mainHorizontalPanel = new HorizontalPanel_0;
-  iconImage.element['className'] = 'GAEKAE5BJO';
+  iconImage.element['className'] = 'GAEKAE5BNO';
   $add_4(mainHorizontalPanel, iconImage);
   $setCellWidth(mainHorizontalPanel, iconImage, '64px');
   $setCellHeight(mainHorizontalPanel, iconImage, '100%');
@@ -14511,11 +14540,11 @@ function $createAndBindUi_20(owner){
   $add_7(f_VerticalPanel1, f_HTMLPanel2);
   $add_7(f_VerticalPanel1, f_HTMLPanel3);
   $setCellVerticalAlignment(f_VerticalPanel1, f_HTMLPanel3, ALIGN_BOTTOM);
-  f_VerticalPanel1.element['className'] = 'GAEKAE5BLO';
+  f_VerticalPanel1.element['className'] = 'GAEKAE5BPO';
   $add_4(mainHorizontalPanel, f_VerticalPanel1);
   $add_4(mainHorizontalPanel, actionButton);
   $setCellVerticalAlignment(mainHorizontalPanel, actionButton, ALIGN_MIDDLE);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BKO';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BOO';
   attachRecord0 = attachToDom(f_HTMLPanel3.element);
   domId0Element = $getElementById($doc, domId0);
   attachRecord0.origParent?$insertBefore(attachRecord0.origParent, attachRecord0.element, attachRecord0.origSibling):orphan(attachRecord0.element);
@@ -14550,7 +14579,7 @@ function $ensureInjected_19(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BKO{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BJO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BLO{height:100%;width:100%;}.GAEKAE5BLO td{text-align:center;}');
+    $push(toInject, '.GAEKAE5BOO{display:inline-table;border:1px solid black;border-radius:5px;width:300px;height:100px;padding:5px;margin:5px;}.GAEKAE5BNO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BPO{height:100%;width:100%;}.GAEKAE5BPO td{text-align:center;}');
     schedule();
     return true;
   }
@@ -14588,19 +14617,19 @@ function $createAndBindUi_21(owner){
   mainHorizontalPanel = new VerticalPanel_0;
   $add_7(mainHorizontalPanel, descriptionLabel);
   $setCellVerticalAlignment(mainHorizontalPanel, descriptionLabel, ($clinit_HasVerticalAlignment() , ALIGN_TOP));
-  entryTextBox.element['className'] = 'GAEKAE5BPO';
+  entryTextBox.element['className'] = 'GAEKAE5BDP';
   $add_7(mainHorizontalPanel, entryTextBox);
   $setCellVerticalAlignment(mainHorizontalPanel, entryTextBox, ALIGN_MIDDLE);
   $add_2(formPanel, fileUpload);
   $add_7(mainHorizontalPanel, formPanel);
   $setCellVerticalAlignment(mainHorizontalPanel, formPanel, ALIGN_MIDDLE);
-  actionButton.element['className'] = 'GAEKAE5BMO';
+  actionButton.element['className'] = 'GAEKAE5BAP';
   $add_7(mainHorizontalPanel, actionButton);
   $setCellHorizontalAlignment(mainHorizontalPanel, actionButton, ($clinit_HasHorizontalAlignment() , ALIGN_CENTER));
   $setCellVerticalAlignment(mainHorizontalPanel, actionButton, ALIGN_BOTTOM);
-  iconImage.element['className'] = 'GAEKAE5BNO';
+  iconImage.element['className'] = 'GAEKAE5BBP';
   $add_7(mainHorizontalPanel, iconImage);
-  mainHorizontalPanel.element['className'] = 'GAEKAE5BOO';
+  mainHorizontalPanel.element['className'] = 'GAEKAE5BCP';
   owner.actionButton = actionButton;
   owner.descriptionLabel = descriptionLabel;
   owner.entryTextBox = entryTextBox;
@@ -14631,7 +14660,7 @@ function $ensureInjected_20(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BOO{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BNO{width:64px;height:64px;margin-right:15px;}.GAEKAE5BMO{font-size:inherit;width:7em;height:3em;}.GAEKAE5BPO{margin:1px auto 3px auto;width:100%;height:3em;}');
+    $push(toInject, '.GAEKAE5BCP{border:1px solid black;border-radius:5px;width:90%;padding:5px;margin:5px auto 5px auto;}.GAEKAE5BBP{width:64px;height:64px;margin-right:15px;}.GAEKAE5BAP{font-size:inherit;width:7em;height:3em;}.GAEKAE5BDP{margin:1px auto 3px auto;width:100%;height:3em;}');
     schedule();
     return true;
   }

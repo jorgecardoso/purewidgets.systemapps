@@ -3,6 +3,7 @@
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
 	.main {
+		position:relative;
 		font-family:inherit;
 		font-size:2em;
 		border: 1px solid black;
@@ -28,13 +29,26 @@
 		margin-right:5px;
 	}
 		
+
+	.onscreen {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		width: 32px;
+		height: 32px;
+	}
+
 	.name {
 		padding-left: 0.5cm;
 		font-size:1.5em;
 	}
 	</ui:style>
-	<g:HorizontalPanel styleName="{style.main}">
+	<g:HorizontalPanel styleName="{style.main}" ui:field="mainPanel">
 		<g:cell width="64px" verticalAlignment="middle"> <g:Image styleName="{style.image}" ui:field="icon" /></g:cell>
+		<g:cell>
+		    <g:Image styleName="{style.onscreen}" ui:field="onscreenIcon" /> 
+		    </g:cell>
+		  
 		<g:cell verticalAlignment="middle" > <g:InlineLabel styleName="{style.name}" ui:field="name"/></g:cell>
 	</g:HorizontalPanel>
 </ui:UiBinder> 
