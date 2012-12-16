@@ -2,7 +2,7 @@
 <project name="System Apps" default="deploy-all" basedir=".">
     
     
- <property name="production" value = "true" />
+ <property name="production" value = "false"/>
  
  
  

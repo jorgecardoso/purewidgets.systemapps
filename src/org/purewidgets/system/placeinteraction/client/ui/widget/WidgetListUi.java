@@ -34,6 +34,7 @@ import com.google.gwt.user.client.ui.HTMLPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.StackPanel;
+import com.google.gwt.user.client.ui.TabBar;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -246,6 +247,20 @@ public class WidgetListUi extends Composite  {
 		}
 	}
 	
+//	private void removeTab( String tabName) {
+//		if ( null != this.tabPanel ) {
+//			//this.tabPanel.insert(w, tabName, this.tabPanel.getWidgetCount());
+//			TabBar tb = this.tabPanel.getTabBar();
+//			for ( int i = 0; i < tb.getTabCount(); i++ ) {
+//				if ( tabName.equals( tb.getTab(i). ))
+//			}
+//			this.tabPanel.r .add(w, tabName);
+//		}
+//		if ( null != this.stackPanel ) {
+//			this.stackPanel.add(w, tabName);
+//		}
+//	}
+	
 	private void addTab(Widget w, String tabName) {
 		if ( null != this.tabPanel ) {
 			//this.tabPanel.insert(w, tabName, this.tabPanel.getWidgetCount());
@@ -330,6 +345,8 @@ public class WidgetListUi extends Composite  {
 					}
 				}
 			}
+			
+
 
 			/*
 			 * Add the new widgets. Widgets are inserted in reverse alphabetical order
@@ -357,6 +374,27 @@ public class WidgetListUi extends Composite  {
 					
 					panel = flowPanel;
 				} 
+				
+				/*
+				 * Delete widgets that changed tabs (changed short descriptions)
+				 */
+				for ( String tab : panelsMap.keySet() ) {
+					int i = 0;
+					FlowPanel p = panelsMap.get(tab);
+					while (i < p.getWidgetCount()) {
+						String widgetName = p.getWidget(i).getElement().getPropertyString("id");
+		
+						if ( widgetName.equals(widget.getWidgetId()) && !tab.equals(tabName)) {
+							p.remove(i);
+						} else {
+							// only increment if we haven't deleted anything because
+							// if we did, indexes may have changed
+							i++;
+						
+						}
+					}
+					
+				}
 				
 				
 				/*
@@ -405,8 +443,25 @@ public class WidgetListUi extends Composite  {
 						panel.add(WidgetUi.getHtmlWidget(this.uiType, widget, null));
 					}
 				} else {
-					panel.remove(indexInPanel);
-					panel.insert(WidgetUi.getHtmlWidget(this.uiType, widget, null), indexInPanel);
+					Widget w = panel.getWidget(indexInPanel);
+					WidgetUi.update(w, widget);
+					//panel.remove(indexInPanel);
+					//panel.insert(WidgetUi.getHtmlWidget(this.uiType, widget, null), indexInPanel);
+				}
+			}
+			
+			
+			
+			/*
+			 * Delete empty tabs 
+			 */
+			for ( String tab : panelsMap.keySet() ) {
+				
+				FlowPanel p = panelsMap.get(tab);
+				
+				
+				if ( p.getWidgetCount() == 0 ) {
+					p.removeFromParent();
 				}
 			}
 			

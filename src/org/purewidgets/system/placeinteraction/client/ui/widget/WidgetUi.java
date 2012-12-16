@@ -341,6 +341,28 @@ public class WidgetUi extends Composite  {
 		return applicationName;
 	}
 
+	public static void update(Widget w, org.purewidgets.shared.im.Widget widget) {
+		if ( w instanceof DownloadWidgetUi ) {
+			((DownloadWidgetUi) w).update(widget);
+			
+		} else if ( w instanceof EntryWidgetUi ) {
+			((EntryWidgetUi) w).update(widget);
+			
+		} else if ( w instanceof ImperativeMultipleOptionWidgetUi ) {
+			((ImperativeMultipleOptionWidgetUi) w).update(widget);
+			
+		} else if ( w instanceof ImperativeSingleOptionWidgetUi ) {
+			((ImperativeSingleOptionWidgetUi) w).update(widget);
+			
+		} else if ( w instanceof PresenceWidgetUi ) {
+			((PresenceWidgetUi) w).update(widget);
+			
+		}  else if ( w instanceof UploadWidgetUi ) {
+			((UploadWidgetUi) w).update(widget);
+		}
+		
+	}
+
 	
 	
 }

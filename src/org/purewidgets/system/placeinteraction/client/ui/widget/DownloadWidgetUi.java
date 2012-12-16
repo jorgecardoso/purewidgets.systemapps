@@ -99,6 +99,24 @@ public class DownloadWidgetUi extends Composite {
 		});
 	}
 
+	private void updateUi() {
+		String description = this.pureWidget.getLongDescription();
+		if ( null == description || description.trim().length() == 0) {
+			description = this.pureWidget.getShortDescription();
+		}
+		this.descriptionLabel.setText(description);
+		this.actionButton.setText(this.pureWidget.getShortDescription() + " " + ReferenceCodeFormatter.format(this.pureWidget.getWidgetOptions().get(0).getReferenceCode()) );
+		
+		if ( this.loadWidgetIcon ) {
+			String url = this.pureWidget.getWidgetOptions().get(0).getIconUrl();
+			if (null != url) {
+				this.iconImage.setUrl(url);
+			} else {
+				this.iconImage.removeFromParent();
+			}
+		} 
+		
+	}
 	
 	private UiBinder<Widget, DownloadWidgetUi> getUiBinder(UiType uiType) {
 		switch ( uiType ) {
@@ -112,5 +130,13 @@ public class DownloadWidgetUi extends Composite {
 			return desktopUiBinder;
 		}
 	}
+
+	public void update(org.purewidgets.shared.im.Widget widget) {
+		this.pureWidget = widget;
+		this.updateUi();
+		
+	}
+
+
 	
 }

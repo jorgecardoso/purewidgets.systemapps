@@ -92,6 +92,25 @@ public class ImperativeMultipleOptionWidgetUi extends Composite {
 //		
 	}
 
+	private void updateUi() {
+		String description = this.pureWidget.getLongDescription();
+		if ( null == description || description.trim().length() == 0) {
+			description = this.pureWidget.getShortDescription();
+		}
+		this.descriptionLabel.setText(description);
+		this.actionButton.setText(this.pureWidget.getShortDescription());
+		
+		int selectedIndex = this.optionsListBox.getSelectedIndex();
+		this.optionsListBox.clear();
+		this.optionsListBox.setVisibleItemCount(Math.min(4, this.pureWidget.getWidgetOptions().size()));
+
+		for (WidgetOption wo : this.pureWidget.getWidgetOptions() ) {
+			this.optionsListBox.addItem(wo.getShortDescription() + " " + ReferenceCodeFormatter.format(wo.getReferenceCode()));
+		}
+		
+		this.optionsListBox.setSelectedIndex(selectedIndex);
+	}
+	
 	private UiBinder<Widget, ImperativeMultipleOptionWidgetUi> getUiBinder(UiType uiType) {
 		switch ( uiType ) {
 		
@@ -104,6 +123,11 @@ public class ImperativeMultipleOptionWidgetUi extends Composite {
 		default:
 			return desktopUiBinder;
 		}
+	}
+
+	public void update(org.purewidgets.shared.im.Widget widget) {
+		this.pureWidget = widget;
+		this.updateUi();
 	}
 	
 

@@ -77,6 +77,16 @@ public class EntryWidgetUi extends Composite {
 				this.pureWidget.getWidgetId(), this.pureWidget.getWidgetOptions(), this.entryTextBox, new PopupUi(this.uiType) ));	
 	}
 
+	private void updateUi() {
+		String description = this.pureWidget.getLongDescription();
+		if ( null == description || description.trim().length() == 0) {
+			description = this.pureWidget.getShortDescription();
+		}
+		this.descriptionLabel.setText(description);
+		this.actionButton.setText(this.pureWidget.getShortDescription() + " " + ReferenceCodeFormatter.format(this.pureWidget.getWidgetOptions().get(0).getReferenceCode()));
+	}
+
+	
 	private UiBinder<Widget, EntryWidgetUi> getUiBinder(UiType uiType) {
 		switch ( uiType ) {
 		
@@ -89,6 +99,11 @@ public class EntryWidgetUi extends Composite {
 		default:
 			return desktopUiBinder;
 		}
+	}
+
+	public void update(org.purewidgets.shared.im.Widget widget) {
+		this.pureWidget = widget;
+		this.updateUi();
 	}
 	
 

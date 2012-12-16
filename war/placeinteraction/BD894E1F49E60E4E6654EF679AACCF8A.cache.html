@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = '2614EC552F1A239180F6A88CD5EBF2D9';
+var $strongName = 'BD894E1F49E60E4E6654EF679AACCF8A';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'placeinteraction',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -1136,6 +1136,10 @@ function $setSrc(this$static, src){
   this$static.src = src;
 }
 
+function $setSelectedIndex(this$static, index){
+  this$static.selectedIndex = index;
+}
+
 function $setSize(this$static, size){
   this$static.size = size;
 }
@@ -2158,9 +2162,9 @@ function HandlerManager$Bus_0(fireInReverseOrder){
 function HandlerManager$Bus(){
 }
 
-_ = HandlerManager$Bus_0.prototype = HandlerManager$Bus.prototype = new SimpleEventBus;
 --></script>
 <script><!--
+_ = HandlerManager$Bus_0.prototype = HandlerManager$Bus.prototype = new SimpleEventBus;
 _.getClass$ = function getClass_59(){
   return Lcom_google_gwt_event_shared_HandlerManager$Bus_2_classLit;
 }
@@ -7113,6 +7117,10 @@ function $setItemSelected(this$static, index){
   this$static.element.options[index].selected = true;
 }
 
+function $setSelectedIndex_0(this$static, index){
+  $setSelectedIndex(this$static.element, index);
+}
+
 function $setVisibleItemCount(this$static, visibleItems){
   $setSize(this$static.element, visibleItems);
 }
@@ -7140,9 +7148,9 @@ _.getClass$ = function getClass_185(){
   return Lcom_google_gwt_user_client_ui_ListenerWrapper_2_classLit;
 }
 ;
-_.castableTypeMap$ = makeCastMap([Q$EventHandler]);
 --></script>
 <script><!--
+_.castableTypeMap$ = makeCastMap([Q$EventHandler]);
 function ListenerWrapper$WrappedTabListener_0(listener){
   this.listener = listener;
 }
@@ -10133,6 +10141,12 @@ _.size_1 = function size_3(){
 _.castableTypeMap$ = makeCastMap([Q$Set]);
 _.this$0 = null;
 _.val$entrySet = null;
+function $next_4(this$static){
+  var entry;
+  entry = $next_2(this$static.val$outerIter);
+  return entry.getKey();
+}
+
 function AbstractMap$1$1_0(val$outerIter){
   this.val$outerIter = val$outerIter;
 }
@@ -10150,9 +10164,7 @@ _.hasNext = function hasNext_4(){
 }
 ;
 _.next_0 = function next_5(){
-  var entry;
-  entry = $next_2(this.val$outerIter);
-  return entry.getKey();
+  return $next_4(this);
 }
 ;
 _.remove_0 = function remove_20(){
@@ -10193,7 +10205,7 @@ _.size_1 = function size_4(){
 ;
 _.this$0 = null;
 _.val$entrySet = null;
-function $next_4(this$static){
+function $next_5(this$static){
   var value;
   value = $next_2(this$static.val$outerIter).getValue();
   return value;
@@ -10216,7 +10228,7 @@ _.hasNext = function hasNext_5(){
 }
 ;
 _.next_0 = function next_6(){
-  return $next_4(this);
+  return $next_5(this);
 }
 ;
 _.remove_0 = function remove_21(){
@@ -13393,6 +13405,23 @@ function $initUi(this$static){
   $addDomHandler(this$static.actionButton, new DownloadWidgetUi$1_0(this$static), TYPE_0);
 }
 
+function $update_0(this$static, widget){
+  this$static.pureWidget = widget;
+  $updateUi(this$static);
+}
+
+function $updateUi(this$static){
+  var description, url;
+  description = this$static.pureWidget.longDescription_0;
+  (null == description || $trim(description).length == 0) && (description = this$static.pureWidget.shortDescription_0);
+  $setText_0(this$static.descriptionLabel, description);
+  $setText(this$static.actionButton, this$static.pureWidget.shortDescription_0 + ' ' + format_1(dynamicCast($get_1(this$static.pureWidget.widgetOptions_0, 0), Q$WidgetOption).referenceCode_0));
+  if (this$static.loadWidgetIcon) {
+    url = dynamicCast($get_1(this$static.pureWidget.widgetOptions_0, 0), Q$WidgetOption).iconUrl_0;
+    null != url?$setUrl_0(this$static.iconImage, url):$removeFromParent(this$static.iconImage);
+  }
+}
+
 function DownloadWidgetUi_0(uiType, widget){
   $clinit_DownloadWidgetUi();
   this.uiType = uiType;
@@ -13595,6 +13624,15 @@ function $getUiBinder_7(this$static, uiType){
       return smartphoneUiBinder_2;
     default:return desktopUiBinder_7;
   }
+}
+
+function $update_1(this$static, widget){
+  var description;
+  this$static.pureWidget = widget;
+  description = this$static.pureWidget.longDescription_0;
+  (null == description || $trim(description).length == 0) && (description = this$static.pureWidget.shortDescription_0);
+  $setText_0(this$static.descriptionLabel, description);
+  $setText(this$static.actionButton, this$static.pureWidget.shortDescription_0 + ' ' + format_1(dynamicCast($get_1(this$static.pureWidget.widgetOptions_0, 0), Q$WidgetOption).referenceCode_0));
 }
 
 function EntryWidgetUi_0(uiType, widget){
@@ -13809,6 +13847,27 @@ function $initUi_0(this$static){
   $addDomHandler(this$static.actionButton, new MultipleOptionImperativeClickHandler_0(this$static.pureWidget.placeId_0, this$static.pureWidget.applicationId_0, this$static.pureWidget.widgetId_0, this$static.pureWidget.widgetOptions_0, this$static.optionsListBox, new PopupUi_0(this$static.uiType)), ($clinit_ClickEvent() , $clinit_ClickEvent() , TYPE_0));
 }
 
+function $update_2(this$static, widget){
+  this$static.pureWidget = widget;
+  $updateUi_0(this$static);
+}
+
+function $updateUi_0(this$static){
+  var description, selectedIndex, wo, wo$iterator;
+  description = this$static.pureWidget.longDescription_0;
+  (null == description || $trim(description).length == 0) && (description = this$static.pureWidget.shortDescription_0);
+  $setText_0(this$static.descriptionLabel, description);
+  $setText(this$static.actionButton, this$static.pureWidget.shortDescription_0);
+  selectedIndex = this$static.optionsListBox.element.selectedIndex;
+  this$static.optionsListBox.element.options.length = 0;
+  $setVisibleItemCount(this$static.optionsListBox, min(this$static.pureWidget.widgetOptions_0.size_0));
+  for (wo$iterator = new AbstractList$IteratorImpl_0(this$static.pureWidget.widgetOptions_0); wo$iterator.i < wo$iterator.this$0_0.size_1();) {
+    wo = dynamicCast($next_3(wo$iterator), Q$WidgetOption);
+    $addItem(this$static.optionsListBox, wo.shortDescription_0 + ' ' + format_1(wo.referenceCode_0));
+  }
+  $setSelectedIndex_0(this$static.optionsListBox, selectedIndex);
+}
+
 function ImperativeMultipleOptionWidgetUi_0(uiType, widget, optionId){
   $clinit_ImperativeMultipleOptionWidgetUi();
   this.uiType = uiType;
@@ -13915,6 +13974,8 @@ function $clinit_ImperativeMultipleOptionWidgetUi_ImperativeMultipleOptionUiDesk
   style_14 = new ImperativeMultipleOptionWidgetUi_ImperativeMultipleOptionUiDesktopUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1_0;
 }
 
+--></script>
+<script><!--
 function $createAndBindUi_15(owner){
   var actionButton, descriptionLabel, iconImage, mainHorizontalPanel, optionsListBox;
   $clinit_ImperativeMultipleOptionWidgetUi_ImperativeMultipleOptionUiSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$styleInitializer();
@@ -13979,8 +14040,6 @@ function ImperativeMultipleOptionWidgetUi_ImperativeMultipleOptionUiSmartphoneUi
 }
 
 _ = ImperativeMultipleOptionWidgetUi_ImperativeMultipleOptionUiSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1_0.prototype = ImperativeMultipleOptionWidgetUi_ImperativeMultipleOptionUiSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1.prototype = new Object_0;
---></script>
-<script><!--
 _.getClass$ = function getClass_338(){
   return Lorg_purewidgets_system_placeinteraction_client_ui_widget_ImperativeMultipleOptionWidgetUi_1ImperativeMultipleOptionUiSmartphoneUiBinderImpl_1GenBundle_1default_1InlineClientBundleGenerator$1_2_classLit;
 }
@@ -14023,6 +14082,23 @@ function $initUi_1(this$static){
     $removeFromParent(this$static.iconImage);
   }
   $addDomHandler(this$static.actionButton, new ImperativeClickHandler_0(this$static.pureWidget.placeId_0, this$static.pureWidget.applicationId_0, this$static.pureWidget.widgetId_0, this$static.pureWidget.widgetOptions_0, new PopupUi_0(this$static.uiType)), ($clinit_ClickEvent() , $clinit_ClickEvent() , TYPE_0));
+}
+
+function $update_3(this$static, widget){
+  this$static.pureWidget = widget;
+  $updateUi_1(this$static);
+}
+
+function $updateUi_1(this$static){
+  var description, url;
+  description = this$static.pureWidget.longDescription_0;
+  (null == description || $trim(description).length == 0) && (description = this$static.pureWidget.shortDescription_0);
+  $setText_0(this$static.descriptionLabel, description);
+  $setText(this$static.actionButton, this$static.pureWidget.shortDescription_0 + ' ' + format_1(dynamicCast($get_1(this$static.pureWidget.widgetOptions_0, 0), Q$WidgetOption).referenceCode_0));
+  if (this$static.loadWidgetIcon) {
+    url = dynamicCast($get_1(this$static.pureWidget.widgetOptions_0, 0), Q$WidgetOption).iconUrl_0;
+    null != url?$setUrl_0(this$static.iconImage, url):$removeFromParent(this$static.iconImage);
+  }
 }
 
 function ImperativeSingleOptionWidgetUi_0(uiType, widget){
@@ -14202,6 +14278,15 @@ function $getUiBinder_10(this$static, uiType){
       return smartphoneUiBinder_5;
     default:return desktopUiBinder_10;
   }
+}
+
+function $update_4(this$static, widget){
+  var description;
+  this$static.pureWidget = widget;
+  description = this$static.pureWidget.longDescription_0;
+  (null == description || $trim(description).length == 0) && (description = this$static.pureWidget.shortDescription_0);
+  $setText_0(this$static.descriptionLabel, description);
+  $setText(this$static.actionButton, this$static.pureWidget.shortDescription_0 + ' ' + format_1(dynamicCast($get_1(this$static.pureWidget.widgetOptions_0, 0), Q$WidgetOption).referenceCode_0));
 }
 
 function PresenceWidgetUi_0(uiType, widget){
@@ -14393,6 +14478,15 @@ function $requestUploadUrl(this$static){
   $send('http://pw-systemapps.appspot.com/filearchive/serveurl?uploadId=' + this$static.uploadId, new UploadWidgetUi$4_0(this$static));
 }
 
+function $update_5(this$static, widget){
+  var description;
+  this$static.pureWidget = widget;
+  description = this$static.pureWidget.longDescription_0;
+  (null == description || $trim(description).length == 0) && (description = this$static.pureWidget.shortDescription_0);
+  $setText_0(this$static.descriptionLabel, description);
+  $setText(this$static.actionButton, this$static.pureWidget.shortDescription_0 + ' ' + format_1(dynamicCast($get_1(this$static.pureWidget.widgetOptions_0, 0), Q$WidgetOption).referenceCode_0));
+}
+
 function UploadWidgetUi_0(uiType, widget){
   var description;
   $clinit_UploadWidgetUi();
@@ -14487,6 +14581,8 @@ _.onSuccess_1 = function onSuccess_8(result){
 }
 ;
 _.this$0 = null;
+--></script>
+<script><!--
 function $onSuccess_8(this$static, result){
   $clinit_Log();
   $log_1(logger_0, ($clinit_Level() , FINE_0), result);
@@ -14598,8 +14694,6 @@ _.getClass$ = function getClass_355(){
 }
 ;
 _.injected = false;
---></script>
-<script><!--
 function $clinit_UploadWidgetUi_UploadWidgetDesktopUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$styleInitializer(){
   $clinit_UploadWidgetUi_UploadWidgetDesktopUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$styleInitializer = nullMethod;
   style_20 = new UploadWidgetUi_UploadWidgetDesktopUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1_0;
@@ -14721,7 +14815,7 @@ function $handleImageError_0(this$static){
 }
 
 function $onWidgetsList(this$static, applicationId, widgetList){
-  var existingWidgetName, exists, flowPanel, foundPlace, i, indexInPanel, p, p$iterator, panel, tabName, w, w$iterator, widget, widget$iterator, widgetIds, widgetName, x;
+  var existingWidgetName, exists, flowPanel, foundPlace, i, indexInPanel, p, p$iterator, panel, tab, tab$iterator, tabName, w, w$iterator, widget, widget$iterator, widgetIds, widgetName, x;
   debug_0(this$static, 'Received widget list' + $toString_3(widgetList));
   $clinit_Collections();
   x = cloneSubrange(widgetList.array, 0, widgetList.size_0);
@@ -14752,7 +14846,7 @@ function $onWidgetsList(this$static, applicationId, widgetList){
     $clinit_Log();
     debug(Lorg_purewidgets_system_placeinteraction_client_ui_widget_WidgetListUi_2_classLit.typeName + ': Received widgets for application: ' + applicationId);
     for (p$iterator = $iterator_0($values(this$static.panelsMap)); $hasNext_0(p$iterator.val$outerIter.iter);) {
-      p = dynamicCast($next_4(p$iterator), Q$FlowPanel);
+      p = dynamicCast($next_5(p$iterator), Q$FlowPanel);
       i = 0;
       while (i < p.children_0.size_0) {
         widgetName = $getPropertyString($get(p.children_0, i).element, 'id');
@@ -14771,6 +14865,15 @@ function $onWidgetsList(this$static, applicationId, widgetList){
         !!this$static.stackPanel && $add_5(this$static.stackPanel, flowPanel, tabName);
         panel = flowPanel;
       }
+      for (tab$iterator = $iterator($keySet(this$static.panelsMap)); $hasNext_0(tab$iterator.val$outerIter.iter);) {
+        tab = dynamicCast($next_4(tab$iterator), Q$String);
+        i = 0;
+        p = dynamicCast($get_0(this$static.panelsMap, tab), Q$FlowPanel);
+        while (i < p.children_0.size_0) {
+          widgetName = $getPropertyString($get(p.children_0, i).element, 'id');
+          $equals(widgetName, widget.widgetId_0) && !$equals(tab, tabName)?$remove_0(p, $get(p.children_0, i)):++i;
+        }
+      }
       exists = false;
       indexInPanel = 0;
       foundPlace = false;
@@ -14787,13 +14890,19 @@ function $onWidgetsList(this$static, applicationId, widgetList){
         }
       }
       if (exists) {
-        $remove_0(panel, $get(panel.children_0, indexInPanel));
-        $insert_0(panel, getHtmlWidget(this$static.uiType, widget, null), indexInPanel);
+        w = $get(panel.children_0, indexInPanel);
+        $clinit_WidgetUi();
+        instanceOf(w, Q$DownloadWidgetUi)?$update_0(dynamicCast(w, Q$DownloadWidgetUi), widget):instanceOf(w, Q$EntryWidgetUi)?$update_1(dynamicCast(w, Q$EntryWidgetUi), widget):instanceOf(w, Q$ImperativeMultipleOptionWidgetUi)?$update_2(dynamicCast(w, Q$ImperativeMultipleOptionWidgetUi), widget):instanceOf(w, Q$ImperativeSingleOptionWidgetUi)?$update_3(dynamicCast(w, Q$ImperativeSingleOptionWidgetUi), widget):instanceOf(w, Q$PresenceWidgetUi)?$update_4(dynamicCast(w, Q$PresenceWidgetUi), widget):instanceOf(w, Q$UploadWidgetUi) && $update_5(dynamicCast(w, Q$UploadWidgetUi), widget);
       }
        else {
         debug_0(this$static, 'Adding ' + widget.widgetId_0 + ' to panel');
         foundPlace?$insert_0(panel, getHtmlWidget(this$static.uiType, widget, null), indexInPanel):$add_1(panel, getHtmlWidget(this$static.uiType, widget, null));
       }
+    }
+    for (tab$iterator = $iterator($keySet(this$static.panelsMap)); $hasNext_0(tab$iterator.val$outerIter.iter);) {
+      tab = dynamicCast($next_4(tab$iterator), Q$String);
+      p = dynamicCast($get_0(this$static.panelsMap, tab), Q$FlowPanel);
+      p.children_0.size_0 == 0 && $removeFromParent(p);
     }
     $getSelectedTab_0(this$static) < 0 && (!!this$static.tabPanel && $selectTab(this$static.tabPanel.tabBar, 0) , !!this$static.stackPanel && $showStack(this$static.stackPanel, 0));
   }
@@ -15125,6 +15234,8 @@ function $clinit_WidgetListUi_WidgetListDesktopUiBinderImpl_GenBundle_default_In
   style_22 = new WidgetListUi_WidgetListDesktopUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1_0;
 }
 
+--></script>
+<script><!--
 function $createAndBindUi_23(owner){
   var applicationIcon, attachRecord0, attachRecord1, domId0, domId1, domId1Element, domId2, domId2Element, f_HTML2, f_VerticalPanel1, goBackPanel, handlerMethodWithNameVeryUnlikelyToCollideWithUserFieldNames1, labelNoWidgetFound, mainPanel, spanApplicationName, stackPanel, style, tabPanel, sb, sb_0;
   style = ($clinit_WidgetListUi_WidgetListSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$styleInitializer() , style_23);
@@ -15242,8 +15353,6 @@ _.over = function over_0(){
 }
 ;
 _.injected = false;
---></script>
-<script><!--
 function $clinit_WidgetListUi_WidgetListSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$styleInitializer(){
   $clinit_WidgetListUi_WidgetListSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$styleInitializer = nullMethod;
   style_23 = new WidgetListUi_WidgetListSmartphoneUiBinderImpl_GenBundle_default_InlineClientBundleGenerator$1_0;

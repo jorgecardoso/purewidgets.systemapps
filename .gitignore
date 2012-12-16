@@ -1,4 +1,12 @@
 gwt-unitCache 
 gwt-unitCache/*
+war/WEB-INF/lib
+war/WEB-INF/lib/*
+war/WEB-INF/deploy
+war/everybodyvotes
+war/instructions
+war/publicyoutubeplayer
+extra
+extra/*
 .settings
 .classpath

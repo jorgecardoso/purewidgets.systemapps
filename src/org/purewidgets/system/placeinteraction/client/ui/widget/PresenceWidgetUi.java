@@ -78,6 +78,17 @@ public class PresenceWidgetUi extends Composite {
 //		//flowPanel.getElement().setPropertyString("id", publicDisplayWidget.getWidgetId());
 	}
 
+	private void updateUi() {
+		String description = this.pureWidget.getLongDescription();
+		if ( null == description || description.trim().length() == 0) {
+			description = this.pureWidget.getShortDescription();
+		}
+		this.descriptionLabel.setText(description);
+		this.actionButton.setText(this.pureWidget.getShortDescription() + " " + ReferenceCodeFormatter.format(this.pureWidget.getWidgetOptions().get(0).getReferenceCode()));
+		
+	}
+
+	
 	private UiBinder<Widget, PresenceWidgetUi> getUiBinder(UiType uiType) {
 		switch ( uiType ) {
 		
@@ -91,6 +102,11 @@ public class PresenceWidgetUi extends Composite {
 		default:
 			return desktopUiBinder;
 		}
+	}
+
+	public void update(org.purewidgets.shared.im.Widget widget) {
+		this.pureWidget = widget;
+		this.updateUi();
 	}
 	
 

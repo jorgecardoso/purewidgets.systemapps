@@ -108,6 +108,16 @@ public class UploadWidgetUi extends Composite {
 		this.actionButton.addClickHandler(new EntryClickHandler(this.pureWidget.getPlaceId(), this.pureWidget.getApplicationId(), 
 				this.pureWidget.getWidgetId(), this.pureWidget.getWidgetOptions(), this.entryTextBox, new PopupUi(this.uiType) ));	
 	}
+	
+	private void updateUi() {
+		String description = this.pureWidget.getLongDescription();
+		if ( null == description || description.trim().length() == 0) {
+			description = this.pureWidget.getShortDescription();
+		}
+		this.descriptionLabel.setText(description);
+		this.actionButton.setText(this.pureWidget.getShortDescription() + " " + ReferenceCodeFormatter.format(this.pureWidget.getWidgetOptions().get(0).getReferenceCode()));
+			
+	}	
 
 	private UiBinder<Widget, UploadWidgetUi> getUiBinder(UiType uiType) {
 		switch ( uiType ) {
@@ -168,6 +178,12 @@ public class UploadWidgetUi extends Composite {
 	  			 
 	  		 });
 		
+	}
+
+
+	public void update(org.purewidgets.shared.im.Widget widget) {
+		this.pureWidget = widget;
+		this.updateUi();
 	}
 
 }
