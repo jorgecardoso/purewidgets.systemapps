@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = 'FB5EB53071252FD5833B0380D1C968CE';
+var $strongName = '96B384552D943F142CA1F4C82EA2FE92';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'placeinteraction',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -991,6 +991,13 @@ function $createInputElement(doc, type){
   return e;
 }
 
+function $createScriptElement(doc, source){
+  var elem;
+  elem = $createElement(doc, 'script');
+  elem.text = source;
+  return elem;
+}
+
 function $getFirstChildElement(elem){
   var child = elem.firstChild;
   while (child && child.nodeType != 1)
@@ -1015,41 +1022,74 @@ function $imgSetSrc(img, src){
   img.src = src;
 }
 
+--></script>
+<script><!--
+function $createElement(doc, tagName){
+  var container, elem;
+  if (tagName.indexOf(':') != -1) {
+    container = (!doc.__gwt_container && (doc.__gwt_container = doc.createElement('div')) , doc.__gwt_container);
+    container.innerHTML = '<' + tagName + '/>' || '';
+    elem = $getFirstChildElement(container);
+    container.removeChild(elem);
+    return elem;
+  }
+  return doc.createElement(tagName);
+}
+
 function $dispatchEvent(target, evt){
-  target.dispatchEvent(evt);
+  target.fireEvent('on' + evt.type, evt);
+}
+
+function $getTagName(elem){
+  var scopeName, tagName;
+  tagName = elem.tagName;
+  scopeName = elem.scopeName;
+  if (scopeName == null || $equalsIgnoreCase('html', scopeName)) {
+    return tagName;
+  }
+  return scopeName + ':' + tagName;
+}
+
+function $isOrHasChild(parent_0, child){
+  if (parent_0.nodeType != 1 && parent_0.nodeType != 9) {
+    return parent_0 == child;
+  }
+  if (child.nodeType != 1) {
+    child = child.parentNode;
+    if (!child) {
+      return false;
+    }
+  }
+  return parent_0 === child || parent_0.contains(child);
+}
+
+function $selectAdd(select, option, before){
+  before?select.add(option, before.index):select.add(option);
 }
 
 function $setInnerText(elem, text){
-  elem.textContent = text || '';
+  elem.innerText = text || '';
 }
 
-function $createScriptElement(doc, source){
-  var elem;
-  elem = doc.createElement('script');
-  $setInnerText(elem, source);
-  return elem;
-}
-
---></script>
-<script><!--
-function $isOrHasChild(parent_0, child){
-  while (child) {
-    if (parent_0 == child) {
-      return true;
-    }
-    child = child.parentNode;
-    child && child.nodeType != 1 && (child = null);
+var currentEventTarget = null;
+function $getScrollLeft(elem){
+  if (elem.currentStyle.direction == 'rtl') {
+    return -(elem.scrollLeft || 0);
   }
-  return false;
-}
-
-function $getTabIndex(elem){
-  return elem.tabIndex < 65535?elem.tabIndex:-(elem.tabIndex % 65535) - 1;
+  return elem.scrollLeft || 0;
 }
 
 function $createUniqueId(this$static){
   !this$static.gwt_uid && (this$static.gwt_uid = 1);
   return 'gwt-uid-' + this$static.gwt_uid++;
+}
+
+function $getBodyOffsetLeft(this$static){
+  return ($equals(this$static.compatMode, 'CSS1Compat')?this$static.documentElement:this$static.body).clientLeft;
+}
+
+function $getBodyOffsetTop(this$static){
+  return ($equals(this$static.compatMode, 'CSS1Compat')?this$static.documentElement:this$static.body).clientTop;
 }
 
 function $getClientHeight(this$static){
@@ -1066,6 +1106,14 @@ function $getElementById(this$static, elementId){
 
 function $getScrollHeight(this$static){
   return ($equals(this$static.compatMode, 'CSS1Compat')?this$static.documentElement:this$static.body).scrollHeight || 0;
+}
+
+function $getScrollLeft_0(this$static){
+  return $getScrollLeft($equals(this$static.compatMode, 'CSS1Compat')?this$static.documentElement:this$static.body);
+}
+
+function $getScrollTop(this$static){
+  return ($equals(this$static.compatMode, 'CSS1Compat')?this$static.documentElement:this$static.body).scrollTop || 0;
 }
 
 function $getScrollWidth(this$static){
@@ -1769,7 +1817,7 @@ function fire_0(source, item){
   if (TYPE_4) {
     event_0 = new BeforeSelectionEvent_0;
     event_0.item = item;
-    source.fireEvent(event_0);
+    source.fireEvent_0(event_0);
     return event_0;
   }
   return null;
@@ -1801,7 +1849,7 @@ function fire_1(source){
   var event_0;
   if (TYPE_5) {
     event_0 = new CloseEvent_0;
-    source.fireEvent(event_0);
+    source.fireEvent_0(event_0);
   }
 }
 
@@ -1859,7 +1907,7 @@ function fire_3(source, selectedItem){
   var event_0;
   if (TYPE_7) {
     event_0 = new SelectionEvent_0(selectedItem);
-    source.fireEvent(event_0);
+    source.fireEvent_0(event_0);
   }
 }
 
@@ -1954,7 +2002,7 @@ function HandlerManager(){
 }
 
 _ = HandlerManager_1.prototype = HandlerManager_0.prototype = HandlerManager.prototype = new Object_0;
-_.fireEvent = function fireEvent(event_0){
+_.fireEvent_0 = function fireEvent(event_0){
   $fireEvent(this, event_0);
 }
 ;
@@ -2114,6 +2162,8 @@ function HandlerManager$Bus_0(fireInReverseOrder){
 function HandlerManager$Bus(){
 }
 
+--></script>
+<script><!--
 _ = HandlerManager$Bus_0.prototype = HandlerManager$Bus.prototype = new SimpleEventBus;
 _.getClass$ = function getClass_59(){
   return Lcom_google_gwt_event_shared_HandlerManager$Bus_2_classLit;
@@ -2160,8 +2210,6 @@ _.getClass$ = function getClass_62(){
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$UmbrellaException, Q$Serializable, Q$Exception, Q$RuntimeException, Q$Throwable]);
---></script>
-<script><!--
 function $cancel_2(this$static){
   var xmlHttp;
   if (this$static.xmlHttpRequest) {
@@ -2716,7 +2764,7 @@ function $send(url, callback){
   $append_0(uri, url.indexOf('?') != -1?'&':'?');
   prefix = '__gwt_jsonp__.' + request.callbackId;
   $append_0($append_0($append_0($append_0(uri, request.callbackParam), '='), prefix), '.onSuccess');
-  script = $doc.createElement('script');
+  script = $createElement($doc, 'script');
   script.type = 'text/javascript';
   $setId(script, request.callbackId);
   $setSrc(script, $toString(uri.data));
@@ -2893,7 +2941,7 @@ function init(){
   var runtimeValue;
   !!$stats && onModuleStart('com.google.gwt.user.client.UserAgentAsserter');
   runtimeValue = $getRuntimeValue();
-  $equals('ie9', runtimeValue) || ($wnd.alert('ERROR: Possible problem with your *.gwt.xml module file.\nThe compile time user.agent value (ie9) does not match the runtime user.agent value (' + runtimeValue + '). Expect more errors.\n') , undefined);
+  $equals('ie8', runtimeValue) || ($wnd.alert('ERROR: Possible problem with your *.gwt.xml module file.\nThe compile time user.agent value (ie8) does not match the runtime user.agent value (' + runtimeValue + '). Expect more errors.\n') , undefined);
   !!$stats && onModuleStart('com.google.gwt.user.client.DocumentModeAsserter');
   $onModuleLoad_0();
   !!$stats && onModuleStart('com.google.gwt.logging.client.LogConfiguration');
@@ -3162,6 +3210,8 @@ function $getRecordInfo(event_0, newline){
   return $toString(s.data);
 }
 
+--></script>
+<script><!--
 function $getStackTraceAsString(e, newline, indent){
   var causedBy, currentCause, i, s, seenCauses, stackElems;
   if (!e) {
@@ -3232,8 +3282,6 @@ function $getEscaped(text){
   return text;
 }
 
---></script>
-<script><!--
 function $getHtmlPrefix(event_0){
   var prefix;
   prefix = new StringBuilder_0;
@@ -3813,7 +3861,7 @@ function attachToDom(element){
 
 function ensureHiddenDiv(){
   if (!hiddenDiv) {
-    hiddenDiv = $doc.createElement('div');
+    hiddenDiv = $createElement($doc, 'div');
     setVisible(hiddenDiv, false);
     $appendChild(getBodyElement(), hiddenDiv);
   }
@@ -4120,7 +4168,7 @@ function setCookieImpl(name_0, value, expires, domain, path, secure){
 }
 
 var cachedCookies = null, rawCookies = null, uriEncoding = true;
-function dispatchEvent_0(evt, elem, listener){
+function dispatchEvent_1(evt, elem, listener){
   var prevCurrentEvent;
   prevCurrentEvent = currentEvent;
   currentEvent = evt;
@@ -4138,7 +4186,7 @@ function previewEvent(evt){
   ret = fire_5(handlers_0, evt);
   if (!ret && !!evt) {
     evt.cancelBubble = true;
-    evt.preventDefault();
+    evt.returnValue = false;
   }
   return ret;
 }
@@ -4239,6 +4287,8 @@ function fire_5(handlers, nativeEvent){
 function Event$NativePreviewEvent(){
 }
 
+--></script>
+<script><!--
 _ = Event$NativePreviewEvent_0.prototype = Event$NativePreviewEvent.prototype = new GwtEvent;
 _.dispatch = function dispatch_9(handler){
   $dispatch_0(this, dynamicCast(handler, Q$Event$NativePreviewHandler));
@@ -4296,8 +4346,6 @@ _.onClose = function onClose(event_0){
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$CloseHandler, Q$EventHandler]);
---></script>
-<script><!--
 function $getRuntimeValue(){
   var ua = navigator.userAgent.toLowerCase();
   var makeVersion = function(result){
@@ -4538,7 +4586,6 @@ function $eventGetTypeInt(eventType){
 function $maybeInitializeEventSystem(){
   if (!eventSystemIsInitialized) {
     $initEventSystem();
-    $initEventSystemIE();
     eventSystemIsInitialized = true;
   }
 }
@@ -4547,150 +4594,94 @@ function $setEventListener(elem, listener){
   elem.__listener = listener;
 }
 
-function isMyListener(object){
-  return !instanceOfJso(object) && instanceOf(object, Q$EventListener);
-}
-
 var eventSystemIsInitialized = false;
 function $getChild(elem, index){
-  var count = 0, child = elem.firstChild;
-  while (child) {
-    if (child.nodeType == 1) {
-      if (index == count)
-        return child;
-      ++count;
-    }
-    child = child.nextSibling;
-  }
-  return null;
+  return elem.children[index];
 }
 
-function $getChildIndex(parent_0, toFind){
-  var count = 0, child = parent_0.firstChild;
-  while (child) {
-    if (child === toFind) {
-      return count;
+function $getChildIndex(parent_0, child){
+  var count = parent_0.children.length;
+  for (var i = 0; i < count; ++i) {
+    if (child === parent_0.children[i]) {
+      return i;
     }
-    child.nodeType == 1 && ++count;
-    child = child.nextSibling;
   }
   return -1;
 }
 
 function $initEventSystem(){
-  dispatchCapturedEvent = $entry(function(evt){
-    if (!previewEvent(evt)) {
-      evt.stopPropagation();
-      evt.preventDefault();
-      return false;
-    }
-    return true;
+  $wnd.__gwt_globalEventArray == null && ($wnd.__gwt_globalEventArray = new Array);
+  $wnd.__gwt_globalEventArray[$wnd.__gwt_globalEventArray.length] = $entry(function(){
+    return previewEvent($wnd.event);
   }
   );
-  dispatchEvent_1 = $entry(function(evt){
+  var dispatchEvent_0 = $entry(function(){
+    var oldEventTarget = currentEventTarget;
+    currentEventTarget = this;
+    if ($wnd.event.returnValue == null) {
+      $wnd.event.returnValue = true;
+      if (!previewEventImpl()) {
+        currentEventTarget = oldEventTarget;
+        return;
+      }
+    }
     var listener, curElem = this;
     while (curElem && !(listener = curElem.__listener)) {
-      curElem = curElem.parentNode;
+      curElem = curElem.parentElement;
     }
-    curElem && curElem.nodeType != 1 && (curElem = null);
-    listener && isMyListener(listener) && dispatchEvent_0(evt, curElem, listener);
+    listener && !instanceOfJso(listener) && instanceOf(listener, Q$EventListener) && dispatchEvent_1($wnd.event, curElem, listener);
+    currentEventTarget = oldEventTarget;
   }
   );
-  dispatchDragEvent = $entry(function(evt){
-    evt.preventDefault();
-    dispatchEvent_1.call(this, evt);
-  }
-  );
-  dispatchUnhandledEvent = $entry(function(evt){
-    this.__gwtLastUnhandledEvent = evt.type;
-    dispatchEvent_1.call(this, evt);
-  }
-  );
-  dispatchCapturedMouseEvent = $entry(function(evt){
-    var dispatchCapturedEventFn = dispatchCapturedEvent;
-    if (dispatchCapturedEventFn(evt)) {
-      var cap = captureElem;
-      if (cap && cap.__listener) {
-        if (isMyListener(cap.__listener)) {
-          dispatchEvent_0(evt, cap, cap.__listener);
-          evt.stopPropagation();
-        }
-      }
+  var dispatchDblClickEvent = $entry(function(){
+    var newEvent = $doc.createEventObject();
+    $wnd.event.returnValue == null && $wnd.event.srcElement.fireEvent && $wnd.event.srcElement.fireEvent('onclick', newEvent);
+    if (this.__eventBits & 2) {
+      dispatchEvent_0.call(this);
+    }
+     else if ($wnd.event.returnValue == null) {
+      $wnd.event.returnValue = true;
+      previewEventImpl();
     }
   }
   );
-  $wnd.addEventListener('click', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('dblclick', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('mousedown', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('mouseup', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('mousemove', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('mouseover', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('mouseout', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('mousewheel', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('keydown', dispatchCapturedEvent, true);
-  $wnd.addEventListener('keyup', dispatchCapturedEvent, true);
-  $wnd.addEventListener('keypress', dispatchCapturedEvent, true);
-  $wnd.addEventListener('touchstart', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('touchmove', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('touchend', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('touchcancel', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('gesturestart', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('gesturechange', dispatchCapturedMouseEvent, true);
-  $wnd.addEventListener('gestureend', dispatchCapturedMouseEvent, true);
-}
-
-function $insertChild(parent_0, toAdd, index){
-  var count = 0, child = parent_0.firstChild, before = null;
-  while (child) {
-    if (child.nodeType == 1) {
-      if (count == index) {
-        before = child;
-        break;
-      }
-      ++count;
-    }
-    child = child.nextSibling;
+  var dispatchUnhandledEvent = $entry(function(){
+    this.__gwtLastUnhandledEvent = $wnd.event.type;
+    dispatchEvent_0.call(this);
   }
-  parent_0.insertBefore(toAdd, before);
-}
-
-function $sinkBitlessEvent(elem, eventTypeName){
-  $maybeInitializeEventSystem();
-  $sinkBitlessEventImpl(elem, eventTypeName);
-  $equals('dragover', eventTypeName) && $sinkBitlessEventImpl(elem, 'dragenter');
-}
-
-function $sinkBitlessEventImpl(elem, eventTypeName){
-  switch (eventTypeName) {
-    case 'drag':
-      elem.ondrag = dispatchEvent_1;
-      break;
-    case 'dragend':
-      elem.ondragend = dispatchEvent_1;
-      break;
-    case 'dragenter':
-      elem.ondragenter = dispatchDragEvent;
-      break;
-    case 'dragleave':
-      elem.ondragleave = dispatchEvent_1;
-      break;
-    case 'dragover':
-      elem.ondragover = dispatchDragEvent;
-      break;
-    case 'dragstart':
-      elem.ondragstart = dispatchEvent_1;
-      break;
-    case 'drop':
-      elem.ondrop = dispatchEvent_1;
-      break;
-    case 'canplaythrough':
-    case 'ended':
-    case 'progress':
-      elem.removeEventListener(eventTypeName, dispatchEvent_1, false);
-      elem.addEventListener(eventTypeName, dispatchEvent_1, false);
-      break;
-    default:throw 'Trying to sink unknown event type ' + eventTypeName;
+  );
+  var moduleName = $moduleName.replace(/\./g, '_');
+  $wnd['__gwt_dispatchEvent_' + moduleName] = dispatchEvent_0;
+  callDispatchEvent = (new Function('w', 'return function() { w.__gwt_dispatchEvent_' + moduleName + '.call(this) }'))($wnd);
+  $wnd['__gwt_dispatchDblClickEvent_' + moduleName] = dispatchDblClickEvent;
+  callDispatchDblClickEvent = (new Function('w', 'return function() { w.__gwt_dispatchDblClickEvent_' + moduleName + '.call(this)}'))($wnd);
+  $wnd['__gwt_dispatchUnhandledEvent_' + moduleName] = dispatchUnhandledEvent;
+  callDispatchUnhandledEvent = (new Function('w', 'return function() { w.__gwt_dispatchUnhandledEvent_' + moduleName + '.call(this)}'))($wnd);
+  callDispatchOnLoadEvent = (new Function('w', 'return function() { w.__gwt_dispatchUnhandledEvent_' + moduleName + '.call(w.event.srcElement)}'))($wnd);
+  var bodyDispatcher = $entry(function(){
+    dispatchEvent_0.call($doc.body);
   }
+  );
+  var bodyDblClickDispatcher = $entry(function(){
+    dispatchDblClickEvent.call($doc.body);
+  }
+  );
+  $doc.body.attachEvent('onclick', bodyDispatcher);
+  $doc.body.attachEvent('onmousedown', bodyDispatcher);
+  $doc.body.attachEvent('onmouseup', bodyDispatcher);
+  $doc.body.attachEvent('onmousemove', bodyDispatcher);
+  $doc.body.attachEvent('onmousewheel', bodyDispatcher);
+  $doc.body.attachEvent('onkeydown', bodyDispatcher);
+  $doc.body.attachEvent('onkeypress', bodyDispatcher);
+  $doc.body.attachEvent('onkeyup', bodyDispatcher);
+  $doc.body.attachEvent('onfocus', bodyDispatcher);
+  $doc.body.attachEvent('onblur', bodyDispatcher);
+  $doc.body.attachEvent('ondblclick', bodyDblClickDispatcher);
+  $doc.body.attachEvent('oncontextmenu', bodyDispatcher);
+}
+
+function $insertChild(parent_0, child, index){
+  index >= parent_0.children.length?parent_0.appendChild(child):parent_0.insertBefore(child, parent_0.children[index]);
 }
 
 function $sinkEventsImpl(elem, bits){
@@ -4698,44 +4689,37 @@ function $sinkEventsImpl(elem, bits){
   elem.__eventBits = bits;
   if (!chMask)
     return;
-  chMask & 1 && (elem.onclick = bits & 1?dispatchEvent_1:null);
-  chMask & 2 && (elem.ondblclick = bits & 2?dispatchEvent_1:null);
-  chMask & 4 && (elem.onmousedown = bits & 4?dispatchEvent_1:null);
-  chMask & 8 && (elem.onmouseup = bits & 8?dispatchEvent_1:null);
-  chMask & 16 && (elem.onmouseover = bits & 16?dispatchEvent_1:null);
-  chMask & 32 && (elem.onmouseout = bits & 32?dispatchEvent_1:null);
-  chMask & 64 && (elem.onmousemove = bits & 64?dispatchEvent_1:null);
-  chMask & 128 && (elem.onkeydown = bits & 128?dispatchEvent_1:null);
-  chMask & 256 && (elem.onkeypress = bits & 256?dispatchEvent_1:null);
-  chMask & 512 && (elem.onkeyup = bits & 512?dispatchEvent_1:null);
-  chMask & 1024 && (elem.onchange = bits & 1024?dispatchEvent_1:null);
-  chMask & 2048 && (elem.onfocus = bits & 2048?dispatchEvent_1:null);
-  chMask & 4096 && (elem.onblur = bits & 4096?dispatchEvent_1:null);
-  chMask & 8192 && (elem.onlosecapture = bits & 8192?dispatchEvent_1:null);
-  chMask & 16384 && (elem.onscroll = bits & 16384?dispatchEvent_1:null);
-  chMask & 32768 && (elem.onload = bits & 32768?dispatchUnhandledEvent:null);
-  chMask & 65536 && (elem.onerror = bits & 65536?dispatchEvent_1:null);
-  chMask & 131072 && (elem.onmousewheel = bits & 131072?dispatchEvent_1:null);
-  chMask & 262144 && (elem.oncontextmenu = bits & 262144?dispatchEvent_1:null);
-  chMask & 524288 && (elem.onpaste = bits & 524288?dispatchEvent_1:null);
-  chMask & 1048576 && (elem.ontouchstart = bits & 1048576?dispatchEvent_1:null);
-  chMask & 2097152 && (elem.ontouchmove = bits & 2097152?dispatchEvent_1:null);
-  chMask & 4194304 && (elem.ontouchend = bits & 4194304?dispatchEvent_1:null);
-  chMask & 8388608 && (elem.ontouchcancel = bits & 8388608?dispatchEvent_1:null);
-  chMask & 16777216 && (elem.ongesturestart = bits & 16777216?dispatchEvent_1:null);
-  chMask & 33554432 && (elem.ongesturechange = bits & 33554432?dispatchEvent_1:null);
-  chMask & 67108864 && (elem.ongestureend = bits & 67108864?dispatchEvent_1:null);
+  chMask & 1 && (elem.onclick = bits & 1?callDispatchEvent:null);
+  chMask & 3 && (elem.ondblclick = bits & 3?callDispatchDblClickEvent:null);
+  chMask & 4 && (elem.onmousedown = bits & 4?callDispatchEvent:null);
+  chMask & 8 && (elem.onmouseup = bits & 8?callDispatchEvent:null);
+  chMask & 16 && (elem.onmouseover = bits & 16?callDispatchEvent:null);
+  chMask & 32 && (elem.onmouseout = bits & 32?callDispatchEvent:null);
+  chMask & 64 && (elem.onmousemove = bits & 64?callDispatchEvent:null);
+  chMask & 128 && (elem.onkeydown = bits & 128?callDispatchEvent:null);
+  chMask & 256 && (elem.onkeypress = bits & 256?callDispatchEvent:null);
+  chMask & 512 && (elem.onkeyup = bits & 512?callDispatchEvent:null);
+  chMask & 1024 && (elem.onchange = bits & 1024?callDispatchEvent:null);
+  chMask & 2048 && (elem.onfocus = bits & 2048?callDispatchEvent:null);
+  chMask & 4096 && (elem.onblur = bits & 4096?callDispatchEvent:null);
+  chMask & 8192 && (elem.onlosecapture = bits & 8192?callDispatchEvent:null);
+  chMask & 16384 && (elem.onscroll = bits & 16384?callDispatchEvent:null);
+  chMask & 32768 && (elem.nodeName == 'IFRAME'?bits & 32768?elem.attachEvent('onload', callDispatchOnLoadEvent):elem.detachEvent('onload', callDispatchOnLoadEvent):(elem.onload = bits & 32768?callDispatchUnhandledEvent:null));
+  chMask & 65536 && (elem.onerror = bits & 65536?callDispatchEvent:null);
+  chMask & 131072 && (elem.onmousewheel = bits & 131072?callDispatchEvent:null);
+  chMask & 262144 && (elem.oncontextmenu = bits & 262144?callDispatchEvent:null);
+  chMask & 524288 && (elem.onpaste = bits & 524288?callDispatchEvent:null);
 }
 
-var captureElem = null, dispatchCapturedEvent = null, dispatchCapturedMouseEvent = null, dispatchDragEvent = null, dispatchEvent_1 = null, dispatchUnhandledEvent = null;
-function $initEventSystemIE(){
-  dispatchDragEvent = $entry(function(evt){
-    dispatchEvent_1.call(this, evt);
-    return false;
+function previewEventImpl(){
+  var isCancelled = false;
+  for (var i = 0; i < $wnd.__gwt_globalEventArray.length; i++) {
+    !$wnd.__gwt_globalEventArray[i]() && (isCancelled = true);
   }
-  );
+  return !isCancelled;
 }
 
+var callDispatchDblClickEvent = null, callDispatchEvent = null, callDispatchOnLoadEvent = null, callDispatchUnhandledEvent = null;
 function $addValueChangeHandler(this$static, handler){
   return $addHandler(this$static.handlers, (!TYPE_8 && (TYPE_8 = new GwtEvent$Type_0) , TYPE_8), handler);
 }
@@ -4786,7 +4770,7 @@ _.encodeFragment = function encodeFragment(fragment){
   return encodeURI(fragment).replace('#', '%23');
 }
 ;
-_.fireEvent = function fireEvent_0(event_0){
+_.fireEvent_0 = function fireEvent_0(event_0){
   $fireEvent(this.handlers, event_0);
 }
 ;
@@ -5713,10 +5697,6 @@ function $setWidth(this$static, width){
   setStyleAttribute(this$static.element, 'width', width);
 }
 
-function $sinkBitlessEvent_0(this$static, eventTypeName){
-  $sinkBitlessEvent(this$static.element, eventTypeName);
-}
-
 function getStylePrimaryName(elem){
   var fullClassName, spaceIdx;
   fullClassName = $getPropertyString(elem, 'className');
@@ -5782,7 +5762,7 @@ _.element = null;
 function $addDomHandler(this$static, handler, type){
   var typeInt;
   typeInt = $eventGetTypeInt(type.name_0);
-  typeInt == -1?$sinkBitlessEvent_0(this$static, type.name_0):this$static.eventsToSink == -1?sinkEvents(this$static.element, typeInt | (this$static.element.__eventBits || 0)):(this$static.eventsToSink |= typeInt);
+  typeInt == -1?this$static.element:this$static.eventsToSink == -1?sinkEvents(this$static.element, typeInt | (this$static.element.__eventBits || 0)):(this$static.eventsToSink |= typeInt);
   return $addHandler(!this$static.handlerManager?(this$static.handlerManager = new HandlerManager_0(this$static)):this$static.handlerManager, type, handler);
 }
 
@@ -5813,7 +5793,7 @@ function $onBrowserEvent(this$static, event_0){
   switch ($eventGetTypeInt(event_0.type)) {
     case 16:
     case 32:
-      related = event_0.relatedTarget;
+      related = event_0.relatedTarget || (event_0.type == 'mouseout'?event_0.toElement:event_0.fromElement);
       if (!!related && $isOrHasChild(this$static.element, related)) {
         return;
       }
@@ -5893,7 +5873,7 @@ _.doAttachChildren = function doAttachChildren(){
 _.doDetachChildren = function doDetachChildren(){
 }
 ;
-_.fireEvent = function fireEvent_1(event_0){
+_.fireEvent_0 = function fireEvent_1(event_0){
   $fireEvent_0(this, event_0);
 }
 ;
@@ -5930,7 +5910,7 @@ _.handlerManager = null;
 _.parent_0 = null;
 function $clear(this$static){
   var it;
-  it = new WidgetCollection$WidgetIterator_0(this$static.children);
+  it = new WidgetCollection$WidgetIterator_0(this$static.children_0);
   while (it.index_0 < it.this$0.size_0 - 1) {
     $next_1(it);
     $remove_9(it);
@@ -5956,7 +5936,7 @@ _.getClass$ = function getClass_149(){
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$HasWidgets, Q$IsWidget, Q$UIObject, Q$Widget]);
 function $add(this$static, child, container){
   $removeFromParent(child);
-  $add_8(this$static.children, child);
+  $add_8(this$static.children_0, child);
   $appendChild(container, $resolve(child.element));
   $setParent_0(child, this$static);
 }
@@ -5965,36 +5945,36 @@ function $adjustIndex(this$static, child, beforeIndex){
   var idx;
   $checkIndexBoundsForInsertion(this$static, beforeIndex);
   if (child.parent_0 == this$static) {
-    idx = $indexOf(this$static.children, child);
+    idx = $indexOf(this$static.children_0, child);
     idx < beforeIndex && --beforeIndex;
   }
   return beforeIndex;
 }
 
 function $checkIndexBoundsForAccess(this$static, index){
-  if (index < 0 || index >= this$static.children.size_0) {
+  if (index < 0 || index >= this$static.children_0.size_0) {
     throw new IndexOutOfBoundsException_0;
   }
 }
 
 function $checkIndexBoundsForInsertion(this$static, index){
-  if (index < 0 || index > this$static.children.size_0) {
+  if (index < 0 || index > this$static.children_0.size_0) {
     throw new IndexOutOfBoundsException_0;
   }
 }
 
 function $getWidget(this$static, index){
-  return $get(this$static.children, index);
+  return $get(this$static.children_0, index);
 }
 
 function $getWidgetIndex(this$static, child){
-  return $indexOf(this$static.children, child);
+  return $indexOf(this$static.children_0, child);
 }
 
 function $insert(this$static, child, container, beforeIndex, domInsert){
   beforeIndex = $adjustIndex(this$static, child, beforeIndex);
   $removeFromParent(child);
-  $insert_4(this$static.children, child, beforeIndex);
+  $insert_4(this$static.children_0, child, beforeIndex);
   domInsert?insertChild(container, child.element, beforeIndex):$appendChild(container, $resolve(child.element));
   $setParent_0(child, this$static);
 }
@@ -6010,13 +5990,13 @@ function $remove_0(this$static, w){
    finally {
     elem = w.element;
     $removeChild($getParentElement(elem), elem);
-    $remove_8(this$static.children, w);
+    $remove_8(this$static.children_0, w);
   }
   return true;
 }
 
 function ComplexPanel_0(){
-  this.children = new WidgetCollection_0(this);
+  this.children_0 = new WidgetCollection_0(this);
 }
 
 function ComplexPanel(){
@@ -6028,7 +6008,7 @@ _.getClass$ = function getClass_150(){
 }
 ;
 _.iterator_0 = function iterator_0(){
-  return new WidgetCollection$WidgetIterator_0(this.children);
+  return new WidgetCollection$WidgetIterator_0(this.children_0);
 }
 ;
 _.remove = function remove_2(w){
@@ -6079,7 +6059,7 @@ _.getClass$ = function getClass_152(){
 }
 ;
 _.getTabIndex = function getTabIndex(){
-  return $getTabIndex(this.element);
+  return this.element.tabIndex;
 }
 ;
 _.onAttach = function onAttach_0(){
@@ -6103,7 +6083,7 @@ function $setHref_0(this$static, href){
 }
 
 function Anchor_1(){
-  $setElement(this, $doc.createElement('a'));
+  $setElement(this, $createElement($doc, 'a'));
   this.element['className'] = 'gwt-Anchor';
   this.directionalTextHelper = new DirectionalTextHelper_0(this.element);
 }
@@ -6117,7 +6097,7 @@ _.getClass$ = function getClass_153(){
 }
 ;
 _.getTabIndex = function getTabIndex_0(){
-  return $getTabIndex(this.element);
+  return this.element.tabIndex;
 }
 ;
 _.setTabIndex = function setTabIndex_0(index){
@@ -6136,8 +6116,6 @@ function AttachDetachException_0(causes){
   UmbrellaException_2.call(this, causes);
 }
 
---></script>
-<script><!--
 function tryCommand(hasWidgets, c){
   $clinit_AttachDetachException();
   var $e0, caught, e, w, w$iterator;
@@ -6163,6 +6141,8 @@ function tryCommand(hasWidgets, c){
   }
 }
 
+--></script>
+<script><!--
 function AttachDetachException(){
 }
 
@@ -6221,8 +6201,7 @@ _.getClass$ = function getClass_157(){
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$IsWidget, Q$UIObject, Q$Widget]);
 function Button_0(){
-  var e;
-  ButtonBase_0.call(this, (e = $doc.createElement('BUTTON') , e.setAttribute('type', 'button') , e));
+  ButtonBase_0.call(this, $doc.createElement("<BUTTON type='button'><\/BUTTON>"));
   this.element['className'] = 'gwt-Button';
 }
 
@@ -6268,8 +6247,8 @@ function $setCellWidth(this$static, w, width){
 
 function CellPanel_0(){
   ComplexPanel_0.call(this);
-  this.table = $doc.createElement('table');
-  this.body_0 = $doc.createElement('tbody');
+  this.table = $createElement($doc, 'table');
+  this.body_0 = $createElement($doc, 'tbody');
   $appendChild(this.table, $resolve(this.body_0));
   $setElement(this, this.table);
 }
@@ -6341,7 +6320,7 @@ _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventLis
 _.widget = null;
 function $createWidgetContainer(){
   var container;
-  container = $doc.createElement('div');
+  container = $createElement($doc, 'div');
   container.style['width'] = '100%';
   container.style['height'] = '0px';
   container.style['padding'] = '0px';
@@ -6377,7 +6356,7 @@ function $showWidget(this$static, index){
   var oldWidget;
   $checkIndexBoundsForAccess(this$static, index);
   oldWidget = this$static.visibleWidget;
-  this$static.visibleWidget = $get(this$static.children, index);
+  this$static.visibleWidget = $get(this$static.children_0, index);
   if (this$static.visibleWidget != oldWidget) {
     !slideAnimation && (slideAnimation = new DeckPanel$SlideAnimation_0);
     $showWidget_0(slideAnimation, oldWidget, this$static.visibleWidget);
@@ -6386,7 +6365,7 @@ function $showWidget(this$static, index){
 
 function DeckPanel_0(){
   ComplexPanel_0.call(this);
-  $setElement(this, $doc.createElement('div'));
+  $setElement(this, $createElement($doc, 'div'));
 }
 
 function DeckPanel(){
@@ -6567,7 +6546,7 @@ function $insert_0(this$static, w, beforeIndex){
 
 function FlowPanel_0(){
   ComplexPanel_0.call(this);
-  $setElement(this, $doc.createElement('div'));
+  $setElement(this, $createElement($doc, 'div'));
 }
 
 function FlowPanel(){
@@ -6666,7 +6645,7 @@ function $submit_0(this$static){
 }
 
 function FormPanel_0(){
-  FormPanel_1.call(this, $doc.createElement('form'));
+  FormPanel_1.call(this, $createElement($doc, 'form'));
 }
 
 function FormPanel_1(element){
@@ -6688,7 +6667,7 @@ _.onAttach = function onAttach_2(){
   var dummy;
   $onAttach(this);
   if (this.frameName != null) {
-    dummy = $doc.createElement('div');
+    dummy = $createElement($doc, 'div');
     $setInnerHTML(dummy, "<iframe src=\"javascript:''\" name='" + this.frameName + "' style='position:absolute;width:0;height:0;border:0'>");
     this.synthesizedFrame = $getFirstChildElement(dummy);
     $appendChild($doc.body, this.synthesizedFrame);
@@ -6802,7 +6781,7 @@ function $setText_0(this$static, text){
 }
 
 function Label_0(){
-  LabelBase_0.call(this, $doc.createElement('div'));
+  LabelBase_0.call(this, $createElement($doc, 'div'));
   this.element['className'] = 'gwt-Label';
 }
 
@@ -6812,7 +6791,7 @@ function Label_1(text){
 }
 
 function Label_2(element){
-  LabelBase_0.call(this, element, $equalsIgnoreCase('span', element.tagName));
+  LabelBase_0.call(this, element, $equalsIgnoreCase('span', $getTagName(element)));
 }
 
 function Label(){
@@ -6829,7 +6808,7 @@ function $setHTML_0(this$static, html){
 }
 
 function HTML_0(){
-  Label_2.call(this, $doc.createElement('div'));
+  Label_2.call(this, $createElement($doc, 'div'));
   this.element['className'] = 'gwt-HTML';
 }
 
@@ -6858,14 +6837,14 @@ function $add_3(this$static, widget){
 
 function $addAndReplaceElement(this$static, widget, toReplace){
   $removeFromParent(widget);
-  $add_8(this$static.children, widget);
+  $add_8(this$static.children_0, widget);
   $replaceChild(toReplace.parentNode, widget.element, toReplace);
   $setParent_0(widget, this$static);
 }
 
 function HTMLPanel_0(html){
   ComplexPanel_0.call(this);
-  $setElement(this, $doc.createElement('div'));
+  $setElement(this, $createElement($doc, 'div'));
   $setInnerHTML(this.element, html);
 }
 
@@ -6940,7 +6919,7 @@ function $add_4(this$static, w){
 
 function $createAlignedTd(this$static){
   var td;
-  td = $doc.createElement('td');
+  td = $createElement($doc, 'td');
   td['align'] = this$static.horzAlign.textAlignString;
   setStyleAttribute(td, 'verticalAlign', this$static.vertAlign.verticalAlignString);
   return td;
@@ -6970,7 +6949,7 @@ function HorizontalPanel_0(){
   CellPanel_0.call(this);
   this.horzAlign = ($clinit_HasHorizontalAlignment() , ALIGN_DEFAULT);
   this.vertAlign = ($clinit_HasVerticalAlignment() , ALIGN_TOP);
-  this.tableRow = $doc.createElement('tr');
+  this.tableRow = $createElement($doc, 'tr');
   $appendChild(this.body_0, $resolve(this.tableRow));
   this.table['cellSpacing'] = '0';
   this.table['cellPadding'] = '0';
@@ -7067,7 +7046,7 @@ _.execute_0 = function execute_9(){
     this.val$image.element['__gwtLastUnhandledEvent'] = 'load';
     return;
   }
-  evt = (evt_0 = $doc.createEvent('HTMLEvents') , evt_0.initEvent('load', false, false) , evt_0);
+  evt = (evt_0 = $doc.createEventObject() , evt_0.type = 'load' , evt_0);
   $dispatchEvent(this.val$image.element, evt);
 }
 ;
@@ -7078,7 +7057,7 @@ _.getClass$ = function getClass_181(){
 _.this$1 = null;
 _.val$image = null;
 function Image$UnclippedState_0(image){
-  $replaceElement(image, $doc.createElement('img'));
+  $replaceElement(image, $createElement($doc, 'img'));
   sinkEvents_0(image.element);
   image.eventsToSink == -1?sinkEvents(image.element, 133398655 | (image.element.__eventBits || 0)):(image.eventsToSink |= 133398655);
 }
@@ -7092,7 +7071,7 @@ _.getClass$ = function getClass_182(){
 }
 ;
 function InlineLabel_0(){
-  Label_2.call(this, $doc.createElement('span'));
+  Label_2.call(this, $createElement($doc, 'span'));
   this.element['className'] = 'gwt-InlineLabel';
 }
 
@@ -7118,18 +7097,18 @@ function $checkIndex(this$static, index){
 function $insertItem(this$static, item, value, index){
   var before, itemCount, option, select;
   select = this$static.element;
-  option = $doc.createElement('option');
+  option = $createElement($doc, 'option');
   option.text = item;
   option.removeAttribute('bidiwrapped');
   option.value = value;
   itemCount = select.options.length;
   (index < 0 || index > itemCount) && (index = itemCount);
   if (index == itemCount) {
-    select.add(option, null);
+    $selectAdd(select, option, null);
   }
    else {
     before = select.options[index];
-    select.add(option, before);
+    $selectAdd(select, option, before);
   }
 }
 
@@ -7146,10 +7125,9 @@ function $setVisibleItemCount(this$static, visibleItems){
   $setSize(this$static.element, visibleItems);
 }
 
---></script>
-<script><!--
 function ListBox_0(){
-  FocusWidget_0.call(this, $doc.createElement('select'));
+  var html;
+  FocusWidget_0.call(this, (html = '<SELECT>' , $doc.createElement(html)));
   this.element['className'] = 'gwt-ListBox';
 }
 
@@ -7170,6 +7148,8 @@ _.getClass$ = function getClass_185(){
   return Lcom_google_gwt_user_client_ui_ListenerWrapper_2_classLit;
 }
 ;
+--></script>
+<script><!--
 _.castableTypeMap$ = makeCastMap([Q$EventHandler]);
 function ListenerWrapper$WrappedTabListener_0(listener){
   this.listener = listener;
@@ -7207,7 +7187,7 @@ function $center(this$static){
   }
   left = $getClientWidth($doc) - $getPropertyInt(this$static.element, 'offsetWidth') >> 1;
   top_0 = $getClientHeight($doc) - $getPropertyInt(this$static.element, 'offsetHeight') >> 1;
-  $setPopupPosition(this$static, max($wnd.pageXOffset + left, 0), max($wnd.pageYOffset + top_0, 0));
+  $setPopupPosition(this$static, max($getScrollLeft_0($doc) + left, 0), max($getScrollTop($doc) + top_0, 0));
   if (!initiallyShowing) {
     this$static.isAnimationEnabled = initiallyAnimated;
     if (initiallyAnimated) {
@@ -7225,7 +7205,7 @@ function $center(this$static){
 
 function $eventTargetsPopup(this$static, event_0){
   var target;
-  target = event_0.target;
+  target = event_0.srcElement;
   if (is_0(target)) {
     return $isOrHasChild(this$static.element, target);
   }
@@ -7281,7 +7261,7 @@ function $previewNativeEvent(this$static, event_0){
       break;
     case 2048:
       {
-        target = nativeEvent.target;
+        target = nativeEvent.srcElement;
         if (this$static.modal && !eventTargetsPopupOrPartner && !!target) {
           target.blur && target != $doc.body && target.blur();
           event_0.isCanceled = true;
@@ -7303,8 +7283,8 @@ function $setPopupPosition(this$static, left, top_0){
   var elem;
   this$static.leftPosition = left;
   this$static.topPosition = top_0;
-  left -= 0;
-  top_0 -= 0;
+  left -= $getBodyOffsetLeft($doc);
+  top_0 -= $getBodyOffsetTop($doc);
   elem = this$static.element;
   elem.style['left'] = left + ($clinit_Style$Unit() , 'px');
   elem.style['top'] = top_0 + 'px';
@@ -7774,8 +7754,8 @@ _.remove_0 = function remove_7(){
 _.returned = null;
 _.this$0 = null;
 function $add_5(this$static, w, stackText){
-  $insert_2(this$static, w, this$static.children.size_0);
-  $setStackText(this$static, this$static.children.size_0 - 1, stackText);
+  $insert_2(this$static, w, this$static.children_0.size_0);
+  $setStackText(this$static, this$static.children_0.size_0 - 1, stackText);
 }
 
 function $findDividerIndex(this$static, elem){
@@ -7793,12 +7773,12 @@ function $findDividerIndex(this$static, elem){
 
 function $insert_2(this$static, w, beforeIndex){
   var effectiveIndex, tdb, tdh, trb, trh;
-  trh = $doc.createElement('tr');
-  tdh = $doc.createElement('td');
+  trh = $createElement($doc, 'tr');
+  tdh = $createElement($doc, 'td');
   $appendChild(trh, $resolve(tdh));
-  $appendChild(tdh, $resolve($doc.createElement('div')));
-  trb = $doc.createElement('tr');
-  tdb = $doc.createElement('td');
+  $appendChild(tdh, $resolve($createElement($doc, 'div')));
+  trb = $createElement($doc, 'tr');
+  tdb = $createElement($doc, 'td');
   $appendChild(trb, $resolve(tdb));
   beforeIndex = $adjustIndex(this$static, w, beforeIndex);
   effectiveIndex = beforeIndex * 2;
@@ -7839,10 +7819,10 @@ function $remove_5(this$static, child, index){
 
 function $setStackText(this$static, index, text){
   var headerElem, tdWrapper;
-  if (index >= this$static.children.size_0) {
+  if (index >= this$static.children_0.size_0) {
     return;
   }
-  tdWrapper = $getChild($getChild(this$static.body_0, index * 2), 0);
+  tdWrapper = $getChild(this$static.body_0, index * 2).children[0];
   headerElem = $getFirstChildElement(tdWrapper);
   $setInnerText(headerElem, text);
 }
@@ -7857,7 +7837,7 @@ function $setStackVisible(this$static, index, visible){
   setStyleName(td, 'gwt-StackPanelItem-selected', visible);
   tr_0 = $getChild(this$static.body_0, index * 2 + 1);
   setVisible(tr_0, visible);
-  $get(this$static.children, index).setVisible(visible);
+  $get(this$static.children_0, index).setVisible(visible);
   trNext = $getChild(this$static.body_0, (index + 1) * 2);
   if (trNext) {
     tdNext = $getFirstChildElement(trNext);
@@ -7866,7 +7846,7 @@ function $setStackVisible(this$static, index, visible){
 }
 
 function $showStack(this$static, index){
-  if (index >= this$static.children.size_0 || index < 0 || index == this$static.visibleStack) {
+  if (index >= this$static.children_0.size_0 || index < 0 || index == this$static.visibleStack) {
     return;
   }
   this$static.visibleStack >= 0 && $setStackVisible(this$static, this$static.visibleStack, false);
@@ -7876,7 +7856,7 @@ function $showStack(this$static, index){
 
 function $updateIndicesFrom(this$static, beforeIndex){
   var c, childTD, childTR, i;
-  for (i = beforeIndex , c = this$static.children.size_0; i < c; ++i) {
+  for (i = beforeIndex , c = this$static.children_0.size_0; i < c; ++i) {
     childTR = $getChild(this$static.body_0, i * 2);
     childTD = $getFirstChildElement(childTR);
     childTD['__index'] = i;
@@ -7887,9 +7867,9 @@ function $updateIndicesFrom(this$static, beforeIndex){
 function StackPanel_0(){
   var table;
   ComplexPanel_0.call(this);
-  table = $doc.createElement('table');
+  table = $createElement($doc, 'table');
   this.element = table;
-  this.body_0 = $doc.createElement('tbody');
+  this.body_0 = $createElement($doc, 'tbody');
   $appendChild(table, $resolve(this.body_0));
   table['cellSpacing'] = 0;
   table['cellPadding'] = 0;
@@ -7909,7 +7889,7 @@ _.getClass$ = function getClass_198(){
 _.onBrowserEvent = function onBrowserEvent_3(event_0){
   var index, target;
   if ($eventGetTypeInt(event_0.type) == 1) {
-    target = event_0.target;
+    target = event_0.srcElement;
     index = $findDividerIndex(this, target);
     index != -1 && $showStack(this, index);
   }
@@ -7917,20 +7897,20 @@ _.onBrowserEvent = function onBrowserEvent_3(event_0){
 }
 ;
 _.remove = function remove_8(child){
-  return $remove_5(this, child, $indexOf(this.children, child));
+  return $remove_5(this, child, $indexOf(this.children_0, child));
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$HasWidgets, Q$IsWidget, Q$UIObject, Q$Widget]);
 _.body_0 = null;
 _.visibleStack = -1;
 function $checkInsertBeforeTabIndex(this$static, beforeIndex){
-  if (beforeIndex < 0 || beforeIndex > this$static.panel.children.size_0 - 2) {
+  if (beforeIndex < 0 || beforeIndex > this$static.panel.children_0.size_0 - 2) {
     throw new IndexOutOfBoundsException_0;
   }
 }
 
 function $checkTabIndex(this$static, index){
-  if (index < -1 || index >= this$static.panel.children.size_0 - 2) {
+  if (index < -1 || index >= this$static.panel.children_0.size_0 - 2) {
     throw new IndexOutOfBoundsException_0;
   }
 }
@@ -7984,7 +7964,7 @@ function $selectTab(this$static, index){
 
 function $selectTabByTabWidget(this$static, tabWidget){
   var i, numTabs;
-  numTabs = this$static.panel.children.size_0 - 1;
+  numTabs = this$static.panel.children_0.size_0 - 1;
   for (i = 1; i < numTabs; ++i) {
     if ($getWidget(this$static.panel, i) == tabWidget) {
       return $selectTab(this$static, i - 1);
@@ -8019,7 +7999,7 @@ _.selectedTab = null;
 function TabBar$ClickDelegatePanel_0(this$0, child){
   var e;
   this.this$0 = this$0;
-  this.focusablePanel = new SimplePanel_0((e = $doc.createElement('div') , e.tabIndex = 0 , e));
+  this.focusablePanel = new SimplePanel_0((e = $createElement($doc, 'div') , e.tabIndex = 0 , e));
   this.focusablePanel.setWidget(child);
   $initWidget(this, this.focusablePanel);
   this.eventsToSink == -1?sinkEvents(this.element, 129 | (this.element.__eventBits || 0)):(this.eventsToSink |= 129);
@@ -8051,7 +8031,7 @@ _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventLis
 _.focusablePanel = null;
 _.this$0 = null;
 function $add_6(this$static, w, tabText){
-  $insert_3(this$static, w, tabText, this$static.deck.children.size_0);
+  $insert_3(this$static, w, tabText, this$static.deck.children_0.size_0);
 }
 
 function $insert_3(this$static, widget, tabText, beforeIndex){
@@ -8094,7 +8074,7 @@ _.getClass$ = function getClass_201(){
 }
 ;
 _.iterator_0 = function iterator_2(){
-  return new WidgetCollection$WidgetIterator_0(this.deck.children);
+  return new WidgetCollection$WidgetIterator_0(this.deck.children_0);
 }
 ;
 _.remove = function remove_9(widget){
@@ -8104,7 +8084,7 @@ _.remove = function remove_9(widget){
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$HasWidgets, Q$IsRenderable, Q$IsWidget, Q$SourcesTabEvents, Q$UIObject, Q$Widget]);
 function $insertProtected(this$static, w, tabText, beforeIndex){
   var idx, container;
-  idx = $indexOf(this$static.children, w);
+  idx = $indexOf(this$static.children_0, w);
   if (idx != -1) {
     $remove_6(this$static, w);
     idx < beforeIndex && --beforeIndex;
@@ -8118,7 +8098,7 @@ function $insertProtected(this$static, w, tabText, beforeIndex){
 
 function $remove_6(this$static, w){
   var idx;
-  idx = $indexOf(this$static.children, w);
+  idx = $indexOf(this$static.children_0, w);
   if (idx != -1) {
     $removeTab(this$static.tabBar, idx);
     return $remove_2(this$static, w);
@@ -8134,8 +8114,6 @@ function TabPanel$TabbedDeckPanel_0(tabBar){
 function TabPanel$TabbedDeckPanel(){
 }
 
---></script>
-<script><!--
 _ = TabPanel$TabbedDeckPanel_0.prototype = TabPanel$TabbedDeckPanel.prototype = new DeckPanel;
 _.add_0 = function add_3(w){
   throw new UnsupportedOperationException_1('Use TabPanel.add() to alter the DeckPanel');
@@ -8151,6 +8129,8 @@ _.remove = function remove_10(w){
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$HasWidgets, Q$IsWidget, Q$UIObject, Q$Widget]);
 _.tabBar = null;
+--></script>
+<script><!--
 function TabPanel$UnmodifiableTabBar_0(){
   var first, rest;
   this.panel = new HorizontalPanel_0;
@@ -8321,8 +8301,8 @@ _.getClass$ = function getClass_211(){
 _.castableTypeMap$ = makeCastMap([Q$ValueBoxBase$TextAlignment, Q$Serializable, Q$Comparable, Q$Enum]);
 function $add_7(this$static, w){
   var td, tr, td_0;
-  tr = $doc.createElement('tr');
-  td = (td_0 = $doc.createElement('td') , td_0['align'] = this$static.horzAlign.textAlignString , setStyleAttribute(td_0, 'verticalAlign', this$static.vertAlign.verticalAlignString) , td_0);
+  tr = $createElement($doc, 'tr');
+  td = (td_0 = $createElement($doc, 'td') , td_0['align'] = this$static.horzAlign.textAlignString , setStyleAttribute(td_0, 'verticalAlign', this$static.vertAlign.verticalAlignString) , td_0);
   $appendChild(tr, $resolve(td));
   $appendChild(this$static.body_0, $resolve(tr));
   $add(this$static, w, td);
@@ -8485,20 +8465,6 @@ function $getContents(iframe){
   }
 }
 
-function $hookEvents(iframe, form, listener){
-  iframe && (iframe.onload = $entry(function(){
-    if (!iframe.__formAction)
-      return;
-    listener.onFrameLoad();
-  }
-  ));
-  form.onsubmit = $entry(function(){
-    iframe && (iframe.__formAction = form.action);
-    return listener.onFormSubmit();
-  }
-  );
-}
-
 function $setEncoding(form, encoding){
   form.enctype = encoding;
   form.encoding = encoding;
@@ -8509,8 +8475,22 @@ function $submit_1(form, iframe){
   form.submit();
 }
 
+function $hookEvents(iframe, form, listener){
+  iframe && (iframe.onreadystatechange = $entry(function(){
+    if (!iframe.__formAction)
+      return;
+    iframe.readyState == 'complete' && listener.onFrameLoad();
+  }
+  ));
+  form.onsubmit = $entry(function(){
+    iframe && (iframe.__formAction = form.action);
+    return listener.onFormSubmit();
+  }
+  );
+}
+
 function $unhookEvents(iframe, form){
-  iframe && (iframe.onload = null);
+  iframe && (iframe.onreadystatechange = null);
   form.onsubmit = null;
 }
 
@@ -9212,8 +9192,6 @@ function increment(){
   ++count_0;
 }
 
---></script>
-<script><!--
 var back_0, count_0 = 0, front;
 function $$init(this$static){
   this$static.data = $createData();
@@ -9241,6 +9219,8 @@ _.getClass$ = function getClass_232(){
   return Ljava_lang_StringBuffer_2_classLit;
 }
 ;
+--></script>
+<script><!--
 _.toString$ = function toString_17(){
   return $toString(this.data);
 }
@@ -9336,7 +9316,7 @@ _.add_1 = function add_4(o){
   throw new UnsupportedOperationException_1('Add not supported on this collection');
 }
 ;
-_.contains = function contains(o){
+_.contains_0 = function contains(o){
   var iter;
   iter = $advanceToFind(this.iterator_0(), o);
   return !!iter;
@@ -9757,7 +9737,7 @@ _.equals$ = function equals_9(o){
   }
   for (iter = other.iterator_0(); iter.hasNext();) {
     otherItem = iter.next_0();
-    if (!this.contains(otherItem)) {
+    if (!this.contains_0(otherItem)) {
       return false;
     }
   }
@@ -9803,7 +9783,7 @@ function AbstractHashMap$EntrySet(){
 }
 
 _ = AbstractHashMap$EntrySet_0.prototype = AbstractHashMap$EntrySet.prototype = new AbstractSet;
-_.contains = function contains_0(o){
+_.contains_0 = function contains_0(o){
   return $contains(this, o);
 }
 ;
@@ -10142,7 +10122,7 @@ function AbstractMap$1(){
 }
 
 _ = AbstractMap$1_0.prototype = AbstractMap$1.prototype = new AbstractSet;
-_.contains = function contains_1(key){
+_.contains_0 = function contains_1(key){
   return $containsKey(this.this$0, key);
 }
 ;
@@ -10207,7 +10187,7 @@ function AbstractMap$2(){
 }
 
 _ = AbstractMap$2_0.prototype = AbstractMap$2.prototype = new AbstractCollection;
-_.contains = function contains_2(value){
+_.contains_0 = function contains_2(value){
   return $containsValue(this.this$0, value);
 }
 ;
@@ -10341,7 +10321,7 @@ _.add_2 = function add_8(index, o){
   ++this.size_0;
 }
 ;
-_.contains = function contains_3(o){
+_.contains_0 = function contains_3(o){
   return $indexOf_1(this, o, 0) != -1;
 }
 ;
@@ -10404,8 +10384,6 @@ function mergeSort(x, fromIndex, toIndex){
   mergeSort_0(temp, x, fromIndex, toIndex, -fromIndex);
 }
 
---></script>
-<script><!--
 function mergeSort_0(temp, array, low, high, ofs){
   var length_0, tempHigh, tempLow, tempMid;
   length_0 = high - low;
@@ -10440,6 +10418,8 @@ function replaceContents(target, x){
   }
 }
 
+--></script>
+<script><!--
 function reverse(l_0){
   var t;
   $clinit_Collections();
@@ -10471,7 +10451,7 @@ function Collections$EmptyList(){
 }
 
 _ = Collections$EmptyList_0.prototype = Collections$EmptyList.prototype = new AbstractList;
-_.contains = function contains_4(object){
+_.contains_0 = function contains_4(object){
   return false;
 }
 ;
@@ -10598,7 +10578,7 @@ _.add_1 = function add_9(o){
   return $add_10(this, o);
 }
 ;
-_.contains = function contains_5(o){
+_.contains_0 = function contains_5(o){
   return $containsKey(this.map, o);
 }
 ;
@@ -11219,12 +11199,11 @@ function fromJson(json){
   return eval('(' + json + ')');
 }
 
---></script>
-<script><!--
 function $getApplication_0(this$static){
   var a;
   a = new Application_0((this$static.placeId , this$static.applicationId));
   $setApplicationBaseUrl(a, this$static.applicationBaseUrl);
+  $setApplicationName(a, this$static.applicationName);
   $setOnScreen(a, this$static.onScreen);
   return a;
 }
@@ -11245,6 +11224,8 @@ function $getApplication_1(this$static){
   return applicationJson?$getApplication_0(applicationJson):null;
 }
 
+--></script>
+<script><!--
 function $getPlace(this$static){
   var place;
   place = new Place_0(this$static.placeId);
@@ -11372,6 +11353,10 @@ function $setApplicationBaseUrl(this$static, applicationBaseUrl){
   this$static.applicationBaseUrl_0 = applicationBaseUrl;
 }
 
+function $setApplicationName(this$static, applicationName){
+  this$static.applicationName_0 = applicationName;
+}
+
 function $setOnScreen(this$static, onScreen){
   this$static.onScreen_0 = onScreen;
 }
@@ -11391,6 +11376,7 @@ _.getClass$ = function getClass_271(){
 _.castableTypeMap$ = makeCastMap([Q$Application]);
 _.applicationBaseUrl_0 = null;
 _.applicationId_0 = null;
+_.applicationName_0 = null;
 _.onScreen_0 = false;
 function $setPlaceName(this$static, placeName){
   this$static.placeName_0 = placeName;
@@ -11723,7 +11709,7 @@ function $sendInput(this$static, widgetOption, input){
   $setWidgetId_1(widgetInput, this$static.widgetId_0);
   $setWidgetOptionId_0(widgetInput, widgetOption.widgetOptionId_0);
   $setReferenceCode_0(widgetInput, widgetOption.referenceCode_0);
-  $sendWidgetInput(interactionManager, this$static.placeName_0, this$static.applicationName, widgetInput, new BaseClickHandler$2_0(this$static));
+  $sendWidgetInput(interactionManager, this$static.placeName_0, this$static.applicationName_0, widgetInput, new BaseClickHandler$2_0(this$static));
 }
 
 function $timerExpired(this$static){
@@ -11732,7 +11718,7 @@ function $timerExpired(this$static){
 
 function BaseClickHandler_0(placeName, applicationName, widgetId, widgetOptions, popup){
   this.placeName_0 = placeName;
-  this.applicationName = applicationName;
+  this.applicationName_0 = applicationName;
   this.widgetId_0 = widgetId;
   this.widgetOptions_0 = widgetOptions;
   this.popup = popup;
@@ -11748,7 +11734,7 @@ _.getClass$ = function getClass_278(){
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$ClickHandler, Q$EventHandler]);
-_.applicationName = null;
+_.applicationName_0 = null;
 _.placeName_0 = null;
 _.popup = null;
 _.timer = null;
@@ -11786,7 +11772,7 @@ function $onSuccess_4(this$static, returnValue_0){
   debug(Lorg_purewidgets_system_placeinteraction_client_BaseClickHandler$2_2_classLit.typeName + ': Sent! ' + returnValue_0);
   $showWidget(this$static.this$0.popup.deckPanelMain, 1);
   $setIcon(this$static.this$0.popup, $getApplication_1(returnValue_0).applicationBaseUrl_0 + 'icon.svg');
-  $setApplicationName(this$static.this$0.popup, $getApplication_1(returnValue_0).applicationId_0);
+  $setApplicationName_0(this$static.this$0.popup, $getApplication_1(returnValue_0).applicationId_0);
   $setPlaceName_0(this$static.this$0.popup, (placeJson = returnValue_0.place , placeJson?$getPlace(placeJson):null).placeName_0);
   $getApplication_1(returnValue_0).onScreen_0?(info = ' (Check the display to see the result.)'):(info = ' (Application is not on screen. You may have to wait a bit...)');
   $setAdditionalInfo(this$static.this$0.popup, info);
@@ -12293,7 +12279,7 @@ function ApplicationUi_0(uiType, application){
   $clinit_ApplicationUi();
   $initWidget(this, $getUiBinder_0(uiType).createAndBindUi(this));
   this.application_0 = application;
-  $setText_0(this.name_0, this.application_0.applicationId_0);
+  $setText_0(this.name_0, this.application_0.applicationName_0);
   url = this.application_0.applicationBaseUrl_0;
   $setUrl_0(this.icon, url + 'icon.svg');
   application.onScreen_0?$setUrl_0(this.onscreenIcon, '/placeinteraction/onscreenicon.png'):$removeFromParent(this.onscreenIcon);
@@ -12375,7 +12361,7 @@ function $ensureInjected_1(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BDM{background-color:#fff;}.GAEKAE5BCM{background-color:#a0a0a0;}.GAEKAE5BAM{position:relative;font-family:inherit;font-size:inherit;border:2px solid black;border-radius:15px;margin:10px;padding:15px 15px 15px 15px;display:inline-table;width:150px;height:150px;}.GAEKAE5BAM td{font-family:inherit;font-size:inherit;text-align:center;}.GAEKAE5BPL{width:128px;height:128px;}.GAEKAE5BEM{position:absolute;top:0;left:0;width:32px;height:32px;}');
+    $push(toInject, '.GAEKAE5BDM{background-color:#fff;}.GAEKAE5BCM{background-color:#a0a0a0;}.GAEKAE5BAM{position:relative;font-family:inherit;font-size:inherit;border:2px solid black;border-radius:15px;margin:10px;padding:15px 15px 15px 15px;display:inline-table;width:200px;height:200px;}.GAEKAE5BAM td{font-family:inherit;font-size:inherit;text-align:center;}.GAEKAE5BPL{width:128px;height:128px;}.GAEKAE5BEM{position:absolute;top:0;left:0;width:32px;height:32px;}');
     schedule();
     return true;
   }
@@ -12463,7 +12449,7 @@ function $ensureInjected_2(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BGM{position:relative;font-family:inherit;font-size:2em;border:1px solid black;border-radius:15px;margin-left:auto;margin-right:auto;margin-bottom:10px;padding:15px 15px 15px 15px;display:block-table;width:95%;height:100px;}.GAEKAE5BGM td{font-family:inherit;font-size:inherit;}.GAEKAE5BFM{width:2cm;height:2cm;margin-right:5px;}.GAEKAE5BIM{position:absolute;top:0;left:0;width:32px;height:32px;}.GAEKAE5BHM{padding-left:0.5cm;font-size:1.5em;}');
+    $push(toInject, '.GAEKAE5BGM{position:relative;font-family:inherit;font-size:2em;border:1px solid black;border-radius:15px;margin-left:auto;margin-right:auto;margin-bottom:10px;padding:15px 15px 15px 15px;display:block-table;width:95%;height:100px;}.GAEKAE5BGM td{font-family:inherit;font-size:inherit;}.GAEKAE5BFM{width:2cm;height:2cm;margin-right:5px;}.GAEKAE5BIM{position:absolute;top:0;left:0;width:32px;height:32px;}.GAEKAE5BHM{display:inline-block;padding-left:0.5cm;font-size:1.5em;}');
     schedule();
     return true;
   }
@@ -12754,7 +12740,7 @@ function $showWidgets(this$static, placeName, applicationName){
   debug(Lorg_purewidgets_system_placeinteraction_client_ui_main_MainScreenUi_2_classLit.typeName + ': Showing widgets');
   !!this$static.placeListUi && $stop_0(this$static.placeListUi);
   !!this$static.applicationListUi && $stop(this$static.applicationListUi);
-  (!this$static.widgetListUi || !$equals(this$static.widgetListUi.placeName_0, placeName) || !$equals(this$static.widgetListUi.applicationName, applicationName)) && (this$static.widgetListUi = new WidgetListUi_0(this$static.uiType, placeName, applicationName));
+  (!this$static.widgetListUi || !$equals(this$static.widgetListUi.placeName_0, placeName) || !$equals(this$static.widgetListUi.applicationName_0, applicationName)) && (this$static.widgetListUi = new WidgetListUi_0(this$static.uiType, placeName, applicationName));
   $start_2(this$static.widgetListUi);
   $clear(this$static.features);
   $add_3(this$static.features, this$static.widgetListUi);
@@ -13013,7 +12999,7 @@ _.getClass$ = function getClass_312(){
 _.onClick = function onClick_4(event_0){
   var p;
   p = dynamicCast(event_0.source, Q$PlaceUi);
-  debug('PlaceUi clicked:' + p.button.element.textContent);
+  debug('PlaceUi clicked:' + p.button.element.innerText);
   fire_3(this, $getPropertyString(p.element, 'id'));
 }
 ;
@@ -13235,7 +13221,7 @@ function $setAdditionalInfo(this$static, text){
   $setText_0(this$static.messageAdditionalInfo, text);
 }
 
-function $setApplicationName(this$static, text){
+function $setApplicationName_0(this$static, text){
   $setText_0(this$static.messageApplicationName, text);
 }
 
@@ -13249,10 +13235,10 @@ function $setPlaceName_0(this$static, text){
 
 function PopupUi_0(uiType){
   $clinit_PopupUi();
-  SimplePanel_0.call(this, $doc.createElement('div'));
+  SimplePanel_0.call(this, $createElement($doc, 'div'));
   this.glassResizer = new PopupPanel$1_0;
   this.resizeAnimation = new PopupPanel$ResizeAnimation_0(this);
-  $appendChild(this.element, $doc.createElement('div'));
+  $appendChild(this.element, $createElement($doc, 'div'));
   $setPopupPosition(this, 0, 0);
   $getParentElement($getFirstChildElement(this.element))['className'] = 'gwt-PopupPanel';
   $getFirstChildElement(this.element)['className'] = 'popupContent';
@@ -14868,9 +14854,9 @@ function $onWidgetsList(this$static, applicationId, widgetList){
     for (p$iterator = $iterator_0($values(this$static.panelsMap)); $hasNext_0(p$iterator.val$outerIter.iter);) {
       p = dynamicCast($next_5(p$iterator), Q$FlowPanel);
       i = 0;
-      while (i < p.children.size_0) {
-        widgetName = $getPropertyString($get(p.children, i).element, 'id');
-        $indexOf_1(widgetIds, widgetName, 0) != -1?++i:$remove_0(p, $get(p.children, i));
+      while (i < p.children_0.size_0) {
+        widgetName = $getPropertyString($get(p.children_0, i).element, 'id');
+        $indexOf_1(widgetIds, widgetName, 0) != -1?++i:$remove_0(p, $get(p.children_0, i));
       }
     }
     for (widget$iterator = new AbstractList$IteratorImpl_0(widgetList); widget$iterator.i < widget$iterator.this$0_0.size_1();) {
@@ -14889,16 +14875,16 @@ function $onWidgetsList(this$static, applicationId, widgetList){
         tab = dynamicCast($next_4(tab$iterator), Q$String);
         i = 0;
         p = dynamicCast($get_0(this$static.panelsMap, tab), Q$FlowPanel);
-        while (i < p.children.size_0) {
-          widgetName = $getPropertyString($get(p.children, i).element, 'id');
-          $equals(widgetName, widget.widgetId_0) && !$equals(tab, tabName)?$remove_0(p, $get(p.children, i)):++i;
+        while (i < p.children_0.size_0) {
+          widgetName = $getPropertyString($get(p.children_0, i).element, 'id');
+          $equals(widgetName, widget.widgetId_0) && !$equals(tab, tabName)?$remove_0(p, $get(p.children_0, i)):++i;
         }
       }
       exists = false;
       indexInPanel = 0;
       foundPlace = false;
-      for (i = 0; i < panel.children.size_0; ++i) {
-        existingWidgetName = $getPropertyString($get(panel.children, i).element, 'id');
+      for (i = 0; i < panel.children_0.size_0; ++i) {
+        existingWidgetName = $getPropertyString($get(panel.children_0, i).element, 'id');
         if ($equals(existingWidgetName, widget.widgetId_0)) {
           exists = true;
           indexInPanel = i;
@@ -14910,7 +14896,7 @@ function $onWidgetsList(this$static, applicationId, widgetList){
         }
       }
       if (exists) {
-        w = $get(panel.children, indexInPanel);
+        w = $get(panel.children_0, indexInPanel);
         $clinit_WidgetUi();
         instanceOf(w, Q$DownloadWidgetUi)?$update_0(dynamicCast(w, Q$DownloadWidgetUi), widget):instanceOf(w, Q$EntryWidgetUi)?$update_1(dynamicCast(w, Q$EntryWidgetUi), widget):instanceOf(w, Q$ImperativeMultipleOptionWidgetUi)?$update_2(dynamicCast(w, Q$ImperativeMultipleOptionWidgetUi), widget):instanceOf(w, Q$ImperativeSingleOptionWidgetUi)?$update_3(dynamicCast(w, Q$ImperativeSingleOptionWidgetUi), widget):instanceOf(w, Q$PresenceWidgetUi)?$update_4(dynamicCast(w, Q$PresenceWidgetUi), widget):instanceOf(w, Q$UploadWidgetUi) && $update_5(dynamicCast(w, Q$UploadWidgetUi), widget);
       }
@@ -14922,7 +14908,7 @@ function $onWidgetsList(this$static, applicationId, widgetList){
     for (tab$iterator = $iterator($keySet(this$static.panelsMap)); $hasNext_0(tab$iterator.val$outerIter.iter);) {
       tab = dynamicCast($next_4(tab$iterator), Q$String);
       p = dynamicCast($get_0(this$static.panelsMap, tab), Q$FlowPanel);
-      p.children.size_0 == 0 && $removeFromParent(p);
+      p.children_0.size_0 == 0 && $removeFromParent(p);
     }
     $getSelectedTab_0(this$static) < 0 && (!!this$static.tabPanel && $selectTab(this$static.tabPanel.tabBar, 0) , !!this$static.stackPanel && $showStack(this$static.stackPanel, 0));
   }
@@ -14930,8 +14916,8 @@ function $onWidgetsList(this$static, applicationId, widgetList){
 
 function $refreshWidgets(this$static){
   var applicationName;
-  applicationName = this$static.applicationName;
-  $getWidgetsList(interactionManager, this$static.placeName_0, this$static.applicationName, new WidgetListUi$6_0(this$static, applicationName));
+  applicationName = this$static.applicationName_0;
+  $getWidgetsList(interactionManager, this$static.placeName_0, this$static.applicationName_0, new WidgetListUi$6_0(this$static, applicationName));
 }
 
 function $start_2(this$static){
@@ -14952,8 +14938,8 @@ function WidgetListUi_0(uiType, placeName, applicationName){
   this.uiType = uiType;
   $initWidget(this, $getUiBinder_12(this, uiType).createAndBindUi(this));
   this.placeName_0 = placeName;
-  this.applicationName = applicationName;
-  $setInnerText(this.spanApplicationName, this.applicationName);
+  this.applicationName_0 = applicationName;
+  $setInnerText(this.spanApplicationName, this.applicationName_0);
   this.panelsMap = new HashMap_0;
   $addDomHandler(this.goBackPanel, new WidgetListUi$1_0(this), ($clinit_MouseOverEvent() , $clinit_MouseOverEvent() , TYPE_3));
   $addDomHandler(this.goBackPanel, new WidgetListUi$2_0(this), ($clinit_MouseOutEvent() , $clinit_MouseOutEvent() , TYPE_2));
@@ -14980,7 +14966,7 @@ _.getClass$ = function getClass_358(){
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$IsRenderable, Q$IsWidget, Q$UIObject, Q$Widget, Q$WidgetListUi]);
 _.applicationIcon = null;
-_.applicationName = null;
+_.applicationName_0 = null;
 _.goBackPanel = null;
 _.iconErrorThrown = false;
 _.labelNoWidgetFound = null;
@@ -15428,15 +15414,15 @@ function WidgetUi_0(uiType, placeName, applicationName, widgetId, optionId){
   this.uiType = uiType;
   $initWidget(this, $getUiBinder_13(this, uiType).createAndBindUi(this));
   this.placeName_0 = placeName;
-  this.applicationName = applicationName;
+  this.applicationName_0 = applicationName;
   this.widgetId_0 = widgetId;
   this.optionId = optionId;
-  $setInnerText(this.spanApplicationName, this.applicationName);
+  $setInnerText(this.spanApplicationName, this.applicationName_0);
   $addDomHandler(this.goBackPanel, new WidgetUi$1_0(this), ($clinit_MouseOverEvent() , $clinit_MouseOverEvent() , TYPE_3));
   $addDomHandler(this.goBackPanel, new WidgetUi$2_0(this), ($clinit_MouseOutEvent() , $clinit_MouseOutEvent() , TYPE_2));
   $addDomHandler(this.goBackPanel, new WidgetUi$3_0(this), ($clinit_ClickEvent() , $clinit_ClickEvent() , TYPE_0));
   this.loadApplicationIcon?$getApplication(interactionManager, placeName, applicationName, new WidgetUi$4_0(this)):$removeFromParent(this.applicationIcon);
-  $getWidgetsList(interactionManager, this.placeName_0, this.applicationName, new WidgetUi$5_0(this));
+  $getWidgetsList(interactionManager, this.placeName_0, this.applicationName_0, new WidgetUi$5_0(this));
 }
 
 function getHtmlWidget(uiType, publicDisplayWidget, optionId){
@@ -15469,7 +15455,7 @@ _.getClass$ = function getClass_371(){
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$IsRenderable, Q$IsWidget, Q$UIObject, Q$Widget, Q$WidgetUi]);
 _.applicationIcon = null;
-_.applicationName = null;
+_.applicationName_0 = null;
 _.goBackPanel = null;
 _.iconErrorThrown = false;
 _.labelNoWidgetFound = null;
@@ -15531,7 +15517,7 @@ _.getClass$ = function getClass_374(){
 }
 ;
 _.onClick = function onClick_7(event_0){
-  newItem(this.this$0.placeName_0 + '%-%' + this.this$0.applicationName);
+  newItem(this.this$0.placeName_0 + '%-%' + this.this$0.applicationName_0);
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$ClickHandler, Q$EventHandler]);

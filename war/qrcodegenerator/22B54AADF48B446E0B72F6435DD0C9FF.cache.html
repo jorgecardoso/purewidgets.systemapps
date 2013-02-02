@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = 'F89A2F7C0177D8A634057DE1C795538B';
+var $strongName = '22B54AADF48B446E0B72F6435DD0C9FF';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'qrcodegenerator',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -9821,6 +9821,7 @@ function $getApplication_0(this$static){
   var a;
   a = new Application_0((this$static.placeId , this$static.applicationId));
   $setApplicationBaseUrl(a, this$static.applicationBaseUrl);
+  this$static.applicationName;
   this$static.onScreen;
   return a;
 }
@@ -10171,11 +10172,11 @@ function QrCodeGenerator$1_0(this$0){
   this.this$0 = this$0;
 }
 
+--></script>
+<script><!--
 function QrCodeGenerator$1(){
 }
 
---></script>
-<script><!--
 _ = QrCodeGenerator$1_0.prototype = QrCodeGenerator$1.prototype = new Object_0;
 _.getClass$ = function getClass_259(){
   return Lorg_purewidgets_system_qrcodegenerator_client_QrCodeGenerator$1_2_classLit;
@@ -10776,7 +10777,7 @@ function $showWidgets(this$static, placeName, applicationName){
   debug(Lorg_purewidgets_system_qrcodegenerator_client_ui_main_MainScreenUi_2_classLit.typeName + ': Showing widgets');
   !!this$static.placeListUi && $stop_0(this$static.placeListUi);
   !!this$static.applicationListUi && $stop(this$static.applicationListUi);
-  (!this$static.widgetListUi || !$equals(this$static.widgetListUi.placeName_0, placeName) || !$equals(this$static.widgetListUi.applicationName, applicationName)) && (this$static.widgetListUi = new WidgetListUi_0(this$static.uiType, placeName, applicationName));
+  (!this$static.widgetListUi || !$equals(this$static.widgetListUi.placeName_0, placeName) || !$equals(this$static.widgetListUi.applicationName_0, applicationName)) && (this$static.widgetListUi = new WidgetListUi_0(this$static.uiType, placeName, applicationName));
   $start_1(this$static.widgetListUi);
   $clear(this$static.features);
   $add_3(this$static.features, this$static.widgetListUi);
@@ -12061,8 +12062,8 @@ function $onWidgetsList(this$static, applicationId, widgetList){
 
 function $refreshWidgets(this$static){
   var applicationName;
-  applicationName = this$static.applicationName;
-  $getWidgetsList(interactionManager, this$static.placeName_0, this$static.applicationName, new WidgetListUi$6_0(this$static, applicationName));
+  applicationName = this$static.applicationName_0;
+  $getWidgetsList(interactionManager, this$static.placeName_0, this$static.applicationName_0, new WidgetListUi$6_0(this$static, applicationName));
 }
 
 function $start_1(this$static){
@@ -12083,8 +12084,8 @@ function WidgetListUi_0(uiType, placeName, applicationName){
   this.uiType = uiType;
   $initWidget(this, $getUiBinder_5(this, uiType).createAndBindUi(this));
   this.placeName_0 = placeName;
-  this.applicationName = applicationName;
-  $setInnerText(this.spanApplicationName, this.applicationName);
+  this.applicationName_0 = applicationName;
+  $setInnerText(this.spanApplicationName, this.applicationName_0);
   this.panelsMap = new HashMap_0;
   $addDomHandler(this.goBackPanel, new WidgetListUi$1_0(this), ($clinit_MouseOverEvent() , $clinit_MouseOverEvent() , TYPE_3));
   $addDomHandler(this.goBackPanel, new WidgetListUi$2_0(this), ($clinit_MouseOutEvent() , $clinit_MouseOutEvent() , TYPE_2));
@@ -12111,7 +12112,7 @@ _.getClass$ = function getClass_311(){
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$IsRenderable, Q$IsWidget, Q$UIObject, Q$Widget, Q$WidgetListUi]);
 _.applicationIcon = null;
-_.applicationName = null;
+_.applicationName_0 = null;
 _.goBackPanel = null;
 _.iconErrorThrown = false;
 _.labelNoWidgetFound = null;

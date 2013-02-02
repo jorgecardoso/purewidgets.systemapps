@@ -39,6 +39,7 @@
 	}
 
 	.name {
+		display:inline-block;
 		padding-left: 0.5cm;
 		font-size:1.5em;
 	}

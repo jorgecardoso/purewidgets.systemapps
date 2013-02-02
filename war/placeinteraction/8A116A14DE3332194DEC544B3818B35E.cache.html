@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = 'A38379D0033907CE9D68A3A637E84C65';
+var $strongName = '8A116A14DE3332194DEC544B3818B35E';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'placeinteraction',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -11220,6 +11220,7 @@ function $getApplication_0(this$static){
   var a;
   a = new Application_0((this$static.placeId , this$static.applicationId));
   $setApplicationBaseUrl(a, this$static.applicationBaseUrl);
+  $setApplicationName(a, this$static.applicationName);
   $setOnScreen(a, this$static.onScreen);
   return a;
 }
@@ -11369,6 +11370,10 @@ function $setApplicationBaseUrl(this$static, applicationBaseUrl){
   this$static.applicationBaseUrl_0 = applicationBaseUrl;
 }
 
+function $setApplicationName(this$static, applicationName){
+  this$static.applicationName_0 = applicationName;
+}
+
 function $setOnScreen(this$static, onScreen){
   this$static.onScreen_0 = onScreen;
 }
@@ -11388,6 +11393,7 @@ _.getClass$ = function getClass_274(){
 _.castableTypeMap$ = makeCastMap([Q$Application]);
 _.applicationBaseUrl_0 = null;
 _.applicationId_0 = null;
+_.applicationName_0 = null;
 _.onScreen_0 = false;
 function $setPlaceName(this$static, placeName){
   this$static.placeName_0 = placeName;
@@ -11720,7 +11726,7 @@ function $sendInput(this$static, widgetOption, input){
   $setWidgetId_1(widgetInput, this$static.widgetId_0);
   $setWidgetOptionId_0(widgetInput, widgetOption.widgetOptionId_0);
   $setReferenceCode_0(widgetInput, widgetOption.referenceCode_0);
-  $sendWidgetInput(interactionManager, this$static.placeName_0, this$static.applicationName, widgetInput, new BaseClickHandler$2_0(this$static));
+  $sendWidgetInput(interactionManager, this$static.placeName_0, this$static.applicationName_0, widgetInput, new BaseClickHandler$2_0(this$static));
 }
 
 function $timerExpired(this$static){
@@ -11729,7 +11735,7 @@ function $timerExpired(this$static){
 
 function BaseClickHandler_0(placeName, applicationName, widgetId, widgetOptions, popup){
   this.placeName_0 = placeName;
-  this.applicationName = applicationName;
+  this.applicationName_0 = applicationName;
   this.widgetId_0 = widgetId;
   this.widgetOptions_0 = widgetOptions;
   this.popup = popup;
@@ -11745,7 +11751,7 @@ _.getClass$ = function getClass_281(){
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$ClickHandler, Q$EventHandler]);
-_.applicationName = null;
+_.applicationName_0 = null;
 _.placeName_0 = null;
 _.popup = null;
 _.timer = null;
@@ -11783,7 +11789,7 @@ function $onSuccess_4(this$static, returnValue_0){
   debug(Lorg_purewidgets_system_placeinteraction_client_BaseClickHandler$2_2_classLit.typeName + ': Sent! ' + returnValue_0);
   $showWidget(this$static.this$0.popup.deckPanelMain, 1);
   $setIcon(this$static.this$0.popup, $getApplication_1(returnValue_0).applicationBaseUrl_0 + 'icon.svg');
-  $setApplicationName(this$static.this$0.popup, $getApplication_1(returnValue_0).applicationId_0);
+  $setApplicationName_0(this$static.this$0.popup, $getApplication_1(returnValue_0).applicationId_0);
   $setPlaceName_0(this$static.this$0.popup, (placeJson = returnValue_0.place , placeJson?$getPlace(placeJson):null).placeName_0);
   $getApplication_1(returnValue_0).onScreen_0?(info = ' (Check the display to see the result.)'):(info = ' (Application is not on screen. You may have to wait a bit...)');
   $setAdditionalInfo(this$static.this$0.popup, info);
@@ -12181,13 +12187,13 @@ _.getClass$ = function getClass_294(){
 }
 ;
 _.injected = false;
+--></script>
+<script><!--
 function $clinit_ApplicationListUi_ApplicationListDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer(){
   $clinit_ApplicationListUi_ApplicationListDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer = nullMethod;
   style_0 = new ApplicationListUi_ApplicationListDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$1_0;
 }
 
---></script>
-<script><!--
 function $createAndBindUi_0(owner){
   var attachRecord0, attachRecord1, domId0, domId0Element, domId1, domId2, domId2Element, f_HTML2, f_HTMLPanel1, panel, placeName, sb, sb_0, sb_1;
   $clinit_ApplicationListUi_ApplicationListSmartphoneUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer();
@@ -12290,7 +12296,7 @@ function ApplicationUi_0(uiType, application){
   $clinit_ApplicationUi();
   $initWidget(this, $getUiBinder_0(uiType).createAndBindUi(this));
   this.application_0 = application;
-  $setText_0(this.name_0, this.application_0.applicationId_0);
+  $setText_0(this.name_0, this.application_0.applicationName_0);
   url = this.application_0.applicationBaseUrl_0;
   $setUrl_0(this.icon, url + 'icon.svg');
   application.onScreen_0?$setUrl_0(this.onscreenIcon, '/placeinteraction/onscreenicon.png'):$removeFromParent(this.onscreenIcon);
@@ -12372,7 +12378,7 @@ function $ensureInjected_1(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BDM{background-color:#fff;}.GAEKAE5BCM{background-color:#a0a0a0;}.GAEKAE5BAM{position:relative;font-family:inherit;font-size:inherit;border:2px solid black;border-radius:15px;margin:10px;padding:15px 15px 15px 15px;display:inline-table;width:150px;height:150px;}.GAEKAE5BAM td{font-family:inherit;font-size:inherit;text-align:center;}.GAEKAE5BPL{width:128px;height:128px;}.GAEKAE5BEM{position:absolute;top:0;left:0;width:32px;height:32px;}');
+    $push(toInject, '.GAEKAE5BDM{background-color:#fff;}.GAEKAE5BCM{background-color:#a0a0a0;}.GAEKAE5BAM{position:relative;font-family:inherit;font-size:inherit;border:2px solid black;border-radius:15px;margin:10px;padding:15px 15px 15px 15px;display:inline-table;width:200px;height:200px;}.GAEKAE5BAM td{font-family:inherit;font-size:inherit;text-align:center;}.GAEKAE5BPL{width:128px;height:128px;}.GAEKAE5BEM{position:absolute;top:0;left:0;width:32px;height:32px;}');
     schedule();
     return true;
   }
@@ -12460,7 +12466,7 @@ function $ensureInjected_2(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
     $clinit_StyleInjector();
-    $push(toInject, '.GAEKAE5BGM{position:relative;font-family:inherit;font-size:2em;border:1px solid black;border-radius:15px;margin-left:auto;margin-right:auto;margin-bottom:10px;padding:15px 15px 15px 15px;display:block-table;width:95%;height:100px;}.GAEKAE5BGM td{font-family:inherit;font-size:inherit;}.GAEKAE5BFM{width:2cm;height:2cm;margin-right:5px;}.GAEKAE5BIM{position:absolute;top:0;left:0;width:32px;height:32px;}.GAEKAE5BHM{padding-left:0.5cm;font-size:1.5em;}');
+    $push(toInject, '.GAEKAE5BGM{position:relative;font-family:inherit;font-size:2em;border:1px solid black;border-radius:15px;margin-left:auto;margin-right:auto;margin-bottom:10px;padding:15px 15px 15px 15px;display:block-table;width:95%;height:100px;}.GAEKAE5BGM td{font-family:inherit;font-size:inherit;}.GAEKAE5BFM{width:2cm;height:2cm;margin-right:5px;}.GAEKAE5BIM{position:absolute;top:0;left:0;width:32px;height:32px;}.GAEKAE5BHM{display:inline-block;padding-left:0.5cm;font-size:1.5em;}');
     schedule();
     return true;
   }
@@ -12749,7 +12755,7 @@ function $showWidgets(this$static, placeName, applicationName){
   debug(Lorg_purewidgets_system_placeinteraction_client_ui_main_MainScreenUi_2_classLit.typeName + ': Showing widgets');
   !!this$static.placeListUi && $stop_0(this$static.placeListUi);
   !!this$static.applicationListUi && $stop(this$static.applicationListUi);
-  (!this$static.widgetListUi || !$equals(this$static.widgetListUi.placeName_0, placeName) || !$equals(this$static.widgetListUi.applicationName, applicationName)) && (this$static.widgetListUi = new WidgetListUi_0(this$static.uiType, placeName, applicationName));
+  (!this$static.widgetListUi || !$equals(this$static.widgetListUi.placeName_0, placeName) || !$equals(this$static.widgetListUi.applicationName_0, applicationName)) && (this$static.widgetListUi = new WidgetListUi_0(this$static.uiType, placeName, applicationName));
   $start_2(this$static.widgetListUi);
   $clear(this$static.features);
   $add_3(this$static.features, this$static.widgetListUi);
@@ -12813,6 +12819,8 @@ _.onSelection = function onSelection_1(event_0){
 _.castableTypeMap$ = makeCastMap([Q$SelectionHandler, Q$EventHandler]);
 _.this$0 = null;
 _.val$placeId = null;
+--></script>
+<script><!--
 function $createAndBindUi_4(owner){
   var attachRecord0, domId0, domId0Element, domId1, domId1Element, features, loginUi, mainContent, sb, sb_0;
   $clinit_MainScreenUi_MainScreenUiDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer();
@@ -12838,8 +12846,6 @@ function $createAndBindUi_4(owner){
 function MainScreenUi_MainScreenUiDesktopUiBinderImpl_0(){
 }
 
---></script>
-<script><!--
 function MainScreenUi_MainScreenUiDesktopUiBinderImpl(){
 }
 
@@ -13232,7 +13238,7 @@ function $setAdditionalInfo(this$static, text){
   $setText_0(this$static.messageAdditionalInfo, text);
 }
 
-function $setApplicationName(this$static, text){
+function $setApplicationName_0(this$static, text){
   $setText_0(this$static.messageApplicationName, text);
 }
 
@@ -13486,6 +13492,8 @@ _.onClick = function onClick_5(event_0){
 ;
 _.castableTypeMap$ = makeCastMap([Q$ClickHandler, Q$EventHandler]);
 _.this$0 = null;
+--></script>
+<script><!--
 function $createAndBindUi_10(owner){
   var actionButton, descriptionLabel, f_VerticalPanel1, iconImage, mainHorizontalPanel;
   $clinit_DownloadWidgetUi_DownloadUiDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer();
@@ -13519,8 +13527,6 @@ function DownloadWidgetUi_DownloadUiDesktopUiBinderImpl(){
 }
 
 _ = DownloadWidgetUi_DownloadUiDesktopUiBinderImpl_0.prototype = DownloadWidgetUi_DownloadUiDesktopUiBinderImpl.prototype = new Object_0;
---></script>
-<script><!--
 _.createAndBindUi = function createAndBindUi_9(owner){
   return $createAndBindUi_10(dynamicCast(owner, Q$DownloadWidgetUi));
 }
@@ -14083,6 +14089,8 @@ function $getUiBinder_9(this$static, uiType){
   }
 }
 
+--></script>
+<script><!--
 function $initUi_1(this$static){
   var description, url;
   description = this$static.pureWidget.longDescription_0;
@@ -14104,8 +14112,6 @@ function $update_3(this$static, widget){
   $updateUi_1(this$static);
 }
 
---></script>
-<script><!--
 function $updateUi_1(this$static){
   var description, url;
   description = this$static.pureWidget.longDescription_0;
@@ -14708,14 +14714,14 @@ _.getClass$ = function getClass_358(){
   return Lorg_purewidgets_system_placeinteraction_client_ui_widget_UploadWidgetUi_1UploadWidgetDesktopUiBinderImpl_1GenBundle_1pt_1InlineClientBundleGenerator$1_2_classLit;
 }
 ;
+--></script>
+<script><!--
 _.injected = false;
 function $clinit_UploadWidgetUi_UploadWidgetDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer(){
   $clinit_UploadWidgetUi_UploadWidgetDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer = nullMethod;
   style_20 = new UploadWidgetUi_UploadWidgetDesktopUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$1_0;
 }
 
---></script>
-<script><!--
 function $createAndBindUi_21(owner){
   var actionButton, descriptionLabel, entryTextBox, fileUpload, formPanel, iconImage, mainHorizontalPanel;
   $clinit_UploadWidgetUi_UploadWidgetSmartphoneUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$styleInitializer();
@@ -14927,8 +14933,8 @@ function $onWidgetsList(this$static, applicationId, widgetList){
 
 function $refreshWidgets(this$static){
   var applicationName;
-  applicationName = this$static.applicationName;
-  $getWidgetsList(interactionManager, this$static.placeName_0, this$static.applicationName, new WidgetListUi$6_0(this$static, applicationName));
+  applicationName = this$static.applicationName_0;
+  $getWidgetsList(interactionManager, this$static.placeName_0, this$static.applicationName_0, new WidgetListUi$6_0(this$static, applicationName));
 }
 
 function $start_2(this$static){
@@ -14949,8 +14955,8 @@ function WidgetListUi_0(uiType, placeName, applicationName){
   this.uiType = uiType;
   $initWidget(this, $getUiBinder_12(this, uiType).createAndBindUi(this));
   this.placeName_0 = placeName;
-  this.applicationName = applicationName;
-  $setInnerText(this.spanApplicationName, this.applicationName);
+  this.applicationName_0 = applicationName;
+  $setInnerText(this.spanApplicationName, this.applicationName_0);
   this.panelsMap = new HashMap_0;
   $addDomHandler(this.goBackPanel, new WidgetListUi$1_0(this), ($clinit_MouseOverEvent() , $clinit_MouseOverEvent() , TYPE_3));
   $addDomHandler(this.goBackPanel, new WidgetListUi$2_0(this), ($clinit_MouseOutEvent() , $clinit_MouseOutEvent() , TYPE_2));
@@ -14977,7 +14983,7 @@ _.getClass$ = function getClass_361(){
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$IsRenderable, Q$IsWidget, Q$UIObject, Q$Widget, Q$WidgetListUi]);
 _.applicationIcon = null;
-_.applicationName = null;
+_.applicationName_0 = null;
 _.goBackPanel = null;
 _.iconErrorThrown = false;
 _.labelNoWidgetFound = null;
@@ -15337,6 +15343,8 @@ _.onError = function onError_2(event_0){
 _.castableTypeMap$ = makeCastMap([Q$ErrorHandler, Q$EventHandler]);
 _.val$owner = null;
 var style_23 = null;
+--></script>
+<script><!--
 function $ensureInjected_22(this$static){
   if (!this$static.injected) {
     this$static.injected = true;
@@ -15351,8 +15359,6 @@ function $ensureInjected_22(this$static){
 function WidgetListUi_WidgetListSmartphoneUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$1_0(){
 }
 
---></script>
-<script><!--
 function WidgetListUi_WidgetListSmartphoneUiBinderImpl_GenBundle_pt_InlineClientBundleGenerator$1(){
 }
 
@@ -15425,15 +15431,15 @@ function WidgetUi_0(uiType, placeName, applicationName, widgetId, optionId){
   this.uiType = uiType;
   $initWidget(this, $getUiBinder_13(this, uiType).createAndBindUi(this));
   this.placeName_0 = placeName;
-  this.applicationName = applicationName;
+  this.applicationName_0 = applicationName;
   this.widgetId_0 = widgetId;
   this.optionId = optionId;
-  $setInnerText(this.spanApplicationName, this.applicationName);
+  $setInnerText(this.spanApplicationName, this.applicationName_0);
   $addDomHandler(this.goBackPanel, new WidgetUi$1_0(this), ($clinit_MouseOverEvent() , $clinit_MouseOverEvent() , TYPE_3));
   $addDomHandler(this.goBackPanel, new WidgetUi$2_0(this), ($clinit_MouseOutEvent() , $clinit_MouseOutEvent() , TYPE_2));
   $addDomHandler(this.goBackPanel, new WidgetUi$3_0(this), ($clinit_ClickEvent() , $clinit_ClickEvent() , TYPE_0));
   this.loadApplicationIcon?$getApplication(interactionManager, placeName, applicationName, new WidgetUi$4_0(this)):$removeFromParent(this.applicationIcon);
-  $getWidgetsList(interactionManager, this.placeName_0, this.applicationName, new WidgetUi$5_0(this));
+  $getWidgetsList(interactionManager, this.placeName_0, this.applicationName_0, new WidgetUi$5_0(this));
 }
 
 function getHtmlWidget(uiType, publicDisplayWidget, optionId){
@@ -15466,7 +15472,7 @@ _.getClass$ = function getClass_374(){
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$HasVisibility, Q$IsRenderable, Q$IsWidget, Q$UIObject, Q$Widget, Q$WidgetUi]);
 _.applicationIcon = null;
-_.applicationName = null;
+_.applicationName_0 = null;
 _.goBackPanel = null;
 _.iconErrorThrown = false;
 _.labelNoWidgetFound = null;
@@ -15528,7 +15534,7 @@ _.getClass$ = function getClass_377(){
 }
 ;
 _.onClick = function onClick_7(event_0){
-  newItem(this.this$0.placeName_0 + '%-%' + this.this$0.applicationName);
+  newItem(this.this$0.placeName_0 + '%-%' + this.this$0.applicationName_0);
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$ClickHandler, Q$EventHandler]);
