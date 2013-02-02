@@ -104,7 +104,7 @@ public class ApplicationUi extends Composite implements HasClickHandlers {
 	 */
 	public void setApplication(Application application) {
 		this.application = application;
-		this.name.setText(this.application.getApplicationId());
+		this.name.setText(this.application.getApplicationName());
 		String url = this.application.getApplicationBaseUrl();
 	
 

@@ -1,4 +1,2 @@
 # Module qrcodegenerator
 # RPC service class, partial path of RPC policy file
-com.google.gwt.logging.shared.RemoteLoggingService, 7FB9DF7AD9ADC0D1A49D6A98A623FAF7.gwt.rpc
-org.purewidgets.client.http.HttpService, 9CB01F9C959C5587BED5CBA336857E89.gwt.rpc
